@@ -5,7 +5,6 @@ my_watchlist*.csv
 
 # Computed scores (regenerate via garp_score.py)
 garp_tournament_data.json
-data/
 *.scores.json
 sample_scores.json
 

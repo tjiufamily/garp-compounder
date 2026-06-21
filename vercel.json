@@ -1,10 +1,5 @@
 {
   "framework": null,
   "buildCommand": "echo 'Static site — no build required'",
-  "outputDirectory": ".",
-  "routes": [
-    { "src": "/data/(.*)", "headers": { "cache-control": "public, max-age=0, must-revalidate" } },
-    { "src": "/(.*\\.(json|css|js|png|jpg|jpeg|svg|ico|woff2?))", "dest": "/$1" },
-    { "src": "/", "dest": "/garp_tournament_v4_1.html" }
-  ]
+  "outputDirectory": "."
 }
