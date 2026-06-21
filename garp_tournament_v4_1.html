@@ -1434,8 +1434,8 @@ function renderWealthChart(indices) {
     const labelText = isChamp
       ? `${idx.name.split(' ').slice(1).join(' ')} → $${v40 >= 1e6 ? (v40/1e6).toFixed(1)+'M' : Math.round(v40/1e3)+'k'}  (${mult}×, ${cagrLabel}% CAGR)`
       : `${idx.name} → $${v40 >= 1e6 ? (v40/1e6).toFixed(1)+'M' : v40 >= 1e3 ? Math.round(v40/1e3)+'k' : Math.round(v40)}  (${mult}×, ${cagrLabel}%)`;
-    // stagger label y positions for clarity (champion at top, others descending)
-    const labelOffsets = [-14, -14, -14, -14];
+    // stagger label y positions to avoid overlap among low-value series
+    const labelOffsets = [16, -8, 4, -8];
     const labelY = yEnd + labelOffsets[ii];
     const labelAnchor = isChamp ? 'end' : 'end';
     return `<polyline fill="none" stroke="${stroke}" stroke-width="${isChamp ? 3.5 : 2}" stroke-linejoin="round" stroke-linecap="round" points="${pts}" opacity="${isChamp ? 1 : 0.9}"/>
