@@ -80,22 +80,25 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 @media (max-width: 500px) { .rounds-grid { grid-template-columns: 1fr; } }
 
 /* ── SETUP SCREEN ── */
-.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
 .company-chip { display: none; }  /* replaced by .company-tile */
 .company-chip.checked { display: none; }
 .company-chip input { display: none; }
 
 /* ── COMPANY TILES (bigger, richer) ── */
 .company-tile {
-  display: flex; flex-direction: column; padding: 12px 14px;
-  background: white; border: 2px solid var(--border); border-radius: 8px;
-  cursor: pointer; transition: all 0.2s; gap: 4px; min-width: 150px;
+  display: flex; flex-direction: column; padding: 18px 20px; min-height: 100px;
+  background: white; border: 2px solid var(--border); border-radius: 10px;
+  cursor: pointer; transition: all 0.2s; gap: 6px; min-width: 220px;
+  position: relative;
 }
-.company-tile:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.company-tile:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
 .company-tile.checked { background: linear-gradient(135deg, var(--gold-lt), white); border-color: var(--gold); border-width: 3px; }
-.tile-ticker { font-family: 'Courier New', monospace; font-weight: 800; font-size: 13px; color: var(--navy); }
-.tile-name { font-size: 11px; color: var(--navy); font-weight: 700; line-height: 1.3; }
-.tile-sector { font-size: 9px; color: var(--gold-dk); text-transform: uppercase; letter-spacing: 0.5px; }
+.company-tile.checked::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: var(--gold-dk); font-weight: 900; font-size: 18px; }
+.tile-ticker { font-family: 'Courier New', monospace; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: 0.5px; }
+.tile-name { font-size: 14px; color: var(--navy); font-weight: 700; line-height: 1.3; }
+.tile-sector { font-size: 11px; color: var(--gold-dk); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+@media (max-width: 600px) { .company-grid { grid-template-columns: 1fr 1fr; } .company-tile { min-width: 0; padding: 14px 12px; } }
 
 /* ── FOOTBALL MATCH CARD ── */
 .football-card {
@@ -225,8 +228,34 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .round-header .round-quote { font-style: italic; font-size: 15px; color: var(--gold); margin-bottom: 12px; }
 .round-header .round-lesson { font-size: 13px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto; line-height: 1.6; }
 .criteria-strip { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
-.criteria-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 4px; font-size: 10px; }
+.criteria-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 4px; font-size: 10px; cursor: help; transition: all 0.2s; }
+.criteria-chip:hover { background: rgba(201,163,90,0.25); border-color: var(--gold); transform: translateY(-2px); }
 .criteria-chip strong { color: var(--gold); }
+.chip-example { font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 2px; font-style: italic; }
+
+/* Round encouragement banner */
+.round-encouragement {
+  background: linear-gradient(90deg, rgba(201,163,90,0.2), rgba(201,163,90,0.4), rgba(201,163,90,0.2));
+  border: 1px solid var(--gold); border-radius: 6px;
+  padding: 10px 16px; margin-top: 14px; color: white;
+  font-size: 12px; line-height: 1.5; text-align: center;
+  max-width: 800px; margin-left: auto; margin-right: auto;
+}
+
+/* Encouragement toast (bottom-right) */
+.enc-toast {
+  position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+  background: linear-gradient(135deg, var(--navy), var(--navy-lt));
+  color: white; padding: 14px 20px; border-radius: 10px;
+  border: 2px solid var(--gold); box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  font-size: 13px; max-width: 360px;
+  animation: encSlideIn 0.4s ease-out;
+}
+.enc-toast.celebrate { background: linear-gradient(135deg, #28a745, #1e7e34); }
+.enc-toast.encourage { background: linear-gradient(135deg, #0a1628, #1a2c4e); }
+@keyframes encSlideIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.enc-toast.fade { animation: encFadeOut 0.5s forwards; }
+@keyframes encFadeOut { to { transform: translateX(120%); opacity: 0; } }
 
 /* ── SCOREBOARD ── */
 .scoreboard { position: fixed; top: 12px; right: 12px; background: var(--navy); color: white; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--gold); z-index: 100; min-width: 160px; font-size: 11px; }
@@ -576,48 +605,52 @@ const ROUND_DEFS = [
     quote:'"A wonderful business at a fair price beats a fair business at a wonderful price." — Buffett',
     lesson:'Quality filters out everything that cannot compound long-term. Winners here earn above their cost of capital, command pricing power, and generate real cash. Past winners on this criterion: MSFT (ROIC 35%+, Gross Margin 69%). Past failures: GE (financial engineering masked poor underlying ROIC — collapsed when exposed).',
     postLesson:'A wonderful business earns above its cost of capital. Anything else is speculation disguised as investing.',
+    encouragement:'🔍 Round 1 is about FOCUS — not every great business is a great stock. Trust the data, trust the moat. The companies with 25%+ ROIC and 60%+ gross margins are the ones that print money while they sleep.',
     criteria:[
-      {name:'ROIC', weight:'40%', desc:'Return on Invested Capital — for every $100 invested, how much profit comes back?'},
-      {name:'Gross Margin', weight:'20%', desc:'After making the product, how much is left? 70%+ = pricing power.'},
-      {name:'Op Margin', weight:'15%', desc:'After ALL costs, what remains? 30%+ = world-class efficiency.'},
-      {name:'FCF Growth', weight:'15%', desc:'Is cash generation accelerating? Cash > accounting earnings.'},
-      {name:'ROE', weight:'10%', desc:'How efficiently does management use shareholder money? 20%+ = excellent.'}
+      {name:'ROIC', weight:'40%', desc:'Return on Invested Capital — for every $100 invested, how much profit comes back?', example:'MSFT: 35%+, AAPL: 50%+, COST: 30%+', tip:'25%+ = excellent. Below 10% = destroying shareholder value.'},
+      {name:'Gross Margin', weight:'20%', desc:'After making the product, how much is left? 70%+ = pricing power.', example:'MSFT: 69%, AAPL: 46%, CRM: 75%', tip:'Software > 70%. Banks < 50%. Retail < 30%.'},
+      {name:'Op Margin', weight:'15%', desc:'After ALL costs, what remains? 30%+ = world-class efficiency.', example:'META: 35%, NVDA: 60%, GOOGL: 28%', tip:'Higher = harder to compete with.'},
+      {name:'FCF Growth', weight:'15%', desc:'Is cash generation accelerating? Cash > accounting earnings.', example:'NVDA: 200%+, MSFT: 15% steady', tip:'Cash is truth. Earnings are opinion. Cash doesn\'t lie.'},
+      {name:'ROE', weight:'10%', desc:'How efficiently does management use shareholder money? 20%+ = excellent.', example:'AAPL: 150%+, MSFT: 40%+', tip:'Above 20% = elite. Above 40% = world-class.'}
     ]
   },
   { id:2, name:'GROWTH', title:'GROWTH', scoreKey:'R2_growth',
     quote:'"The best business to own is one that over time will keep putting more money in your pocket." — Munger',
     lesson:'Growth without quality is a lottery ticket. This round tests whether survivors can grow earnings at rates that beat the market. Past winners: NVDA (EPS CAGR 50%+ during AI boom). Past failures: IBM (buybacks inflated EPS, no organic revenue growth — stalled for a decade).',
     postLesson:'Real growth = earnings + cash, not revenue. Growth without cash is vanity; cash without growth is stagnation.',
+    encouragement:'📈 Round 2 = GROWTH. We blend 3 engines: forward consensus (what analysts say), trailing actual (what they did), and structural ROE×reinvestment (Buffett\'s g = ROE × retention). No single source can fool us.',
     criteria:[
-      {name:'5yr Hist EPS CAGR', weight:'25%', desc:'How fast have earnings actually grown over 5 years? Real numbers, not promises.'},
-      {name:'5yr Fwd EPS CAGR', weight:'25%', desc:'What do analysts forecast? Forward-looking consensus estimate.'},
-      {name:'FCF Growth Rate', weight:'25%', desc:'Is cash growing as fast as earnings? Cash is truth; earnings are opinion.'},
-      {name:'Rev Consistency', weight:'15%', desc:'Did revenue grow every year? Consistency = predictability.'},
-      {name:'Reinvestment Rate', weight:'10%', desc:'How much earnings is reinvested? 50%+ = management believes in the business.'}
+      {name:'5yr Hist EPS CAGR', weight:'25%', desc:'How fast have earnings actually grown over 5 years? Real numbers, not promises.', example:'NVDA: 50%+, MSFT: 18%, AVGO: 25%', tip:'Look for 15%+. Below 5% = slow grower.'},
+      {name:'5yr Fwd EPS CAGR', weight:'25%', desc:'What do analysts forecast? Forward-looking consensus estimate.', example:'PLTR: 25%+, NVDA: 35%+', tip:'Forward > trailing = momentum. Forward < trailing = deceleration.'},
+      {name:'FCF Growth Rate', weight:'25%', desc:'Is cash growing as fast as earnings? Cash is truth; earnings are opinion.', example:'META: 30%+, AMZN: 25%+', tip:'If FCF < EPS growth, earnings quality is suspect.'},
+      {name:'Rev Consistency', weight:'15%', desc:'Did revenue grow every year? Consistency = predictability.', example:'MSFT: 15 of 15 years', tip:'Compounding needs CONSISTENCY, not spikes.'},
+      {name:'Reinvestment', weight:'10%', desc:'How much earnings is reinvested? 50%+ = management believes in the business.', example:'NVDA: 80%+ (heavy R&D + capex)', tip:'Buffett formula: g = ROE × retention rate. Higher = faster growth IF ROIC > WACC.'}
     ]
   },
   { id:3, name:'DURABILITY', title:'DURABILITY', scoreKey:'R3_durability',
     quote:'"Time is the friend of the wonderful business." — Buffett',
     lesson:'THE most important round. Many companies grow fast for 5 years, then stall. Durability tests whether the business can sustain its moat for 10+ years. The Law of Large Numbers: a company growing at 20% for 30 years becomes larger than the US economy. Only businesses with network effects, Act II/III potential, and structural tailwinds can defy this gravity. Past winners: AMZN (Books→Everything→AWS→Ads — three Acts). Past failures: BlackBerry (dominant in 2008, irrelevant by 2013 — one product, no Act II).',
     postLesson:'If competitors can catch up, the terminal multiple collapses — and so does your return.',
+    encouragement:'🛡️ Round 3 = DURABILITY. The moat test. Network effects, switching costs, brand, scale. Look for Act II potential — every great business reinvents itself. If it can\'t, the moat will eventually leak.',
     criteria:[
-      {name:'Terminal P/E', weight:'30%', desc:'What multiple can this company command in 10 years? 30x+ = exceptional moat.'},
-      {name:'Peer-Adj P/E', weight:'20%', desc:'Compared to rivals, is the premium justified by superior quality?'},
-      {name:'Network Effect', weight:'20%', desc:'Does it get stronger as more people use it? 5/5 = Meta, Google.'},
-      {name:'Act II Potential', weight:'20%', desc:'Can it extend growth into adjacent markets? 5/5 = MSFT/AMZN-level.'},
-      {name:'Industry Secularity', weight:'10%', desc:'Structural growth or cyclical? 5/5 = AI chips. 1/5 = commodities.'}
+      {name:'Terminal P/E', weight:'30%', desc:'What multiple can this company command in 10 years? 30x+ = exceptional moat.', example:'MSFT: 28x, AAPL: 22x, META: 18x', tip:'Higher terminal P/E = market expects continued dominance.'},
+      {name:'Peer-Adj P/E', weight:'20%', desc:'Compared to rivals, is the premium justified by superior quality?', example:'META trades at premium to SNAP', tip:'Premium = quality, or premium = bubble? Check the moat.'},
+      {name:'Network Effect', weight:'20%', desc:'Does it get stronger as more people use it? 5/5 = Meta, Google.', example:'META: 5/5, GOOGL: 5/5, AMZN: 4/5', tip:'Network effects = the most durable moat type.'},
+      {name:'Act II Potential', weight:'20%', desc:'Can it extend growth into adjacent markets? 5/5 = MSFT/AMZN-level.', example:'MSFT: Windows→Office→Azure→AI. AMZN: Books→Everything→AWS', tip:'Every great company reinvents itself at least once.'},
+      {name:'Industry Secularity', weight:'10%', desc:'Structural growth or cyclical? 5/5 = AI chips. 1/5 = commodities.', example:'AI semis: 5/5, Banks: 2/5, Oil: 1/5', tip:'Secular > cyclical for compounding. Always.'}
     ]
   },
   { id:4, name:'10YR POTENTIAL', title:'10-YEAR POTENTIAL', scoreKey:'R4_10yr_potential',
     quote:'"Buy businesses, not stocks." — Munger',
     lesson:'What does this business look like in 2036? This round captures the REAL forward return, not just earnings growth. The PE-Adjusted CAGR factors in CURRENT valuation — a company trading at 80x P/E that compresses to 25x delivers much lower returns than a steady grower at 20x P/E. Past winners: ASML (structural monopoly in EUV lithography, 10+ year visibility). Past failures: GoPro (one product, no Act II, industry commoditized).',
     postLesson:'This round separates the temporarily lucky from the structurally inevitable.',
+    encouragement:'🏆 Round 4 = 10-YEAR POTENTIAL. The CRITICAL round. EPS growth alone is a trap — we add (Terminal PE / Current PE)^(1/10) − 1 to capture valuation reality. A 30% grower at 80x P/E delivers less than a 15% grower at 20x.',
     criteria:[
-      {name:'PE-Adj CAGR', weight:'30%', desc:'REAL forward return: EPS growth + (Terminal PE / Current PE)^(1/10) − 1. P/E compression is accounted for.'},
-      {name:'Hist Durability', weight:'20%', desc:'How long has this company sustained >10% EPS growth? Longevity = reliability.'},
-      {name:'Industry Growth', weight:'20%', desc:'Is the industry growing? Rising tide lifts all boats. 15%+ = strong tailwind.'},
-      {name:'Industry Secularity', weight:'15%', desc:'Structural or cyclical? Secular = sustainable growth. Cyclical = mean-reverts.'},
-      {name:'Act II Fitness', weight:'15%', desc:'How well does the next growth phase align with current strengths?'}
+      {name:'PE-Adj CAGR', weight:'30%', desc:'REAL forward return: EPS growth + (Terminal PE / Current PE)^(1/10) − 1. P/E compression is accounted for.', example:'A 15% grower at 20x P/E = 15% real. A 30% grower at 80x P/E = 11% real after compression.', tip:'This is the only number that matters for actual returns.'},
+      {name:'Hist Durability', weight:'20%', desc:'How long has this company sustained >10% EPS growth? Longevity = reliability.', example:'MSFT: 15+ years. AVGO: 10+ years.', tip:'A decade of 10%+ growth is rare. Most "growth stocks" don\'t survive 5 years.'},
+      {name:'Industry Growth', weight:'20%', desc:'Is the industry growing? Rising tide lifts all boats. 15%+ = strong tailwind.', example:'AI semis: 25%+, Cloud: 20%+, Banks: 4%', tip:'Best to grow WITH the industry, not against it.'},
+      {name:'Industry Secularity', weight:'15%', desc:'Structural or cyclical? Secular = sustainable growth. Cyclical = mean-reverts.', example:'AI: 5/5. Energy: 1/5', tip:'Secular growth compounds. Cyclical growth is illusion.'},
+      {name:'Act II Fitness', weight:'15%', desc:'How well does the next growth phase align with current strengths?', example:'NVDA: data center → AI. Excellent fit.', tip:'Best Act II = leveraged to existing strengths.'}
     ]
   },
   { id:5, name:'COMBO', title:'COMBO', scoreKey:'R5_combo',
@@ -943,8 +976,19 @@ function showRoundHeader(roundIdx) {
   $('#rhQuote').textContent = rd.quote;
   $('#rhLesson').textContent = rd.lesson;
   $('#rhCriteria').innerHTML = rd.criteria.map(c =>
-    `<div class="criteria-chip"><strong>${c.name}</strong> ${c.weight} — ${c.desc}</div>`
+    `<div class="criteria-chip" title="${(c.tip || c.desc).replace(/"/g, '&quot;')}">
+      <strong>${c.name}</strong> ${c.weight}
+      <div class="chip-example">${c.example || ''}</div>
+    </div>`
   ).join('');
+
+  // Add encouragement banner below criteria
+  if (rd.encouragement) {
+    const enc = document.createElement('div');
+    enc.className = 'round-encouragement';
+    enc.textContent = rd.encouragement;
+    $('#rhCriteria').after(enc);
+  }
   
   // Add round-specific past winner/failure story
   const story = STATE.narrative?.round_stories?.[roundIdx];
@@ -1122,12 +1166,51 @@ function predictWinner(roundIdx, matchIdx, predicted) {
   updateBracketProgress();
   updateScoreboard();
 
+  // Encouragement: context-aware toast
+  const correctSoFar = STATE.tournament.rounds.flat().filter(m => m.userCorrect).length;
+  const totalSoFar = STATE.tournament.rounds.flat().filter(m => m.winner && !m.bye).length;
+  if (userCorrect && correctSoFar === 1) {
+    encToast("🎯 First blood! Great read on the compounder.", 'celebrate');
+  } else if (userCorrect && correctSoFar === 3) {
+    encToast("🔥 3 in a row! Your thesis is clicking.", 'celebrate');
+  } else if (userCorrect && correctSoFar === 5) {
+    encToast("⭐ 5 correct! You might be an Oracle of Omaha in the making.", 'celebrate');
+  } else if (!userCorrect && totalSoFar === 1) {
+    encToast("💡 No worries — even Buffett was wrong 40% of the time. Watch the metrics.", 'encourage');
+  } else if (!userCorrect && (correctSoFar === 0 && totalSoFar === 3)) {
+    encToast("🤔 0/3 so far. Read the AI's metric bars after each pick — patterns emerge fast.", 'encourage');
+  }
+
   // Check if round complete
   const allDecided = STATE.tournament.rounds[roundIdx].every(m => m.winner);
   if (allDecided) {
     $('#btnContinue').disabled = false;
     setTimeout(() => showRoundComplete(roundIdx), 600);
+    // Round complete encouragement
+    const acc = Math.round((correctSoFar / totalSoFar) * 100) || 0;
+    if (acc >= 75) {
+      setTimeout(() => encToast(`🏆 Round complete! ${acc}% accuracy — Buffett would be proud.`, 'celebrate'), 1200);
+    } else if (acc >= 50) {
+      setTimeout(() => encToast(`📊 Round complete. ${acc}% accuracy — solid read of the moats.`, 'encourage'), 1200);
+    } else {
+      setTimeout(() => encToast(`📚 Round complete. ${acc}% — read the lessons, the next round is fresh.`, 'encourage'), 1200);
+    }
   }
+}
+
+// Encouragement toast — bottom-right slide-in
+function encToast(message, type='encourage') {
+  // Remove any existing toast
+  document.querySelectorAll('.enc-toast').forEach(t => t.remove());
+
+  const toast = document.createElement('div');
+  toast.className = `enc-toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('fade');
+    setTimeout(() => toast.remove(), 600);
+  }, 3500);
 }
 
 function updateBracketProgress() {
