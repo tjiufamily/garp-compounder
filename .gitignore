@@ -38,3 +38,4 @@ exports/
 *.png
 !docs/**/*.png
 !sample/**/*.png
+.vercel

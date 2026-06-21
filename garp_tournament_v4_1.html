@@ -48,8 +48,21 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .btn-gold { background: var(--gold); color: var(--navy); font-size: 18px; padding: 16px 40px; font-weight: 700; letter-spacing: 0.5px; }
 .btn-gold:hover:not(:disabled) { background: var(--gold-dk); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(201,163,90,0.4); }
 
+/* ── HOW TO WIN INTRO ── */
+.intro-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-lt) 100%); border-radius: 8px; padding: 20px 24px; color: white; border: 2px solid var(--gold); }
+.intro-title { font-size: 15px; font-weight: 900; letter-spacing: 2px; color: var(--gold); margin-bottom: 14px; text-transform: uppercase; }
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.intro-step { display: flex; gap: 10px; align-items: flex-start; }
+.intro-step-num { background: var(--gold); color: var(--navy); font-weight: 900; font-size: 13px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; flex-basis: 22px; }
+.intro-step-content strong { font-size: 12px; color: white; display: block; margin-bottom: 3px; }
+.intro-step-content p { font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.5; margin: 0; }
+.intro-score { grid-column: 1 / -1; background: rgba(201,163,90,0.15); border: 1px solid var(--gold-dk); border-radius: 6px; padding: 12px 16px; }
+.intro-score-title { font-size: 11px; font-weight: 800; color: var(--gold); letter-spacing: 1px; margin-bottom: 8px; }
+.intro-score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; }
+.intro-pts { font-size: 14px; font-weight: 800; color: white; }
+.intro-score-grid small { font-size: 10px; color: rgba(255,255,255,0.65); }
+
 /* ── SETUP SCREEN ── */
-.setup-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
 .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
 .company-chip { display: none; }  /* replaced by .company-tile */
 .company-chip.checked { display: none; }
@@ -264,6 +277,53 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
     <h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1>
     <p class="tagline">32 compounders. 5 rounds. One champion. Can you predict who the data will crown?</p>
   </header>
+
+  <!-- HOW TO WIN INTRO -->
+  <div class="container" style="margin-top:16px">
+    <div class="intro-box">
+      <div class="intro-title">🏆 HOW TO WIN</div>
+      <div class="intro-grid">
+        <div class="intro-step">
+          <div class="intro-step-num">1</div>
+          <div class="intro-step-content">
+            <strong>Pick 32 compounders</strong>
+            <p>Select exactly 32 companies from the grid. Click to toggle selection. All 55 companies are pre-scored on quality, growth, durability, 10-year potential, and valuation.</p>
+          </div>
+        </div>
+        <div class="intro-step">
+          <div class="intro-step-num">2</div>
+          <div class="intro-step-content">
+            <strong>Name your finalists before R1</strong>
+            <p>Before the tournament begins, lock in 2 predicted semi-finalists + 1 champion. Correct picks earn bonus points even if your team loses the round.</p>
+          </div>
+        </div>
+        <div class="intro-step">
+          <div class="intro-step-num">3</div>
+          <div class="intro-step-content">
+            <strong>Predict each match before seeing scores</strong>
+            <p>Before every head-to-head match, click your predicted winner. Ties are broken by coin-flip. You must predict to score — scores stay hidden until you commit.</p>
+          </div>
+        </div>
+        <div class="intro-step">
+          <div class="intro-step-num">4</div>
+          <div class="intro-step-content">
+            <strong>Watch the AI crown a champion</strong>
+            <p>After each round, full scoring is revealed. The AI advances the higher-scoring company. Winners accumulate through 5 rounds: Quality → Growth → Durability → 10yr Potential → Combo.</p>
+          </div>
+        </div>
+        <div class="intro-score">
+          <div class="intro-score-title">📊 SCORING</div>
+          <div class="intro-score-grid">
+            <div><span class="intro-pts">10 pts</span><br><small>per correct match prediction</small></div>
+            <div><span class="intro-pts">20 pts</span><br><small>correct semi-finalist</small></div>
+            <div><span class="intro-pts">50 pts</span><br><small>correct champion</small></div>
+            <div><span class="intro-pts">Max 204</span><br><small>perfect score</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <div class="setup-grid">
       <div>
