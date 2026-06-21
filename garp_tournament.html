@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚽ GARP Compounder Championship</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%F0%9F%9A%BD%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header>
+  <h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1>
+  <p class="tagline">A Warren Buffett-flavored knockout tournament for long-term compounders</p>
+</header>
+
+<!-- ============================================================ -->
+<!-- SCREEN: WATCHLIST SETUP -->
+<!-- ============================================================ -->
+<section id="setup-screen" class="screen active">
+  <div class="container">
+    <h2>🌱 Pick Your Players</h2>
+    <p class="hint">Default watchlist pre-loaded. Add custom counters or deselect any you don't want in the game.</p>
+
+    <div class="watchlist-editor">
+      <h3>📋 Default Watchlist</h3>
+      <div id="default-tickers" class="ticker-grid"></div>
+      <div class="watchlist-actions">
+        <button id="select-all" class="btn-secondary">☑ Select All</button>
+        <button id="deselect-all" class="btn-secondary">☐ Deselect All</button>
+        <span id="active-count" class="active-count">0 active</span>
+      </div>
+
+      <h3>➕ Add Custom Counter(s)</h3>
+      <p class="hint">Paste one ticker per line, or upload a CSV file.</p>
+      <textarea id="custom-tickers" rows="4" placeholder="NVDA&#10;9961.HK&#10;AAPL"></textarea>
+      <div class="custom-actions">
+        <button id="add-custom" class="btn-primary">Add to Active Universe</button>
+        <label class="csv-upload">
+          📂 Or upload CSV:
+          <input type="file" id="csv-file" accept=".csv">
+        </label>
+      </div>
+
+      <h3>🎯 Active Universe (<span id="active-count-2">0</span>)</h3>
+      <div id="custom-added" class="ticker-grid custom"></div>
+
+      <div class="start-section">
+        <button id="start-tournament" class="btn-start" disabled>▶ START TOURNAMENT</button>
+        <button id="load-game-btn" class="btn-secondary" style="margin-left:12px">📂 Load Saved Game</button>
+        <input type="file" id="load-game-file" accept=".json" style="display:none">
+        <div id="local-saves" class="local-saves"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCREEN: ROUND HEADER (educational) -->
+<!-- ============================================================ -->
+<section id="round-header-screen" class="screen">
+  <div class="container">
+    <div class="round-banner">
+      <div class="round-number">ROUND <span id="round-num">1</span> OF 5</div>
+      <h2 id="round-title">QUALITY</h2>
+      <div class="round-quote" id="round-quote">"A wonderful business at a fair price..."</div>
+      <p class="round-lesson" id="round-lesson"></p>
+    </div>
+    <button id="round-ready" class="btn-start">⚽ KICK OFF</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCREEN: BRACKET (matches) -->
+<!-- ============================================================ -->
+<section id="bracket-screen" class="screen">
+  <div class="container">
+    <div class="bracket-header">
+      <h2>⚽ Round <span id="bracket-round">1</span> — <span id="bracket-round-name">Quality</span></h2>
+      <div class="round-progress">
+        <span id="matches-played">0</span> / <span id="matches-total">0</span> matches played
+      </div>
+    </div>
+    <div class="progress-bar">
+      <div id="progress-fill" class="progress-fill" style="width:0%"></div>
+    </div>
+    <div id="matches-container" class="matches-grid"></div>
+    <div class="round-controls">
+      <button id="round-finished" class="btn-primary" disabled>Continue to Next Round ▶</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCREEN: ROUND COMPLETE (educational lesson) -->
+<!-- ============================================================ -->
+<section id="round-complete-screen" class="screen">
+  <div class="container">
+    <div class="completion-banner">
+      <div class="trophy">🏆</div>
+      <h2>Round <span id="completed-round-num">1</span> Complete!</h2>
+    </div>
+
+    <div class="survivors-section">
+      <h3>✅ Survivors (<span id="survivor-count">0</span>)</h3>
+      <div id="survivors-list" class="survivor-chips"></div>
+    </div>
+
+    <div class="eliminated-section">
+      <h3>❌ Eliminated (<span id="eliminated-count">0</span>)</h3>
+      <details>
+        <summary>Show eliminated</summary>
+        <div id="eliminated-list" class="eliminated-chips"></div>
+      </details>
+    </div>
+
+    <div class="lesson-box">
+      <h3>📖 Lesson Learned</h3>
+      <p id="lesson-text"></p>
+    </div>
+
+    <div class="next-round-controls">
+      <button id="continue-next" class="btn-start">⚽ Continue to Next Round</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCREEN: CHAMPION -->
+<!-- ============================================================ -->
+<section id="champion-screen" class="screen">
+  <div class="container">
+    <div class="champion-banner">
+      <div class="trophy-large">🏆</div>
+      <h1>CHAMPION OF CHAMPIONS</h1>
+      <div class="champion-name" id="champion-name">—</div>
+      <div class="champion-tagline" id="champion-tagline">—</div>
+      <div class="champion-scorecard">
+        <div class="score-item"><div class="round-label">R1 Quality</div><div class="round-val" id="champ-r1">—</div></div>
+        <div class="score-item"><div class="round-label">R2 Growth</div><div class="round-val" id="champ-r2">—</div></div>
+        <div class="score-item"><div class="round-label">R3 Durability</div><div class="round-val" id="champ-r3">—</div></div>
+        <div class="score-item"><div class="round-label">R4 10yr CAGR</div><div class="round-val" id="champ-r4">—</div></div>
+        <div class="score-item"><div class="round-label">R5 Combo</div><div class="round-val" id="champ-r5">—</div></div>
+      </div>
+    </div>
+
+    <div class="path-section">
+      <h2>🏟️ Path to Victory</h2>
+      <div id="path-tree" class="path-tree"></div>
+    </div>
+
+    <div class="final-lesson">
+      <h3>📖 Final Lesson</h3>
+      <p id="final-lesson"></p>
+    </div>
+
+    <div class="champion-controls">
+      <button id="export-png" class="btn-primary">📥 Save Path-to-Winner PNG</button>
+      <button id="save-game" class="btn-primary">💾 Save Game (Replay)</button>
+      <button id="new-tournament" class="btn-secondary">🔄 New Tournament</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SCREEN: REPLAY -->
+<!-- ============================================================ -->
+<section id="replay-screen" class="screen">
+  <div class="container">
+    <h2>🎬 Replay Mode</h2>
+    <div id="replay-meta" class="replay-meta"></div>
+    <div id="replay-content" class="replay-content"></div>
+    <div class="replay-controls">
+      <button id="replay-prev" class="btn-secondary">◀ Previous</button>
+      <span id="replay-step">Step 0</span>
+      <button id="replay-next" class="btn-secondary">Next ▶</button>
+      <button id="replay-close" class="btn-secondary">Close</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODAL: Match detail -->
+<!-- ============================================================ -->
+<div id="match-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <h2 id="modal-title">Match Detail</h2>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+<footer>
+  <p>GARP Compounder Championship · A TJIUNARDI Research game · <a href="docs/ROUND_CRITERIA.md" target="_blank">methodology</a></p>
+</footer>
+
+<!-- ============================================================ -->
+<!-- JS: Single-file inline -->
+<!-- ============================================================ -->
+<script>
+/* =========================================================================
+ * GARP Tournament — main app logic
+ * ========================================================================= */
+
+/* ---------- Constants ---------- */
+const ROUND_DEFS = [
+  {
+    id: 1,
+    name: "Quality",
+    title: "QUALITY",
+    scoreKey: "R1_quality",
+    quote: '"A wonderful business at a fair price beats a fair business at a wonderful price." — Buffett',
+    lesson: "Winners charge premium prices for decades. Losers can't. Quality filters out everything that can't compound long-term.",
+    postLesson: "A wonderful business earns above its cost of capital. Anything else is speculation disguised as investing."
+  },
+  {
+    id: 2,
+    name: "Growth",
+    title: "GROWTH",
+    scoreKey: "R2_growth",
+    quote: '"The best business to own is one that over time will keep putting more money in your pocket." — Munger',
+    lesson: "Real growth = earnings + cash, not revenue. Growth without cash is vanity; cash without growth is stagnation.",
+    postLesson: "Growth without profitability is just burning cash faster. Growth without durability is a treadmill."
+  },
+  {
+    id: 3,
+    name: "Durability",
+    title: "DURABILITY",
+    scoreKey: "R3_durability",
+    quote: '"Time is the friend of the wonderful business." — Buffett',
+    lesson: "Can this business command a premium 10 years from now? If competitors catch up, the terminal multiple collapses.",
+    postLesson: "If competitors catch up over 10 years, the terminal multiple collapses — and so does your actual return."
+  },
+  {
+    id: 4,
+    name: "10yr CAGR",
+    title: "10-YEAR EPS CAGR",
+    scoreKey: "R4_10yr_cagr",
+    quote: '"Buy businesses, not stocks." — Munger',
+    lesson: "What does this business look like in 10 years? If you can't articulate the path, you don't own a business.",
+    postLesson: "This is the most important number. If you can't articulate a 10-year EPS path, you don't understand the business."
+  },
+  {
+    id: 5,
+    name: "Combo",
+    title: "COMBO (incl. Valuation)",
+    scoreKey: "R5_combo",
+    quote: '"Price is what you pay; value is what you get." — Buffett',
+    lesson: "The holistic check. Cheap wonderful businesses beat expensive ones — but not always.",
+    postLesson: "Cheap wonderful businesses beat expensive ones, but not always. The combo rounds decide who to hold for the long term."
+  }
+];
+
+const DEFAULT_WATCHLIST = [
+  "GOOGL","MSFT","AMZN","META","NVDA","NOW","TSM","SNPS","VEEV",
+  "0700.HK","3690.HK","BABA","BIDU","9961.HK","BKNG","V","MA",
+  "J36.SG","H78.SG","87.HK","EVO","D05.SG","O39.SG","U11.SG"
+];
+
+/* ---------- State ---------- */
+const STATE = {
+  activeTickers: [...DEFAULT_WATCHLIST],
+  customTickers: [],
+  scores: null,           // loaded garp_tournament_data.json
+  tournament: null,       // in-progress tournament
+  currentRound: 0,        // index into ROUND_DEFS
+  replay: null,           // replay state
+};
+
+/* ---------- DOM helpers ---------- */
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+function showScreen(id) {
+  $$('.screen').forEach(s => s.classList.remove('active'));
+  $('#' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Phase 1: Watchlist Setup ---------- */
+function renderDefaultTickers() {
+  const container = $('#default-tickers');
+  container.innerHTML = DEFAULT_WATCHLIST.map(t => `
+    <label class="ticker-chip">
+      <input type="checkbox" value="${t}" checked>
+      <span>${t}</span>
+    </label>
+  `).join('');
+  updateActiveCount();
+}
+
+function updateActiveCount() {
+  const checked = $$('#default-tickers input:checked').map(i => i.value);
+  STATE.activeTickers = [...checked, ...STATE.customTickers];
+  $('#active-count').textContent = `${STATE.activeTickers.length} active`;
+  $('#active-count-2').textContent = STATE.activeTickers.length;
+  $('#start-tournament').disabled = STATE.activeTickers.length < 2;
+}
+
+function renderCustomAdded() {
+  const container = $('#custom-added');
+  if (STATE.customTickers.length === 0) {
+    container.innerHTML = '<p class="empty">No custom tickers added yet.</p>';
+    return;
+  }
+  container.innerHTML = STATE.customTickers.map(t => `
+    <div class="ticker-chip custom">
+      <span>${t}</span>
+      <button class="remove" data-ticker="${t}">×</button>
+    </div>
+  `).join('');
+  // Attach remove handlers
+  $$('#custom-added .remove').forEach(btn => {
+    btn.onclick = () => {
+      STATE.customTickers = STATE.customTickers.filter(t => t !== btn.dataset.ticker);
+      renderCustomAdded();
+      updateActiveCount();
+    };
+  });
+}
+
+/* ---------- Phase 2: Score Loading ---------- */
+async function loadScores() {
+  // Try multiple known locations silently (HEAD first to avoid 404 noise)
+  const candidates = [
+    'data/user_watchlist_scores.json',  // canonical location
+    'garp_tournament_data.json',         // legacy / Quick Start default
+  ];
+  for (const path of candidates) {
+    try {
+      const r = await fetch(path, { cache: 'no-store' });
+      if (r.ok) {
+        STATE.scores = await r.json();
+        console.log(`✓ Loaded ${STATE.scores.tickers.length} tickers from ${path}`);
+        return;
+      }
+    } catch (e) {
+      // Network error — try next
+    }
+  }
+  // Last resort: build minimal random scores so the app still works
+  console.warn('⚠ No scores file found. Run: python garp_score.py --csv my_watchlist.csv');
+  console.warn('  Falling back to placeholder scores (random 50-80). Tournament will run but results meaningless.');
+  STATE.scores = {
+    version: '1.0-fallback',
+    tickers: STATE.activeTickers.map(t => ({
+      ticker: t,
+      name: t,
+      current_price: null,
+      target_price: null,
+      scores: {
+        R1_quality: { score: 50 + Math.random() * 30, breakdown: {} },
+        R2_growth:  { score: 50 + Math.random() * 30, breakdown: {} },
+        R3_durability: { score: 50 + Math.random() * 30, breakdown: {} },
+        R4_10yr_cagr: { score: 50 + Math.random() * 30, breakdown: {} },
+        R5_combo:    { score: 50 + Math.random() * 30, breakdown: {} },
+      }
+    }))
+  };
+}
+
+/* ---------- Phase 3: Tournament Logic ---------- */
+function buildBracket() {
+  // Get scores for active tickers
+  const scoreMap = new Map(STATE.scores.tickers.map(t => [t.ticker, t]));
+  const active = STATE.activeTickers
+    .map(t => scoreMap.get(t))
+    .filter(t => t); // only those with scores
+
+  if (active.length === 0) {
+    alert('No scores found for any active ticker. Run garp_score.py first.');
+    return null;
+  }
+
+  // Seed by R1 Quality (descending)
+  const roundDef = ROUND_DEFS[0];
+  const seeded = active.slice().sort((a, b) =>
+    (b.scores[roundDef.scoreKey]?.score || 0) - (a.scores[roundDef.scoreKey]?.score || 0)
+  );
+
+  // Pair: #1 vs #24, #2 vs #23, etc.
+  const matches = [];
+  for (let i = 0; i < seeded.length; i += 2) {
+    const a = seeded[i];
+    const b = seeded[i + 1];
+    if (!a) continue;
+    if (!b) {
+      // Bye
+      matches.push({ pair: [a.ticker, null], winner: a.ticker, bye: true });
+    } else {
+      matches.push({ pair: [a.ticker, b.ticker], winner: null, bye: false });
+    }
+  }
+  return { seeded, matches };
+}
+
+function startTournament() {
+  if (!STATE.scores) {
+    alert('Scores not loaded. Try running garp_score.py first.');
+    return;
+  }
+  const bracket = buildBracket();
+  if (!bracket) return;
+
+  STATE.tournament = {
+    bracket,
+    rounds: [bracket.matches],   // rounds[0] = R1 matches, etc.
+    currentRound: 0,
+    started_at: new Date().toISOString(),
+  };
+  STATE.currentRound = 0;
+  playWhistle();  // kick-off!
+  goToRound(0);
+}
+
+function goToRound(roundIdx) {
+  if (roundIdx >= ROUND_DEFS.length) {
+    showChampionScreen();
+    return;
+  }
+  STATE.currentRound = roundIdx;
+  const roundDef = ROUND_DEFS[roundIdx];
+
+  // Show round header (educational)
+  $('#round-num').textContent = roundIdx + 1;
+  $('#round-title').textContent = roundDef.title;
+  $('#round-quote').textContent = roundDef.quote;
+  $('#round-lesson').textContent = roundDef.lesson;
+  showScreen('round-header-screen');
+}
+
+function kickOffRound() {
+  const roundIdx = STATE.currentRound;
+  const roundDef = ROUND_DEFS[roundIdx];
+
+  // Build matches for this round from previous survivors
+  const prevSurvivors = STATE.tournament.rounds[roundIdx - 1]
+    ? STATE.tournament.rounds[roundIdx - 1].map(m => m.winner).filter(Boolean)
+    : STATE.activeTickers;
+
+  // Seed by current round's score
+  const scoreMap = new Map(STATE.scores.tickers.map(t => [t.ticker, t]));
+  const seeded = prevSurvivors
+    .map(t => scoreMap.get(t))
+    .filter(t => t)
+    .sort((a, b) =>
+      (b.scores[roundDef.scoreKey]?.score || 0) - (a.scores[roundDef.scoreKey]?.score || 0)
+    );
+
+  const matches = [];
+  for (let i = 0; i < seeded.length; i += 2) {
+    const a = seeded[i];
+    const b = seeded[i + 1];
+    if (!a) continue;
+    if (!b) {
+      matches.push({ pair: [a.ticker, null], winner: a.ticker, bye: true });
+    } else {
+      matches.push({ pair: [a.ticker, b.ticker], winner: null, bye: false });
+    }
+  }
+
+  STATE.tournament.rounds[roundIdx] = matches;
+
+  // Render bracket
+  $('#bracket-round').textContent = roundIdx + 1;
+  $('#bracket-round-name').textContent = roundDef.name;
+  $('#matches-total').textContent = matches.filter(m => !m.bye).length;
+  $('#matches-played').textContent = 0;
+  $('#round-finished').disabled = true;
+
+  const container = $('#matches-container');
+  container.innerHTML = matches.map((m, i) => renderMatchCard(m, i, roundDef)).join('');
+  $('#progress-fill').style.width = '0%';
+  showScreen('bracket-screen');
+  playRoundBell();
+
+  // Attach handlers
+  matches.forEach((m, i) => {
+    if (m.bye) return;
+    const card = container.querySelector(`[data-match="${i}"]`);
+    const pickA = card.querySelector('.pick-a');
+    const pickB = card.querySelector('.pick-b');
+    const override = card.querySelector('.override');
+    const detail = card.querySelector('.detail');
+
+    pickA.onclick = () => selectWinner(i, m.pair[0]);
+    pickB.onclick = () => selectWinner(i, m.pair[1]);
+    if (override) {
+      override.onclick = () => {
+        const choice = prompt('Override winner — type the ticker:', m.winner || m.pair[0]);
+        if (choice && (choice === m.pair[0] || choice === m.pair[1])) {
+          selectWinner(i, choice, true);
+        }
+      };
+    }
+    if (detail) {
+      detail.onclick = () => showMatchDetail(m, roundDef);
+    }
+  });
+}
+
+function renderMatchCard(match, idx, roundDef) {
+  const scoreMap = STATE.scores.tickers.reduce((acc, t) => (acc[t.ticker] = t, acc), {});
+  const a = scoreMap[match.pair[0]];
+  const b = match.pair[1] ? scoreMap[match.pair[1]] : null;
+
+  const aScore = a?.scores[roundDef.scoreKey]?.score || 0;
+  const bScore = b?.scores[roundDef.scoreKey]?.score || 0;
+
+  if (match.bye) {
+    return `
+      <div class="match-card bye" data-match="${idx}">
+        <div class="bye-banner">BYE — ${match.winner} auto-advances</div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="match-card" data-match="${idx}">
+      <div class="match-header">
+        <span class="match-num">MATCH ${idx + 1}</span>
+        <span class="criterion-badge">${roundDef.name}</span>
+      </div>
+      <div class="match-body">
+        <button class="team team-a pick-a" data-ticker="${match.pair[0]}">
+          <div class="team-name">${match.pair[0]}</div>
+          <div class="team-score">${aScore.toFixed(1)}</div>
+          <div class="team-stars">${stars(aScore)}</div>
+        </button>
+        <div class="vs">VS</div>
+        <button class="team team-b pick-b" data-ticker="${match.pair[1]}">
+          <div class="team-name">${match.pair[1]}</div>
+          <div class="team-score">${bScore.toFixed(1)}</div>
+          <div class="team-stars">${stars(bScore)}</div>
+        </button>
+      </div>
+      <div class="match-footer">
+        <button class="btn-detail detail">📊 Detail</button>
+        <button class="btn-override override">⚙️ Override</button>
+      </div>
+    </div>
+  `;
+}
+
+function stars(score) {
+  if (score >= 90) return '⭐⭐⭐⭐⭐';
+  if (score >= 80) return '⭐⭐⭐⭐';
+  if (score >= 70) return '⭐⭐⭐';
+  if (score >= 60) return '⭐⭐';
+  return '⭐';
+}
+
+function selectWinner(matchIdx, winner, isOverride = false) {
+  const roundIdx = STATE.currentRound;
+  const matches = STATE.tournament.rounds[roundIdx];
+  matches[matchIdx].winner = winner;
+
+  // Update UI
+  const card = $(`[data-match="${matchIdx}"]`);
+  card.classList.add('decided');
+  card.querySelectorAll('.team').forEach(t => {
+    t.classList.toggle('winner', t.dataset.ticker === winner);
+    t.classList.toggle('loser', t.dataset.ticker !== winner);
+  });
+
+  // Add confetti if user picked correctly (higher score)
+  const roundDef = ROUND_DEFS[roundIdx];
+  const scoreMap = STATE.scores.tickers.reduce((acc, t) => (acc[t.ticker] = t, acc), {});
+  const winnerScore = scoreMap[winner]?.scores[roundDef.scoreKey]?.score || 0;
+  const pair = matches[matchIdx].pair;
+  const otherTicker = pair.find(t => t !== winner);
+  const otherScore = scoreMap[otherTicker]?.scores[roundDef.scoreKey]?.score || 0;
+
+  const correct = winnerScore >= otherScore;
+  if (correct && !isOverride) {
+    card.classList.add('correct-pick');
+    showCommentary(`${winner} (${winnerScore.toFixed(1)}) defeats ${otherTicker} (${otherScore.toFixed(1)})!`);
+  } else if (isOverride) {
+    card.classList.add('override-pick');
+    showCommentary(`⚙️ Override: ${winner} advances (despite ${otherTicker}'s ${otherScore.toFixed(1)})`);
+  } else {
+    showCommentary(`${winner} advances — but ${otherTicker}'s ${otherScore.toFixed(1)} was higher. 🤔`);
+  }
+
+  // Update progress
+  const played = matches.filter(m => m.winner && !m.bye).length;
+  $('#matches-played').textContent = played;
+  const total = matches.filter(m => !m.bye).length;
+  $('#progress-fill').style.width = `${(played/total)*100}%`;
+
+  // Enable continue button when all decided
+  if (played === total) {
+    $('#round-finished').disabled = false;
+    playCrowdCheer();
+    fireConfetti();
+    setTimeout(() => showRoundComplete(), 800);
+  } else {
+    // Small tone for each pick
+    playTone(660, 0.1, 'sine', 0.08);
+  }
+}
+
+function showCommentary(text) {
+  // Could show a toast or just a banner — for now just console
+  console.log(`📣 ${text}`);
+}
+
+function showMatchDetail(match, roundDef) {
+  const scoreMap = STATE.scores.tickers.reduce((acc, t) => (acc[t.ticker] = t, acc), {});
+  const a = scoreMap[match.pair[0]];
+  const b = scoreMap[match.pair[1]];
+
+  const modal = $('#match-modal');
+  $('#modal-title').textContent = `${roundDef.name}: ${match.pair[0]} vs ${match.pair[1]}`;
+
+  const body = $('#modal-body');
+  body.innerHTML = `
+    <div class="detail-comparison">
+      ${renderDetailSide(a, roundDef)}
+      <div class="vs-divider">VS</div>
+      ${renderDetailSide(b, roundDef)}
+    </div>
+  `;
+
+  modal.classList.add('show');
+}
+
+function renderDetailSide(ticker, roundDef) {
+  if (!ticker) return '<div class="detail-side empty">—</div>';
+  const scores = ticker.scores[roundDef.scoreKey];
+  const breakdown = scores?.breakdown || {};
+  const items = Object.entries(breakdown).map(([k, v]) => {
+    const val = v.value !== undefined ? v.value : '—';
+    const sc = v.score !== undefined ? v.score.toFixed(1) : '—';
+    const wt = v.weight !== undefined ? `(${(v.weight*100).toFixed(0)}%)` : '';
+    return `<li><strong>${k}</strong>: ${val} → score ${sc} ${wt}</li>`;
+  }).join('');
+  const totalScore = scores?.score?.toFixed(1) || '—';
+  return `
+    <div class="detail-side">
+      <h3>${ticker.ticker}</h3>
+      <p class="detail-name">${ticker.name || ''}</p>
+      <p class="detail-sector">${ticker.sector || ''}</p>
+      <div class="detail-total">${totalScore}</div>
+      <ul class="detail-breakdown">${items}</ul>
+    </div>
+  `;
+}
+
+function showRoundComplete() {
+  const roundIdx = STATE.currentRound;
+  const roundDef = ROUND_DEFS[roundIdx];
+  const matches = STATE.tournament.rounds[roundIdx];
+
+  const survivors = matches.map(m => m.winner).filter(Boolean);
+  const eliminated = [];
+  matches.forEach(m => {
+    if (m.bye) return;
+    m.pair.forEach(t => {
+      if (t && t !== m.winner) eliminated.push(t);
+    });
+  });
+
+  $('#completed-round-num').textContent = roundIdx + 1;
+  $('#survivor-count').textContent = survivors.length;
+  $('#eliminated-count').textContent = eliminated.length;
+  $('#lesson-text').textContent = roundDef.postLesson;
+
+  $('#survivors-list').innerHTML = survivors
+    .map(t => `<span class="chip chip-survivor">${t}</span>`).join('');
+  $('#eliminated-list').innerHTML = eliminated
+    .map(t => `<span class="chip chip-eliminated">${t}</span>`).join('');
+
+  showScreen('round-complete-screen');
+}
+
+function showChampionScreen() {
+  const allMatches = STATE.tournament.rounds[STATE.tournament.rounds.length - 1];
+  const champion = allMatches[0]?.winner;
+  if (!champion) return;
+
+  const champData = STATE.scores.tickers.find(t => t.ticker === champion);
+
+  $('#champion-name').textContent = champion;
+  $('#champion-tagline').textContent = champData?.name || '';
+  $('#champ-r1').textContent = champData?.scores.R1_quality.score.toFixed(1) || '—';
+  $('#champ-r2').textContent = champData?.scores.R2_growth.score.toFixed(1) || '—';
+  $('#champ-r3').textContent = champData?.scores.R3_durability.score.toFixed(1) || '—';
+  $('#champ-r4').textContent = champData?.scores.R4_10yr_cagr.score.toFixed(1) || '—';
+  $('#champ-r5').textContent = champData?.scores.R5_combo.score.toFixed(1) || '—';
+
+  $('#final-lesson').textContent = "A wonderful business, growing, with terminal durability, at a fair price — that's Buffett's formula. Hold for the long term.";
+
+  // Build path tree
+  renderPathTree();
+
+  // Champion celebration!
+  setTimeout(() => {
+    playGoalHorn();
+    playCrowdCheer();
+    fireConfetti();
+  }, 200);
+
+  showScreen('champion-screen');
+}
+
+function renderPathTree() {
+  const container = $('#path-tree');
+  const html = ROUND_DEFS.map((roundDef, i) => {
+    const matches = STATE.tournament.rounds[i] || [];
+    const winners = matches.map(m => m.winner).filter(Boolean);
+    return `
+      <div class="path-round">
+        <div class="path-round-label">R${i+1}: ${roundDef.name}</div>
+        <div class="path-round-winners">
+          ${winners.map(t => `<span class="path-winner">${t}</span>`).join(' → ')}
+        </div>
+      </div>
+    `;
+  }).join('<div class="path-arrow">↓</div>');
+  container.innerHTML = html;
+}
+
+/* ---------- CSV parsing (handles CSV with ticker column OR one-per-line) ---------- */
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+  if (lines.length === 0) return [];
+  // Detect header row: first line has a known header word
+  const firstLower = lines[0].toLowerCase();
+  const isCSV = firstLower.includes('ticker') || firstLower.includes('symbol') || firstLower.split(',').length > 1;
+  if (isCSV) {
+    // Parse CSV properly — handle quoted values
+    const rows = lines.map(parseCSVRow);
+    const headers = rows[0].map(h => h.toLowerCase().trim());
+    const tickerIdx = headers.findIndex(h => h === 'ticker' || h === 'symbol');
+    if (tickerIdx === -1) {
+      console.warn('CSV header missing ticker/symbol column, falling back to first column');
+      return rows.slice(1).map(r => r[0]).filter(Boolean);
+    }
+    return rows.slice(1).map(r => r[tickerIdx]).filter(Boolean);
+  }
+  // Plain text: one ticker per line
+  return lines;
+}
+
+function parseCSVRow(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"' && (i === 0 || line[i-1] !== '\\')) {
+      inQuotes = !inQuotes;
+    } else if (c === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += c;
+    }
+  }
+  result.push(current.trim());
+  return result;
+}
+
+/* ---------- Sound effects (Web Audio API, no external deps) ---------- */
+let AUDIO_CTX = null;
+function getAudio() {
+  if (!AUDIO_CTX) {
+    try {
+      AUDIO_CTX = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      console.warn('Web Audio not available, sounds disabled');
+    }
+  }
+  return AUDIO_CTX;
+}
+
+function playTone(freq, duration, type = 'sine', volume = 0.15) {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(volume, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + duration);
+}
+
+function playWhistle() {
+  playTone(880, 0.15, 'square', 0.1);
+  setTimeout(() => playTone(1320, 0.2, 'square', 0.1), 150);
+}
+
+function playGoalHorn() {
+  const ctx = getAudio();
+  if (!ctx) return;
+  // Triumphant three-note horn
+  [440, 554, 659].forEach((f, i) => {
+    setTimeout(() => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.value = f;
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.4);
+    }, i * 200);
+  });
+}
+
+function playCrowdCheer() {
+  // White noise burst to simulate crowd
+  const ctx = getAudio();
+  if (!ctx) return;
+  const bufferSize = ctx.sampleRate * 1.5;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * 0.3 * (1 - i / bufferSize);
+  }
+  const noise = ctx.createBufferSource();
+  noise.buffer = buffer;
+  const filter = ctx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.value = 1000;
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.4, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+  noise.connect(filter).connect(gain).connect(ctx.destination);
+  noise.start();
+}
+
+function playRoundBell() {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.5);
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.5);
+}
+
+/* ---------- Confetti (for wins) ---------- */
+function fireConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  const colors = ['#C9A35A', '#28a745', '#1e7e34', '#D4B978', '#ffffff'];
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (Math.random() * 100) + 'vw';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = (Math.random() * 0.3) + 's';
+    piece.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 3500);
+}
+
+/* ---------- Save/Load with localStorage listing ---------- */
+function listLocalSaves() {
+  const saves = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('garp_')) {
+      try {
+        const data = JSON.parse(localStorage.getItem(key));
+        saves.push({ key, data, when: data.started_at || key });
+      } catch (e) {}
+    }
+  }
+  return saves.sort((a, b) => b.when.localeCompare(a.when)).slice(0, 10);
+}
+
+function renderLocalSaves() {
+  const container = $('#local-saves');
+  const saves = listLocalSaves();
+  if (saves.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = `
+    <details class="local-saves-list">
+      <summary>📂 Recent saved games (${saves.length} in browser storage)</summary>
+      <div class="saves-grid">
+        ${saves.map(s => {
+          const champ = s.data.rounds?.[s.data.rounds.length - 1]?.[0]?.winner || '?';
+          const when = new Date(s.when).toLocaleString();
+          return `<div class="save-card" data-key="${s.key}">
+            <div class="save-when">${when}</div>
+            <div class="save-champ">🏆 ${champ}</div>
+            <button class="btn-restore" data-key="${s.key}">Load</button>
+            <button class="btn-delete-save" data-key="${s.key}">Delete</button>
+          </div>`;
+        }).join('')}
+      </div>
+    </details>
+  `;
+  $$('.btn-restore').forEach(btn => {
+    btn.onclick = () => {
+      const json = localStorage.getItem(btn.dataset.key);
+      if (json) {
+        loadGame(json);
+        playGoalHorn();
+      }
+    };
+  });
+  $$('.btn-delete-save').forEach(btn => {
+    btn.onclick = () => {
+      if (confirm('Delete this saved game?')) {
+        localStorage.removeItem(btn.dataset.key);
+        renderLocalSaves();
+      }
+    };
+  });
+}
+
+function saveGame() {
+  const json = JSON.stringify(STATE.tournament, null, 2);
+  const id = `garp_${Date.now()}`;
+  localStorage.setItem(id, json);
+  // Trigger download
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${id}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  renderLocalSaves();
+  showCommentary('💾 Saved to browser storage + downloaded to your computer');
+}
+
+function loadGame(json) {
+  try {
+    STATE.tournament = JSON.parse(json);
+    STATE.tournament.loadedFromSave = true;
+    // Skip straight to champion screen
+    showChampionScreen();
+  } catch (e) {
+    alert('Invalid game file: ' + e.message);
+  }
+}
+
+/* ---------- PNG export — server-side via local HTTP, or download HTML fallback ---------- */
+function exportPNG() {
+  // Strategy 1: try the Python export script if available
+  const data = btoa(unescape(encodeURIComponent(JSON.stringify(STATE.tournament))));
+  // Trigger download of the HTML page; user can then convert to PNG via Python script
+  const html = renderExportHTML();
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `garp-winner-${STATE.tournament.rounds[STATE.tournament.rounds.length-1][0].winner}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showCommentary('📥 Downloaded winner.html. Run: python garp_tournament_export.py --game <file> --output winner.png');
+}
+
+function renderExportHTML() {
+  // Use the in-page path tree + scorecard data
+  const lastMatches = STATE.tournament.rounds[STATE.tournament.rounds.length - 1];
+  const champion = lastMatches[0]?.winner || 'Unknown';
+  const champData = STATE.scores.tickers.find(t => t.ticker === champion) || {};
+  const r = (k) => champData.scores?.[k]?.score?.toFixed(1) || '—';
+  const roundsHTML = STATE.tournament.rounds.map((matches, i) => {
+    const winners = matches.map(m => m.winner).filter(Boolean);
+    return `<div class="round-row"><div class="round-label">R${i+1}</div><div class="round-winners">${winners.join(' · ')}</div></div>`;
+  }).join('');
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>GARP Winner — ${champion}</title>
+<style>
+  @page { size: A4; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: white; padding: 24px; color: #0a1628; max-width: 800px; margin: 0 auto; }
+  h1 { font-size: 24px; color: #C9A35A; letter-spacing: 4px; text-align: center; margin-bottom: 24px; }
+  .champion { text-align: center; padding: 32px; background: linear-gradient(135deg, #0a1628, #1a2c4e); color: white; border-radius: 12px; margin-bottom: 24px; }
+  .trophy { font-size: 64px; }
+  .champion-name { font-size: 48px; font-weight: 800; margin: 12px 0; color: #C9A35A; }
+  .champion-tagline { font-size: 14px; opacity: 0.8; }
+  .scorecard { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .score { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 4px; }
+  .score-label { font-size: 9px; color: #C9A35A; text-transform: uppercase; }
+  .score-val { font-size: 18px; font-weight: 700; }
+  .path-section h2 { font-size: 14px; color: #0a1628; letter-spacing: 2px; margin-bottom: 12px; }
+  .round-row { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #dde1e7; }
+  .round-label { font-weight: 700; min-width: 60px; color: #0a1628; }
+  .round-winners { flex: 1; font-family: monospace; font-size: 11px; }
+  .footer { text-align: center; margin-top: 24px; padding-top: 16px; border-top: 2px solid #C9A35A; color: #647080; font-size: 10px; }
+</style></head><body>
+<h1>🏆 GARP COMPOUNDER CHAMPIONSHIP</h1>
+<div class="champion">
+  <div class="trophy">🏆</div>
+  <div class="champion-name">${champion}</div>
+  <div class="champion-tagline">${champData.name || ''}</div>
+  <div class="scorecard">
+    <div class="score"><div class="score-label">R1 Quality</div><div class="score-val">${r('R1_quality')}</div></div>
+    <div class="score"><div class="score-label">R2 Growth</div><div class="score-val">${r('R2_growth')}</div></div>
+    <div class="score"><div class="score-label">R3 Durability</div><div class="score-val">${r('R3_durability')}</div></div>
+    <div class="score"><div class="score-label">R4 10yr CAGR</div><div class="score-val">${r('R4_10yr_cagr')}</div></div>
+    <div class="score"><div class="score-label">R5 Combo</div><div class="score-val">${r('R5_combo')}</div></div>
+  </div>
+</div>
+<div class="path-section"><h2>🏟️ PATH TO VICTORY</h2>${roundsHTML}</div>
+<div class="footer">GARP Compounder Championship · Generated ${new Date(STATE.tournament.started_at).toLocaleString()}</div>
+</body></html>`;
+}
+
+/* ---------- Replay ---------- */
+function startReplay(tournamentData) {
+  STATE.replay = {
+    tournament: tournamentData,
+    step: 0,
+    totalSteps: tournamentData.rounds.length * 2 + 1, // pre-round + matches + post-round per round, + final
+  };
+  showScreen('replay-screen');
+  renderReplayStep();
+}
+
+function renderReplayStep() {
+  const meta = $('#replay-meta');
+  const content = $('#replay-content');
+  const step = STATE.replay.step;
+  const t = STATE.replay.tournament;
+  const roundNum = Math.floor(step / 2);
+  const isPostRound = step % 2 === 1;
+
+  meta.innerHTML = `
+    <p>Replay of tournament started ${new Date(t.started_at).toLocaleString()}</p>
+    <p>Total steps: ${STATE.replay.totalSteps}</p>
+  `;
+
+  if (step === STATE.replay.totalSteps - 1) {
+    // Final step: champion
+    const lastMatches = t.rounds[t.rounds.length - 1];
+    const champ = lastMatches[0]?.winner;
+    content.innerHTML = `<h2>🏆 Champion: ${champ}</h2>`;
+    $('#replay-step').textContent = `Step ${step + 1} / ${STATE.replay.totalSteps}`;
+    return;
+  }
+
+  if (roundNum >= t.rounds.length) {
+    $('#replay-step').textContent = `Step ${step + 1} / ${STATE.replay.totalSteps}`;
+    return;
+  }
+
+  const roundDef = ROUND_DEFS[roundNum];
+  const matches = t.rounds[roundNum];
+
+  if (isPostRound) {
+    content.innerHTML = `
+      <h3>Round ${roundNum + 1} Complete: ${roundDef.name}</h3>
+      <p>${roundDef.postLesson}</p>
+      <p><strong>Survivors:</strong> ${matches.map(m => m.winner).filter(Boolean).join(', ')}</p>
+    `;
+  } else {
+    content.innerHTML = `
+      <h3>Round ${roundNum + 1}: ${roundDef.name}</h3>
+      <p class="quote">${roundDef.quote}</p>
+      <p>${roundDef.lesson}</p>
+      <h4>Matches:</h4>
+      <ul>
+        ${matches.filter(m => !m.bye).map((m, i) => {
+          const wScore = STATE.scores.tickers.find(t => t.ticker === m.winner)?.scores[roundDef.scoreKey]?.score || 0;
+          const lTicker = m.pair.find(t => t !== m.winner);
+          const lScore = STATE.scores.tickers.find(t => t.ticker === lTicker)?.scores[roundDef.scoreKey]?.score || 0;
+          return `<li><strong>${m.winner}</strong> (${wScore.toFixed(1)}) def. ${lTicker} (${lScore.toFixed(1)})</li>`;
+        }).join('')}
+      </ul>
+    `;
+  }
+  $('#replay-step').textContent = `Step ${step + 1} / ${STATE.replay.totalSteps}`;
+}
+
+/* ---------- Init / Event handlers ---------- */
+async function init() {
+  // Check for ?export=1 mode
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('export') === '1') {
+    document.body.classList.add('export-mode');
+    // Server-side export handled externally
+    return;
+  }
+
+  renderDefaultTickers();
+  renderCustomAdded();
+  await loadScores();
+
+  // Event handlers
+  $('#select-all').onclick = () => {
+    $$('#default-tickers input').forEach(i => i.checked = true);
+    updateActiveCount();
+  };
+  $('#deselect-all').onclick = () => {
+    $$('#default-tickers input').forEach(i => i.checked = false);
+    updateActiveCount();
+  };
+  $('#default-tickers').onchange = updateActiveCount;
+
+  $('#add-custom').onclick = () => {
+    const text = $('#custom-tickers').value;
+    const newTickers = text.split('\n').map(s => s.trim()).filter(Boolean);
+    STATE.customTickers = [...new Set([...STATE.customTickers, ...newTickers])];
+    $('#custom-tickers').value = '';
+    renderCustomAdded();
+    updateActiveCount();
+  };
+
+  $('#csv-file').onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    const newTickers = parseCSV(text);
+    STATE.customTickers = [...new Set([...STATE.customTickers, ...newTickers])];
+    renderCustomAdded();
+    updateActiveCount();
+  };
+
+  $('#start-tournament').onclick = startTournament;
+  $('#round-ready').onclick = kickOffRound;
+  $('#round-finished').onclick = () => goToRound(STATE.currentRound + 1);
+  $('#continue-next').onclick = () => goToRound(STATE.currentRound + 1);
+
+  $('#export-png').onclick = exportPNG;
+  $('#save-game').onclick = saveGame;
+  $('#new-tournament').onclick = () => location.reload();
+
+  // Load saved game from file or localStorage
+  $('#load-game-btn').onclick = () => $('#load-game-file').click();
+  $('#load-game-file').onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const text = await file.text();
+    loadGame(text);
+    playGoalHorn();
+  };
+
+  // Render any localStorage saves
+  renderLocalSaves();
+
+  // Modal close
+  $$('.modal-close').forEach(el => {
+    el.onclick = () => $('#match-modal').classList.remove('show');
+  });
+  $('#match-modal').onclick = (e) => {
+    if (e.target.id === 'match-modal') $('#match-modal').classList.remove('show');
+  };
+
+  // Replay controls
+  $('#replay-prev').onclick = () => {
+    if (STATE.replay && STATE.replay.step > 0) {
+      STATE.replay.step--;
+      renderReplayStep();
+    }
+  };
+  $('#replay-next').onclick = () => {
+    if (STATE.replay && STATE.replay.step < STATE.replay.totalSteps - 1) {
+      STATE.replay.step++;
+      renderReplayStep();
+    }
+  };
+  $('#replay-close').onclick = () => showScreen('setup-screen');
+}
+
+init();
+</script>
+
+</body>
+</html>

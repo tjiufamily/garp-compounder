@@ -1,0 +1,40 @@
+# User-specific watchlist (NEVER commit real ticker lists)
+my_watchlist.csv
+my_watchlist*.csv
+*.user.csv
+
+# Computed scores (regenerate via garp_score.py)
+garp_tournament_data.json
+data/
+*.scores.json
+sample_scores.json
+
+# Saved tournament games (user-specific results)
+garp_*.json
+*.game.json
+tournament_*.json
+
+# Cache
+__pycache__/
+*.pyc
+.cache/
+
+# Python
+*.egg-info/
+build/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Output exports (generated per run)
+exports/
+*.png
+!docs/**/*.png
+!sample/**/*.png

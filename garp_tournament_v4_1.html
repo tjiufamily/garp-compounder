@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚽ GARP COMPOUNDER CHAMPIONSHIP</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">
+<style>
+/* ================================================================
+   GARP TOURNAMENT v4.1 — FOOTBALL PITCH + INSTITUTIONAL SCOREBOARD
+   ================================================================ */
+:root {
+  --pitch: #1e7e34; --pitch-dk: #0d4f1f; --pitch-lt: #2a9d4a;
+  --navy: #0a1628; --navy-lt: #1a2c4e;
+  --gold: #C9A35A; --gold-lt: #D4B978; --gold-dk: #A0863E;
+  --win: #28a745; --lose: #c9302c; --star: #ffc107;
+  --text: #161616; --text2: #424b5a; --text3: #647080;
+  --white: #fdfdff; --border: #dde1e7; --bg: #f4f5f7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--pitch);
+  background-image: repeating-linear-gradient(0deg, var(--pitch) 0, var(--pitch) 60px, var(--pitch-dk) 60px, var(--pitch-dk) 120px);
+  color: var(--text); min-height: 100vh; padding-bottom: 80px;
+}
+
+/* ── HEADER ── */
+header { background: var(--navy); color: var(--white); padding: 28px 20px 20px; text-align: center; border-bottom: 4px solid var(--gold); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+header h1 { font-size: 28px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 4px; }
+header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-weight: 300; }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ── CONTAINER ── */
+.container { max-width: 1400px; margin: 20px auto; padding: 24px 20px; background: var(--white); border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
+.container.wide { max-width: 1600px; }
+
+/* ── BUTTONS ── */
+.btn { border: none; border-radius: 6px; padding: 10px 22px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 13px; transition: all 0.15s; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary { background: var(--pitch); color: white; }
+.btn-primary:hover:not(:disabled) { background: var(--pitch-dk); transform: translateY(-1px); }
+.btn-secondary { background: white; border: 2px solid var(--navy); color: var(--navy); }
+.btn-secondary:hover { background: var(--navy); color: white; }
+.btn-gold { background: var(--gold); color: var(--navy); font-size: 18px; padding: 16px 40px; font-weight: 700; letter-spacing: 0.5px; }
+.btn-gold:hover:not(:disabled) { background: var(--gold-dk); color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(201,163,90,0.4); }
+
+/* ── SETUP SCREEN ── */
+.setup-grid { display: grid; grid-template-columns: 1fr 360px; gap: 24px; }
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.company-chip { display: none; }  /* replaced by .company-tile */
+.company-chip.checked { display: none; }
+.company-chip input { display: none; }
+
+/* ── COMPANY TILES (bigger, richer) ── */
+.company-tile {
+  display: flex; flex-direction: column; padding: 12px 14px;
+  background: white; border: 2px solid var(--border); border-radius: 8px;
+  cursor: pointer; transition: all 0.2s; gap: 4px; min-width: 150px;
+}
+.company-tile:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.company-tile.checked { background: linear-gradient(135deg, var(--gold-lt), white); border-color: var(--gold); border-width: 3px; }
+.tile-ticker { font-family: 'Courier New', monospace; font-weight: 800; font-size: 13px; color: var(--navy); }
+.tile-name { font-size: 11px; color: var(--navy); font-weight: 700; line-height: 1.3; }
+.tile-sector { font-size: 9px; color: var(--gold-dk); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── FOOTBALL MATCH CARD ── */
+.football-card {
+  background: linear-gradient(180deg, #0d4f1f 0%, #1e7e34 40%, #2a9d4a 100%);
+  border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; overflow: hidden;
+  color: white; min-width: 340px;
+}
+.match-header-football {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 14px; background: rgba(0,0,0,0.3); font-size: 10px;
+}
+.match-header-football .match-num { color: var(--gold); font-weight: 700; letter-spacing: 1px; }
+.match-header-football .criterion-badge { background: var(--gold); color: var(--navy); padding: 2px 8px; border-radius: 3px; font-weight: 800; font-size: 9px; }
+
+.football-pitch-card {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;
+  padding: 12px 6px; position: relative;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 20px, transparent 20px, transparent 40px);
+}
+.team-side { padding: 12px 8px; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; }
+.team-side:hover { background: rgba(255,255,255,0.1); transform: scale(1.03); }
+.team-side.home { border-right: 1px dashed rgba(255,255,255,0.15); }
+.team-side.away { border-left: 1px dashed rgba(255,255,255,0.15); }
+.team-name-big { font-size: 14px; font-weight: 800; margin-bottom: 4px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+.team-sector { font-size: 9px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.team-desc-small { font-size: 9px; color: rgba(255,255,255,0.7); line-height: 1.4; margin-bottom: 8px; font-style: italic; }
+.team-score-hidden { font-size: 24px; font-weight: 900; color: rgba(255,255,255,0.2); letter-spacing: 4px; }
+
+.vs-circle {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--gold);
+  color: var(--navy); font-weight: 900; font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2; box-shadow: 0 0 12px rgba(201,163,90,0.5); flex-shrink: 0;
+}
+.pick-prompt { text-align: center; padding: 8px; font-size: 10px; color: rgba(255,255,255,0.6); background: rgba(0,0,0,0.2); }
+
+/* ── POST-PREDICTION RESULT ── */
+.football-result {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center;
+  padding: 16px 10px; background: rgba(0,0,0,0.2);
+}
+.result-team { text-align: center; }
+.result-team.loser-side { opacity: 0.6; }
+.result-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.result-score-big { font-size: 32px; font-weight: 900; color: var(--win); text-shadow: 0 2px 8px rgba(40,167,69,0.5); }
+.result-score-big.loser { color: var(--lose); text-shadow: 0 2px 8px rgba(201,48,44,0.3); font-size: 24px; }
+.result-vs { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 2px; }
+
+/* ── METRICS REVEAL TABLE ── */
+.metrics-reveal { padding: 8px 10px; background: rgba(255,255,255,0.95); color: var(--text); font-size: 10px; }
+.metric-table-full { width: 100%; border-collapse: collapse; }
+.metric-table-full th { text-align: left; padding: 4px 6px; background: var(--navy); color: var(--gold); font-size: 9px; text-transform: uppercase; }
+.metric-table-full td { padding: 4px 6px; border-bottom: 1px solid var(--border); font-family: 'Courier New', monospace; font-size: 10px; }
+.metric-table-full .metric-name { font-weight: 600; color: var(--navy); text-transform: capitalize; font-family: inherit; }
+.metric-table-full .winner-col { color: var(--win); font-weight: 700; }
+.val-high { color: var(--win); font-weight: 700; }
+.val-low { color: var(--lose); }
+
+.setup-sidebar { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.setup-sidebar h3 { color: var(--navy); margin-bottom: 12px; font-size: 14px; }
+.counter { font-size: 36px; font-weight: 800; color: var(--navy); text-align: center; padding: 8px; }
+.counter.ready { color: var(--win); }
+.counter.over { color: var(--lose); }
+.pick-section { margin-top: 16px; }
+.pick-section h3 { font-size: 12px; color: var(--text3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.pick-team { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px dashed var(--border); border-radius: 4px; cursor: pointer; margin-bottom: 4px; font-size: 12px; }
+.pick-team.chosen { border-color: var(--gold); background: var(--gold-lt); font-weight: 700; }
+
+/* ── BRACKET ── */
+.bracket-wrapper { overflow-x: auto; padding: 20px 0; }
+.bracket { display: flex; gap: 0; min-width: 1200px; justify-content: center; position: relative; }
+.bracket-col { display: flex; flex-direction: column; justify-content: center; gap: 4px; flex-shrink: 0; }
+.bracket-col.r1 { width: 170px; }
+.bracket-col.r2 { width: 150px; }
+.bracket-col.r3 { width: 140px; }
+.bracket-col.r4 { width: 140px; }
+.bracket-col.r5 { width: 160px; }
+.bracket-col.spacer { width: 30px; }
+.bracket-col.connector { width: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.bracket-label { text-align: center; font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; padding: 4px 0; border-bottom: 2px solid var(--gold); }
+
+.match-slot { position: relative; margin: 2px 0; }
+.match-card { background: white; border: 2px solid var(--border); border-radius: 6px; overflow: hidden; cursor: pointer; transition: all 0.3s; }
+.match-card:hover { border-color: var(--gold); box-shadow: 0 2px 8px rgba(201,163,90,0.3); }
+.match-card.decided { border-color: var(--win); }
+.match-card.bye { background: #f0f4f8; border-style: dashed; text-align: center; padding: 12px; font-style: italic; color: var(--text3); font-size: 11px; }
+
+.match-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: var(--bg); font-size: 10px; }
+.match-num { color: var(--text3); font-weight: 600; }
+.criterion-badge { background: var(--navy); color: var(--gold); padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+
+.team-row { display: flex; align-items: center; padding: 6px 8px; gap: 6px; border-top: 1px solid var(--border); cursor: pointer; transition: background 0.15s; }
+.team-row:first-of-type { border-top: none; }
+.team-row:hover { background: #fafbfc; }
+.team-row.winner { background: linear-gradient(90deg, #e8f5ec, transparent); border-left: 3px solid var(--win); }
+.team-row.loser { opacity: 0.5; text-decoration: line-through; }
+.team-row.predicted { background: #fff8e1; border-left: 3px solid var(--star); }
+.team-ticker { font-weight: 700; font-size: 11px; font-family: 'Courier New', monospace; min-width: 55px; }
+.team-bar-wrap { flex: 1; height: 8px; background: #e0e3e8; border-radius: 4px; overflow: hidden; }
+.team-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.team-bar.gold { background: var(--gold); }
+.team-bar.win { background: var(--win); }
+.team-score { font-size: 11px; font-weight: 700; min-width: 28px; text-align: right; color: var(--navy); }
+
+/* ── METRIC TABLE (inside match card expanded) ── */
+.metric-table { display: none; padding: 8px; background: #fafbfc; border-top: 1px solid var(--border); font-size: 10px; }
+.match-card.expanded .metric-table { display: block; }
+.metric-table table { width: 100%; border-collapse: collapse; }
+.metric-table th { text-align: left; padding: 3px 4px; font-size: 9px; color: var(--text3); text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.metric-table td { padding: 3px 4px; font-family: 'Courier New', monospace; }
+.metric-table .metric-name { font-weight: 600; color: var(--navy); }
+.metric-table .metric-weight { font-size: 8px; color: var(--text3); }
+.metric-table .val-high { color: var(--win); font-weight: 700; }
+.metric-table .val-low { color: var(--lose); }
+
+/* ── VERDICT BAR ── */
+.verdict { display: none; padding: 6px 8px; font-size: 10px; font-weight: 600; text-align: center; border-top: 1px solid var(--border); }
+.match-card.decided .verdict { display: block; }
+.verdict.correct { background: #e8f5ec; color: var(--win); }
+.verdict.wrong { background: #fef0f0; color: var(--lose); }
+.verdict.override { background: #fff8e1; color: var(--star); }
+
+/* ── ROUND HEADER ── */
+.round-header { background: linear-gradient(135deg, var(--navy), var(--navy-lt)); color: white; padding: 32px 24px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+.round-header .round-num { font-size: 13px; letter-spacing: 4px; color: var(--gold); font-weight: 600; }
+.round-header h2 { font-size: 42px; font-weight: 800; margin: 8px 0 16px; letter-spacing: 2px; }
+.round-header .round-quote { font-style: italic; font-size: 15px; color: var(--gold); margin-bottom: 12px; }
+.round-header .round-lesson { font-size: 13px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+.criteria-strip { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+.criteria-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 4px; font-size: 10px; }
+.criteria-chip strong { color: var(--gold); }
+
+/* ── SCOREBOARD ── */
+.scoreboard { position: fixed; top: 12px; right: 12px; background: var(--navy); color: white; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--gold); z-index: 100; min-width: 160px; font-size: 11px; }
+.scoreboard h3 { font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; text-align: center; }
+.score-row { display: flex; justify-content: space-between; padding: 2px 0; }
+.score-total { border-top: 1px solid var(--gold); margin-top: 6px; padding-top: 6px; font-weight: 700; font-size: 14px; text-align: center; }
+
+/* ── CHAMPION SCREEN ── */
+.champion-hero { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, var(--navy), var(--navy-lt)); color: white; border-radius: 16px; margin-bottom: 24px; }
+.champion-hero .trophy { font-size: 80px; animation: bounce 1s ease infinite alternate; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-8px); } }
+.champion-hero h1 { font-size: 16px; letter-spacing: 6px; color: var(--gold); margin: 12px 0; }
+.champion-name { font-size: 56px; font-weight: 900; color: var(--gold-lt); }
+.champion-tagline { font-size: 16px; opacity: 0.8; margin: 8px 0 20px; }
+
+.champ-scorecard { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+.champ-score-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 12px 16px; border-radius: 6px; text-align: center; min-width: 70px; }
+.champ-score-label { font-size: 9px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
+.champ-score-val { font-size: 22px; font-weight: 800; }
+
+/* ── WEALTH PROJECTION ── */
+.wealth-section { margin: 24px 0; }
+.wealth-section h2 { color: var(--navy); margin-bottom: 16px; font-size: 18px; }
+.wealth-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.wealth-table th { background: var(--navy); color: var(--gold); padding: 10px 12px; text-align: right; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+.wealth-table th:first-child { text-align: left; }
+.wealth-table th.focus { background: var(--gold); color: var(--navy); font-size: 13px; }
+.wealth-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border); font-family: 'Courier New', monospace; font-weight: 600; }
+.wealth-table td:first-child { text-align: left; font-weight: 700; color: var(--navy); }
+.wealth-table td.focus { background: #fff8e1; font-weight: 800; font-size: 15px; }
+.wealth-table .champ-row { background: #e8f5ec; }
+
+.wealth-chart { margin-top: 20px; height: 300px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+
+/* ── PLAYBACK ── */
+.playback-bar { display: flex; gap: 8px; align-items: center; justify-content: center; padding: 12px; background: var(--bg); border-radius: 6px; margin-top: 16px; }
+.playback-bar button { font-size: 11px; padding: 6px 12px; }
+
+/* ── MODAL ── */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
+.modal.show { display: flex; }
+.modal-content { background: white; border-radius: 12px; padding: 24px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; }
+.modal-close { float: right; font-size: 22px; cursor: pointer; color: var(--text3); }
+
+/* ── CONFETTI ── */
+.confetti-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 300; overflow: hidden; }
+.confetti-piece { position: absolute; top: -20px; width: 10px; height: 14px; opacity: 0.9; animation: confetti-fall 2.5s ease-in forwards; }
+@keyframes confetti-fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .setup-grid { grid-template-columns: 1fr; }
+  .bracket { flex-wrap: wrap; }
+  .champion-name { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- SCREEN 1: SETUP -->
+<!-- ================================================================ -->
+<section id="setup" class="screen active">
+  <header>
+    <h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1>
+    <p class="tagline">32 compounders. 5 rounds. One champion. Can you predict who the data will crown?</p>
+  </header>
+  <div class="container">
+    <div class="setup-grid">
+      <div>
+        <h2>🌱 Select Your 32 Compounders</h2>
+        <p style="color:var(--text3);margin-bottom:16px;font-size:13px">Click to select/deselect. Exactly 32 required. Companies are pre-scored using real financial data.</p>
+        <div id="companyGrid" class="company-grid"></div>
+      </div>
+      <div class="setup-sidebar">
+        <h3>🎯 Selection</h3>
+        <div id="counter" class="counter">0 / 32</div>
+        <div id="pickSection" class="pick-section" style="display:none">
+          <h3>🏆 Pre-Tournament Picks (before R1)</h3>
+          <p style="font-size:10px;color:var(--text3);margin-bottom:8px">Pick 2 predicted semi-finalists + 1 champion. Correct = 20 pts each (semi) / 50 pts (champion).</p>
+          <div id="semiPicks"></div>
+          <h3 style="margin-top:12px">👑 Champion Pick</h3>
+          <div id="champPick"></div>
+          <div style="margin-top:16px;text-align:center">
+            <button id="btnStart" class="btn btn-gold" disabled>▶ START TOURNAMENT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SCREEN 2: DATA CRUNCH + EDUCATIONAL INTERLUDE -->
+<!-- ================================================================ -->
+<section id="loading" class="screen">
+  <header><h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1></header>
+  <div class="container" style="text-align:center">
+    <h2>🔢 Preparing Your Tournament...</h2>
+    <p id="loadStatus" style="color:var(--text3)">Loading scores for your 32 selected companies...</p>
+    <div style="background:var(--bg);border-radius:8px;height:12px;margin:20px auto;max-width:400px;overflow:hidden">
+      <div id="loadBar" style="height:100%;width:0%;background:var(--gold);transition:width 0.3s"></div>
+    </div>
+    <div id="eduCarousel" style="max-width:600px;margin:20px auto;text-align:left;background:var(--bg);padding:20px;border-radius:8px;font-size:13px;line-height:1.6">
+      <h3 id="eduTitle" style="color:var(--navy)">📖 Loading...</h3>
+      <p id="eduBody"></p>
+      <p id="eduProgress" style="color:var(--text3);font-size:11px;margin-top:8px"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SCREEN 3: ROUND HEADER -->
+<!-- ================================================================ -->
+<section id="roundHeader" class="screen">
+  <header><h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1></header>
+  <div class="container">
+    <div class="round-header">
+      <div class="round-num" id="rhRoundNum">ROUND 1 OF 5</div>
+      <h2 id="rhTitle">QUALITY</h2>
+      <div class="round-quote" id="rhQuote">"A wonderful business at a fair price..."</div>
+      <p class="round-lesson" id="rhLesson"></p>
+      <div class="criteria-strip" id="rhCriteria"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <button class="btn btn-gold" onclick="kickOff()">⚽ KICK OFF</button>
+      <button class="btn btn-secondary" style="margin-left:12px" onclick="goBack()">◀ Back</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SCREEN 4: BRACKET -->
+<!-- ================================================================ -->
+<section id="bracketScreen" class="screen">
+  <header>
+    <h1>⚽ ROUND <span id="brRound">1</span> — <span id="brName">QUALITY</span></h1>
+    <div style="display:flex;gap:16px;align-items:center;justify-content:center;margin-top:8px">
+      <span id="brProgress" style="color:var(--gold);font-size:12px">0/16 matches played</span>
+      <div style="background:rgba(255,255,255,0.2);height:6px;width:200px;border-radius:3px;overflow:hidden">
+        <div id="brProgressBar" style="height:100%;width:0%;background:var(--gold);transition:width 0.3s"></div>
+      </div>
+    </div>
+  </header>
+  <div class="container wide">
+    <div class="criteria-strip" id="brCriteria" style="justify-content:center;margin-bottom:16px;flex-wrap:wrap"></div>
+    <div class="bracket-wrapper">
+      <div class="bracket" id="bracketTree"></div>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <button id="btnContinue" class="btn btn-gold" disabled onclick="advanceRound()">Continue to Next Round ▶</button>
+      <button class="btn btn-secondary" style="margin-left:12px" onclick="goBack()">◀ Back</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SCREEN 5: ROUND COMPLETE -->
+<!-- ================================================================ -->
+<section id="roundComplete" class="screen">
+  <header><h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1></header>
+  <div class="container" style="text-align:center">
+    <div style="font-size:60px">🏆</div>
+    <h2>Round <span id="rcRound">1</span> Complete!</h2>
+    <div style="display:flex;gap:24px;justify-content:center;margin:20px 0">
+      <div><h3 style="color:var(--win)">✅ Survivors</h3><div id="rcSurvivors" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center"></div></div>
+      <div><h3 style="color:var(--lose)">❌ Eliminated</h3><div id="rcEliminated" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;opacity:0.6"></div></div>
+    </div>
+    <div style="background:var(--bg);padding:20px;border-radius:8px;max-width:600px;margin:20px auto;text-align:left">
+      <h3>📖 Lesson Learned</h3>
+      <p id="rcLesson"></p>
+    </div>
+    <div style="margin-top:20px">
+      <button class="btn btn-gold" onclick="nextRound()">⚽ Continue</button>
+      <button class="btn btn-secondary" style="margin-left:12px" onclick="goBack()">◀ Review Round</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SCREEN 6: CHAMPION -->
+<!-- ================================================================ -->
+<section id="champion" class="screen">
+  <header><h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1></header>
+  <div class="container">
+    <div class="champion-hero">
+      <div class="trophy">🏆</div>
+      <h1>CHAMPION OF CHAMPIONS</h1>
+      <div class="champion-name" id="chName">—</div>
+      <div class="champion-tagline" id="chTagline">—</div>
+      <div class="champ-scorecard" id="chScorecard"></div>
+    </div>
+
+    <div class="wealth-section">
+      <h2>💰 Wealth Projection — What $10,000 Becomes</h2>
+      <table class="wealth-table" id="wealthTable"></table>
+      <div class="wealth-chart" id="wealthChart"></div>
+    </div>
+
+    <div style="background:var(--bg);padding:20px;border-radius:8px;margin:20px 0">
+      <h2>🎮 Your Performance</h2>
+      <div id="userScorecard" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"></div>
+      <div style="text-align:center;margin-top:16px;font-size:24px;font-weight:800" id="userRank"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="saveGame()">💾 Save Game</button>
+      <button class="btn btn-primary" id="btnExportPNG">📥 Export Winner Card</button>
+      <button class="btn btn-secondary" onclick="location.reload()">🔄 New Tournament</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- CONFETTI CONTAINER -->
+<!-- ================================================================ -->
+<div class="confetti-container" id="confetti" style="display:none"></div>
+
+<!-- ================================================================ -->
+<!-- FLOATING SCOREBOARD -->
+<!-- ================================================================ -->
+<div class="scoreboard" id="scoreboard" style="display:none">
+  <h3>🎮 Scoreboard</h3>
+  <div id="sbContent"></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- JAVASCRIPT -->
+<!-- ================================================================ -->
+<script>
+// ── CONSTANTS ──
+const ROUND_DEFS = [
+  { id:1, name:'QUALITY', title:'QUALITY', scoreKey:'R1_quality',
+    quote:'"A wonderful business at a fair price beats a fair business at a wonderful price." — Buffett',
+    lesson:'Quality filters out everything that cannot compound long-term. Winners here earn above their cost of capital, command pricing power, and generate real cash. Past winners on this criterion: MSFT (ROIC 35%+, Gross Margin 69%). Past failures: GE (financial engineering masked poor underlying ROIC — collapsed when exposed).',
+    postLesson:'A wonderful business earns above its cost of capital. Anything else is speculation disguised as investing.',
+    criteria:[
+      {name:'ROIC', weight:'40%', desc:'Return on Invested Capital — for every $100 invested, how much profit comes back?'},
+      {name:'Gross Margin', weight:'20%', desc:'After making the product, how much is left? 70%+ = pricing power.'},
+      {name:'Op Margin', weight:'15%', desc:'After ALL costs, what remains? 30%+ = world-class efficiency.'},
+      {name:'FCF Growth', weight:'15%', desc:'Is cash generation accelerating? Cash > accounting earnings.'},
+      {name:'ROE', weight:'10%', desc:'How efficiently does management use shareholder money? 20%+ = excellent.'}
+    ]
+  },
+  { id:2, name:'GROWTH', title:'GROWTH', scoreKey:'R2_growth',
+    quote:'"The best business to own is one that over time will keep putting more money in your pocket." — Munger',
+    lesson:'Growth without quality is a lottery ticket. This round tests whether survivors can grow earnings at rates that beat the market. Past winners: NVDA (EPS CAGR 50%+ during AI boom). Past failures: IBM (buybacks inflated EPS, no organic revenue growth — stalled for a decade).',
+    postLesson:'Real growth = earnings + cash, not revenue. Growth without cash is vanity; cash without growth is stagnation.',
+    criteria:[
+      {name:'5yr Hist EPS CAGR', weight:'25%', desc:'How fast have earnings actually grown over 5 years? Real numbers, not promises.'},
+      {name:'5yr Fwd EPS CAGR', weight:'25%', desc:'What do analysts forecast? Forward-looking consensus estimate.'},
+      {name:'FCF Growth Rate', weight:'25%', desc:'Is cash growing as fast as earnings? Cash is truth; earnings are opinion.'},
+      {name:'Rev Consistency', weight:'15%', desc:'Did revenue grow every year? Consistency = predictability.'},
+      {name:'Reinvestment Rate', weight:'10%', desc:'How much earnings is reinvested? 50%+ = management believes in the business.'}
+    ]
+  },
+  { id:3, name:'DURABILITY', title:'DURABILITY', scoreKey:'R3_durability',
+    quote:'"Time is the friend of the wonderful business." — Buffett',
+    lesson:'THE most important round. Many companies grow fast for 5 years, then stall. Durability tests whether the business can sustain its moat for 10+ years. The Law of Large Numbers: a company growing at 20% for 30 years becomes larger than the US economy. Only businesses with network effects, Act II/III potential, and structural tailwinds can defy this gravity. Past winners: AMZN (Books→Everything→AWS→Ads — three Acts). Past failures: BlackBerry (dominant in 2008, irrelevant by 2013 — one product, no Act II).',
+    postLesson:'If competitors can catch up, the terminal multiple collapses — and so does your return.',
+    criteria:[
+      {name:'Terminal P/E', weight:'30%', desc:'What multiple can this company command in 10 years? 30x+ = exceptional moat.'},
+      {name:'Peer-Adj P/E', weight:'20%', desc:'Compared to rivals, is the premium justified by superior quality?'},
+      {name:'Network Effect', weight:'20%', desc:'Does it get stronger as more people use it? 5/5 = Meta, Google.'},
+      {name:'Act II Potential', weight:'20%', desc:'Can it extend growth into adjacent markets? 5/5 = MSFT/AMZN-level.'},
+      {name:'Industry Secularity', weight:'10%', desc:'Structural growth or cyclical? 5/5 = AI chips. 1/5 = commodities.'}
+    ]
+  },
+  { id:4, name:'10YR POTENTIAL', title:'10-YEAR POTENTIAL', scoreKey:'R4_10yr_potential',
+    quote:'"Buy businesses, not stocks." — Munger',
+    lesson:'What does this business look like in 2036? This round captures the REAL forward return, not just earnings growth. The PE-Adjusted CAGR factors in CURRENT valuation — a company trading at 80x P/E that compresses to 25x delivers much lower returns than a steady grower at 20x P/E. Past winners: ASML (structural monopoly in EUV lithography, 10+ year visibility). Past failures: GoPro (one product, no Act II, industry commoditized).',
+    postLesson:'This round separates the temporarily lucky from the structurally inevitable.',
+    criteria:[
+      {name:'PE-Adj CAGR', weight:'30%', desc:'REAL forward return: EPS growth + (Terminal PE / Current PE)^(1/10) − 1. P/E compression is accounted for.'},
+      {name:'Hist Durability', weight:'20%', desc:'How long has this company sustained >10% EPS growth? Longevity = reliability.'},
+      {name:'Industry Growth', weight:'20%', desc:'Is the industry growing? Rising tide lifts all boats. 15%+ = strong tailwind.'},
+      {name:'Industry Secularity', weight:'15%', desc:'Structural or cyclical? Secular = sustainable growth. Cyclical = mean-reverts.'},
+      {name:'Act II Fitness', weight:'15%', desc:'How well does the next growth phase align with current strengths?'}
+    ]
+  },
+  { id:5, name:'COMBO', title:'COMBO', scoreKey:'R5_combo',
+    quote:'"Price is what you pay; value is what you get." — Buffett',
+    lesson:'The final test. A wonderful business at a terrible price is still a bad investment. This round blends quality, growth, durability, and current valuation — with valuation weighted heaviest (30%) because entry price is the #1 determinant of long-term returns. Past winners: AAPL in 2016 (quality + growth + durability at a reasonable valuation). Past failures: CSCO in 2000 (great business, priced for perfection — never recovered to its peak).',
+    postLesson:'Cheap wonderful businesses beat expensive ones. This round decides who to hold for the long term.',
+    criteria:[
+      {name:'Quality', weight:'20%', desc:'Carry-over from Round 1 — the fundamental business quality.'},
+      {name:'Growth', weight:'15%', desc:'Carry-over from Round 2 — the growth trajectory.'},
+      {name:'Valuation', weight:'30%', desc:'Most important: is it cheap or expensive right now? Dual check: analyst target vs PE-math fair value.'},
+      {name:'Durability', weight:'20%', desc:'Carry-over from Round 3 — terminal staying power.'},
+      {name:'Moat', weight:'15%', desc:'Overall competitive advantage — the wider the moat, the longer the compounding.'}
+    ]
+  }
+];
+
+// ── STATE ──
+let STATE = {
+  allScores: null,       // loaded universe_55_scores.json
+  narrative: null,       // loaded narrative.json
+  profiles: null,        // loaded company_profiles.json
+  selectedTickers: [],   // user-selected 32 tickers
+  semiPicks: [],         // 2 tickers picked for semi-finals
+  champPick: null,       // ticker picked for champion
+  tournament: null,      // {rounds: [[matches]], currentRound, started_at}
+  history: [],           // for playback: snapshots of tournament state per round
+  scores: null,          // filtered scores for selected tickers
+  userScore: {matches:0, semiFinals:0, champion:0, reading:0, total:0},
+  lessonsRead: new Set(), // which lesson IDs user has read (for points)
+  footballMode: true,    // football broadcast aesthetic
+};
+
+function getProfile(ticker) {
+  const p = STATE.profiles?.[ticker] || {};
+  return {
+    name: p.name || ticker,
+    sector: p.sector || 'Unknown',
+    desc: p.desc || 'No description available.'
+  };
+}
+
+// ── HELPERS ──
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+function showScreen(id) { $$('.screen').forEach(s => s.classList.remove('active')); $('#'+id).classList.add('active'); window.scrollTo(0,0); }
+
+// ── PHASE 0: LOAD UNIVERSE SCORES ──
+async function loadUniverse() {
+  try {
+    const [r, nr, pr] = await Promise.all([
+      fetch('data/universe_55_scores.json'),
+      fetch('data/narrative.json'),
+      fetch('data/company_profiles.json')
+    ]);
+    if (r.ok) { STATE.allScores = await r.json(); }
+    if (nr.ok) { STATE.narrative = await nr.json(); }
+    if (pr.ok) { STATE.profiles = await pr.json(); }
+    renderCompanyGrid();
+  } catch(e) { alert('Could not load data files. Run: python garp_score_v4_1.py'); }
+}
+
+function renderCompanyGrid() {
+  const grid = $('#companyGrid');
+  const tickers = STATE.allScores.tickers || [];
+  const bySector = {};
+  tickers.forEach(t => {
+    const p = getProfile(t.ticker);
+    const sec = p.sector || 'Other';
+    if (!bySector[sec]) bySector[sec] = [];
+    bySector[sec].push(t);
+  });
+
+  let html = '';
+  for (const [sec, companies] of Object.entries(bySector)) {
+    html += `<h3 style="grid-column:1/-1;margin:16px 0 8px;color:var(--navy);font-size:14px;border-bottom:2px solid var(--gold);padding-bottom:4px">${sec}</h3>`;
+    companies.forEach(t => {
+      const sel = STATE.selectedTickers.includes(t.ticker);
+      const p = getProfile(t.ticker);
+      html += `<div class="company-tile${sel?' checked':''}" data-ticker="${t.ticker}" onclick="toggleTicker('${t.ticker}')">
+        <div class="tile-ticker">${t.ticker}</div>
+        <div class="tile-name">${p.name}</div>
+        <div class="tile-sector">${p.sector}</div>
+      </div>`;
+    });
+  }
+  grid.innerHTML = html;
+  updateCounter();
+}
+
+function toggleTicker(tkr) {
+  if (STATE.selectedTickers.includes(tkr)) {
+    STATE.selectedTickers = STATE.selectedTickers.filter(t => t !== tkr);
+  } else if (STATE.selectedTickers.length < 32) {
+    STATE.selectedTickers.push(tkr);
+  }
+  renderCompanyGrid();
+}
+
+function updateCounter() {
+  const c = $('#counter');
+  const n = STATE.selectedTickers.length;
+  c.textContent = `${n} / 32`;
+  c.className = 'counter' + (n === 32 ? ' ready' : '') + (n > 32 ? ' over' : '');
+  const ready = n === 32;
+  if (ready) {
+    $('#pickSection').style.display = 'block';
+    renderPicks();
+  } else {
+    $('#pickSection').style.display = 'none';
+  }
+}
+
+function renderPicks() {
+  // Semi-finalist picks
+  let html = '';
+  STATE.selectedTickers.forEach(tkr => {
+    const chosen = STATE.semiPicks.includes(tkr);
+    html += `<div class="pick-team${chosen?' chosen':''}" onclick="pickSemi('${tkr}')">${tkr}</div>`;
+  });
+  $('#semiPicks').innerHTML = html + `<p style="font-size:10px;color:var(--text3)">Selected: ${STATE.semiPicks.length}/2</p>`;
+
+  // Champion pick
+  html = '';
+  STATE.selectedTickers.forEach(tkr => {
+    const chosen = STATE.champPick === tkr;
+    html += `<div class="pick-team${chosen?' chosen':''}" onclick="pickChamp('${tkr}')">${tkr}</div>`;
+  });
+  $('#champPick').innerHTML = html;
+
+  $('#btnStart').disabled = !(STATE.semiPicks.length === 2 && STATE.champPick);
+}
+
+function pickSemi(tkr) {
+  if (STATE.semiPicks.includes(tkr)) {
+    STATE.semiPicks = STATE.semiPicks.filter(t => t !== tkr);
+  } else if (STATE.semiPicks.length < 2) {
+    STATE.semiPicks.push(tkr);
+  }
+  renderPicks();
+}
+
+function pickChamp(tkr) {
+  STATE.champPick = STATE.champPick === tkr ? null : tkr;
+  renderPicks();
+}
+
+// ── PHASE 1: START TOURNAMENT ──
+function startTournament() {
+  STATE.scores = {
+    tickers: STATE.allScores.tickers.filter(t => STATE.selectedTickers.includes(t.ticker))
+  };
+  STATE.tournament = { rounds: [], currentRound: 0, started_at: new Date().toISOString() };
+  STATE.history = [];
+  STATE.currentRound = -1;
+  STATE.userScore = {matches:0, semiFinals:0, champion:0, reading:0, total:0};
+  STATE.lessonsRead = new Set();
+
+  buildRound(0);
+  updateScoreboard();
+  $('#scoreboard').style.display = 'block';
+  
+  // Show loading screen with educational carousel, then auto-advance to R1
+  showLoadingScreen();
+}
+
+// ── LOADING / EDUCATIONAL SCREEN ──
+let eduInterval = null;
+let eduIndex = 0;
+
+function showLoadingScreen() {
+  showScreen('loading');
+  const lessons = STATE.narrative?.pre_tournament || [];
+  if (lessons.length === 0) {
+    // Skip to R1 if no narrative
+    showRoundHeader(0);
+    return;
+  }
+  
+  eduIndex = 0;
+  showEduLesson(lessons, 0);
+  
+  // Auto-advance through lessons
+  const totalTime = Math.min(lessons.length * 25, 150); // ~25 sec per lesson, max 2.5 min
+  const interval = Math.floor((totalTime * 1000) / lessons.length);
+  
+  $('#loadBar').style.width = '0%';
+  
+  eduInterval = setInterval(() => {
+    eduIndex++;
+    const progress = Math.min(100, (eduIndex / lessons.length) * 100);
+    $('#loadBar').style.width = progress + '%';
+    
+    if (eduIndex >= lessons.length) {
+      clearInterval(eduInterval);
+      $('#loadStatus').innerHTML = '✅ All scores ready! Starting Round 1...';
+      setTimeout(() => showRoundHeader(0), 800);
+      return;
+    }
+    showEduLesson(lessons, eduIndex);
+  }, interval);
+  
+  // Allow skipping
+  $('#loadStatus').innerHTML = 'Computing scores for your 32 selected companies... <button class="btn btn-secondary" style="font-size:10px;padding:4px 10px;margin-left:8px" onclick="skipEducation()">Skip ▸</button>';
+}
+
+function showEduLesson(lessons, idx) {
+  const l = lessons[idx];
+  if (!l) return;
+  $('#eduTitle').textContent = `📖 Lesson ${idx+1} of ${lessons.length}: ${l.title}`;
+  $('#eduBody').innerHTML = l.body;
+  $('#eduProgress').innerHTML = `<strong>Reading rewards:</strong> ${STATE.lessonsRead.size}/${lessons.length} lessons completed · Each lesson = +3 pts · <button class="btn btn-secondary" style="font-size:9px;padding:2px 6px" onclick="markLessonRead(${l.id})">Mark as Read ✓</button>`;
+  
+  // Mark as read after 5 seconds if user doesn't click
+  setTimeout(() => {
+    if (!STATE.lessonsRead.has(l.id)) {
+      markLessonRead(l.id);
+    }
+  }, 5000);
+}
+
+function markLessonRead(lessonId) {
+  if (STATE.lessonsRead.has(lessonId)) return;
+  STATE.lessonsRead.add(lessonId);
+  STATE.userScore.reading = STATE.lessonsRead.size * 3;
+  updateScoreboard();
+}
+
+function skipEducation() {
+  if (eduInterval) clearInterval(eduInterval);
+  $('#loadBar').style.width = '100%';
+  $('#loadStatus').textContent = '✅ Starting Round 1...';
+  // Mark any unread lessons for the impatient
+  const lessons = STATE.narrative?.pre_tournament || [];
+  setTimeout(() => showRoundHeader(0), 500);
+}
+
+function buildRound(roundIdx) {
+  const rd = ROUND_DEFS[roundIdx];
+  const scoreMap = new Map(STATE.scores.tickers.map(t => [t.ticker, t]));
+
+  let competitors;
+  if (roundIdx === 0) {
+    // R1: all 32, seed by R1 score
+    competitors = STATE.selectedTickers
+      .map(t => scoreMap.get(t)).filter(Boolean)
+      .sort((a,b) => (b.scores[rd.scoreKey]?.score||0) - (a.scores[rd.scoreKey]?.score||0));
+  } else {
+    // Subsequent rounds: survivors from previous round, re-seeded by current round's score
+    const prevMatches = STATE.tournament.rounds[roundIdx - 1];
+    const survivors = prevMatches.map(m => m.winner).filter(Boolean);
+    competitors = survivors
+      .map(t => scoreMap.get(t)).filter(Boolean)
+      .sort((a,b) => (b.scores[rd.scoreKey]?.score||0) - (a.scores[rd.scoreKey]?.score||0));
+  }
+
+  // Pair #1 vs #N, #2 vs #N-1, etc.
+  const matches = [];
+  const n = competitors.length;
+  for (let i = 0; i < n / 2; i++) {
+    const a = competitors[i];
+    const b = competitors[n - 1 - i];
+    if (!a || !b) {
+      if (a) matches.push({pair:[a.ticker,null], winner:a.ticker, bye:true});
+      continue;
+    }
+    matches.push({pair:[a.ticker, b.ticker], winner:null, bye:false, aScore:a.scores[rd.scoreKey]?.score||0, bScore:b.scores[rd.scoreKey]?.score||0});
+  }
+  STATE.tournament.rounds[roundIdx] = matches;
+  return matches;
+}
+
+// ── PHASE 2: ROUND HEADER ──
+function showRoundHeader(roundIdx) {
+  STATE.currentRound = roundIdx;
+  const rd = ROUND_DEFS[roundIdx];
+  $('#rhRoundNum').textContent = `ROUND ${roundIdx+1} OF 5`;
+  $('#rhTitle').textContent = rd.title;
+  $('#rhQuote').textContent = rd.quote;
+  $('#rhLesson').textContent = rd.lesson;
+  $('#rhCriteria').innerHTML = rd.criteria.map(c =>
+    `<div class="criteria-chip"><strong>${c.name}</strong> ${c.weight} — ${c.desc}</div>`
+  ).join('');
+  
+  // Add round-specific past winner/failure story
+  const story = STATE.narrative?.round_stories?.[roundIdx];
+  if (story) {
+    const extra = document.createElement('div');
+    extra.style.cssText = 'margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left';
+    extra.innerHTML = `
+      <div style="background:rgba(40,167,69,0.15);padding:16px;border-radius:8px;border-left:4px solid var(--win)">
+        <h4 style="color:var(--win);margin-bottom:8px;font-size:13px">✅ Past Winner on ${story.name}</h4>
+        <strong style="font-size:12px">${story.winner.company}</strong>
+        <p style="font-size:11px;line-height:1.6;margin-top:4px;color:rgba(255,255,255,0.9)">${story.winner.story}</p>
+        <div style="font-size:9px;color:var(--gold);margin-top:8px;font-family:monospace">${story.winner.metrics}</div>
+      </div>
+      <div style="background:rgba(201,48,44,0.15);padding:16px;border-radius:8px;border-left:4px solid var(--lose)">
+        <h4 style="color:var(--lose);margin-bottom:8px;font-size:13px">❌ Past Failure on ${story.name}</h4>
+        <strong style="font-size:12px">${story.failure.company}</strong>
+        <p style="font-size:11px;line-height:1.6;margin-top:4px;color:rgba(255,255,255,0.9)">${story.failure.story}</p>
+        <div style="font-size:9px;color:var(--gold);margin-top:8px;font-family:monospace">${story.failure.metrics}</div>
+      </div>
+    `;
+    $('#rhLesson').after(extra);
+  }
+  
+  showScreen('roundHeader');
+}
+
+function kickOff() {
+  const rd = ROUND_DEFS[STATE.currentRound];
+  const matches = STATE.tournament.rounds[STATE.currentRound];
+  renderBracket(STATE.currentRound, matches);
+  $('#brRound').textContent = STATE.currentRound + 1;
+  $('#brName').textContent = rd.name;
+  $('#brCriteria').innerHTML = rd.criteria.map(c =>
+    `<div class="criteria-chip" style="background:var(--navy);color:white"><strong>${c.name}</strong> ${c.weight}</div>`
+  ).join('');
+  updateBracketProgress();
+  showScreen('bracketScreen');
+  playWhistle();
+}
+
+// ── PHASE 3: RENDER BRACKET ──
+function renderBracket(roundIdx, matches) {
+  const container = $('#bracketTree');
+  const rd = ROUND_DEFS[roundIdx];
+  const scoreMap = new Map(STATE.scores.tickers.map(t => [t.ticker, t]));
+
+  let html = '<div class="bracket-col r' + (roundIdx+1) + '">';
+  html += `<div class="bracket-label">ROUND ${roundIdx+1}</div>`;
+
+  matches.forEach((m, i) => {
+    if (m.bye) {
+      const p = getProfile(m.winner);
+      html += `<div class="match-slot"><div class="match-card bye">BYE — ${p.name} (${m.winner}) advances</div></div>`;
+      return;
+    }
+
+    const a = scoreMap.get(m.pair[0]);
+    const b = scoreMap.get(m.pair[1]);
+    const aScore = a?.scores[rd.scoreKey]?.score || 0;
+    const bScore = b?.scores[rd.scoreKey]?.score || 0;
+    const decided = !!m.winner;
+    const pa = getProfile(m.pair[0]);
+    const pb = getProfile(m.pair[1]);
+
+    if (!decided) {
+      // ── PRE-PREDICTION: show names + descriptions, HIDE scores ──
+      html += `<div class="match-slot"><div class="match-card football-card" data-match="${i}" data-round="${roundIdx}">
+        <div class="match-header-football">
+          <span class="match-num">MATCH ${i+1}</span>
+          <span class="criterion-badge">${rd.name}</span>
+        </div>
+        <div class="football-pitch-card">
+          <div class="team-side home" onclick="predictWinner(${roundIdx},${i},'${m.pair[0]}')">
+            <div class="team-name-big">${pa.name}</div>
+            <div class="team-sector">${pa.sector}</div>
+            <div class="team-desc-small">${pa.desc.substring(0,80)}...</div>
+            <div class="team-score-hidden">???</div>
+          </div>
+          <div class="vs-circle">VS</div>
+          <div class="team-side away" onclick="predictWinner(${roundIdx},${i},'${m.pair[1]}')">
+            <div class="team-name-big">${pb.name}</div>
+            <div class="team-sector">${pb.sector}</div>
+            <div class="team-desc-small">${pb.desc.substring(0,80)}...</div>
+            <div class="team-score-hidden">???</div>
+          </div>
+        </div>
+        <div class="pick-prompt">👆 Click a team to make your prediction</div>
+      </div></div>`;
+    } else {
+      // ── POST-PREDICTION: reveal ALL scores ──
+      const wScore = m.winner === m.pair[0] ? aScore : bScore;
+      const lScore = m.winner === m.pair[0] ? bScore : aScore;
+      const wTkr = m.winner;
+      const lTkr = m.pair.find(t => t !== m.winner);
+      const pw = getProfile(wTkr);
+      const pl = getProfile(lTkr);
+      const wData = scoreMap.get(wTkr);
+      const lData = scoreMap.get(lTkr);
+      const wBreakdown = wData?.scores[rd.scoreKey]?.breakdown || {};
+      const lBreakdown = lData?.scores[rd.scoreKey]?.breakdown || {};
+      
+      html += `<div class="match-slot"><div class="match-card football-card decided" data-match="${i}" data-round="${roundIdx}">
+        <div class="match-header-football">
+          <span class="match-num">MATCH ${i+1} — FINAL</span>
+          <span class="criterion-badge">${rd.name}</span>
+        </div>
+        <div class="football-result">
+          <div class="result-team winner-side">
+            <div class="result-name">🏆 ${pw.name}</div>
+            <div class="result-score-big">${wScore.toFixed(1)}</div>
+          </div>
+          <div class="result-vs">defeats</div>
+          <div class="result-team loser-side">
+            <div class="result-name">${pl.name}</div>
+            <div class="result-score-big loser">${lScore.toFixed(1)}</div>
+          </div>
+        </div>
+        <div class="metrics-reveal">
+          <table class="metric-table-full">
+            <tr><th>Metric</th><th>Weight</th><th class="winner-col">${pw.name.split(' ')[0]}</th><th>${pl.name.split(' ')[0]}</th></tr>`;
+      
+      for (const [key, bd] of Object.entries(wBreakdown)) {
+        const lbd = lBreakdown[key] || {};
+        const wv = bd.value || '—';
+        const lv = lbd.value || '—';
+        const ws = bd.score || 0;
+        const ls = lbd.score || 0;
+        const wt = bd.weight ? (bd.weight*100).toFixed(0)+'%' : '';
+        html += `<tr>
+          <td class="metric-name">${key.replace(/_/g,' ')}</td>
+          <td class="metric-weight">${wt}</td>
+          <td class="val-high">${wv} <span style="font-size:9px;color:var(--win)">→ ${ws.toFixed(0)}</span></td>
+          <td class="val-low">${lv} <span style="font-size:9px;color:var(--lose)">→ ${ls.toFixed(0)}</span></td>
+        </tr>`;
+      }
+      html += `</table></div>
+        <div class="verdict correct">✅ ${pw.name} advances. Composite: ${wScore.toFixed(1)} vs ${lScore.toFixed(1)}. ${m.userCorrect ? '🎯 You predicted correctly! +3 pts' : '❌ Your prediction was wrong.'}</div>
+      </div></div>`;
+    }
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function predictWinner(roundIdx, matchIdx, predicted) {
+  const m = STATE.tournament.rounds[roundIdx][matchIdx];
+  if (m.winner) return; // already decided
+
+  const rd = ROUND_DEFS[roundIdx];
+  const scoreMap = new Map(STATE.scores.tickers.map(t => [t.ticker, t]));
+  const a = scoreMap.get(m.pair[0]);
+  const b = scoreMap.get(m.pair[1]);
+  const aScore = a?.scores[rd.scoreKey]?.score || 0;
+  const bScore = b?.scores[rd.scoreKey]?.score || 0;
+
+  // AI determines winner: higher composite score — coin-flip on exact tie
+  const actualWinner = aScore > bScore ? m.pair[0] : aScore < bScore ? m.pair[1] : (Math.random() < 0.5 ? m.pair[0] : m.pair[1]);
+  const userCorrect = predicted === actualWinner;
+
+  // Record
+  m.winner = actualWinner;
+  m.userPredicted = predicted;
+  m.userCorrect = userCorrect;
+
+  if (userCorrect) {
+    STATE.userScore.matches += 3;
+  }
+
+  // Play tone
+  playTone(userCorrect ? 880 : 220, 0.15);
+
+  // Re-render bracket
+  renderBracket(roundIdx, STATE.tournament.rounds[roundIdx]);
+  updateBracketProgress();
+  updateScoreboard();
+
+  // Check if round complete
+  const allDecided = STATE.tournament.rounds[roundIdx].every(m => m.winner);
+  if (allDecided) {
+    $('#btnContinue').disabled = false;
+    setTimeout(() => showRoundComplete(roundIdx), 600);
+  }
+}
+
+function updateBracketProgress() {
+  const rd = STATE.currentRound;
+  const matches = STATE.tournament.rounds[rd] || [];
+  const decided = matches.filter(m => m.winner).length;
+  const total = matches.filter(m => !m.bye).length;
+  $('#brProgress').textContent = `${decided}/${total} matches played`;
+  $('#brProgressBar').style.width = `${total>0?(decided/total)*100:0}%`;
+}
+
+// ── ROUND COMPLETE ──
+function showRoundComplete(roundIdx) {
+  const rd = ROUND_DEFS[roundIdx];
+  const matches = STATE.tournament.rounds[roundIdx];
+  const survivors = matches.map(m => m.winner).filter(Boolean);
+  const eliminated = [];
+  matches.forEach(m => {
+    if (m.bye) return;
+    m.pair.forEach(t => { if (t && t !== m.winner) eliminated.push(t); });
+  });
+
+  // Check semi-finalist picks
+  if (roundIdx >= 2) { // After R3 (quarterfinals → semi-finalists determined at R4 start)
+    // Semi-finalists are the survivors from R3
+  }
+  if (roundIdx === 3) { // After R4 (semi-finals), top 2 are semi-finalists
+    survivors.forEach(tkr => {
+      if (STATE.semiPicks.includes(tkr) && !STATE._semiScored?.includes(tkr)) {
+        STATE.userScore.semiFinals += 20;
+        if (!STATE._semiScored) STATE._semiScored = [];
+        STATE._semiScored.push(tkr);
+      }
+    });
+  }
+
+  $('#rcRound').textContent = roundIdx + 1;
+  $('#rcSurvivors').innerHTML = survivors.map(t => `<span style="background:var(--win);color:white;padding:4px 10px;border-radius:4px;font-weight:700;font-size:12px">${t}</span>`).join('');
+  $('#rcEliminated').innerHTML = eliminated.map(t => `<span style="background:var(--lose);color:white;padding:4px 10px;border-radius:4px;font-size:11px">${t}</span>`).join('');
+  $('#rcLesson').textContent = rd.postLesson;
+  showScreen('roundComplete');
+  updateScoreboard();
+
+  if (roundIdx >= 2) fireConfetti();
+}
+
+function advanceRound() {
+  const next = STATE.currentRound + 1;
+  if (next >= 5) {
+    showChampion();
+    return;
+  }
+  STATE.history.push(JSON.parse(JSON.stringify(STATE.tournament)));
+  buildRound(next);
+  showRoundHeader(next);
+}
+
+function nextRound() {
+  STATE.history.push(JSON.parse(JSON.stringify(STATE.tournament)));
+  const next = STATE.currentRound + 1;
+  if (next >= 5) { showChampion(); return; }
+  buildRound(next);
+  showRoundHeader(next);
+}
+
+function goBack() {
+  if (STATE.history.length > 0) {
+    STATE.tournament = STATE.history.pop();
+    STATE.currentRound = Math.max(0, STATE.currentRound - 1);
+    const matches = STATE.tournament.rounds[STATE.currentRound];
+    renderBracket(STATE.currentRound, matches);
+    updateBracketProgress();
+    showScreen('bracketScreen');
+  }
+}
+
+// ── CHAMPION ──
+function showChampion() {
+  const allMatches = STATE.tournament.rounds[4];
+  const champion = allMatches[0]?.winner;
+  if (!champion) return;
+
+  // Check champion pick
+  if (STATE.champPick === champion) {
+    STATE.userScore.champion += 50;
+  }
+
+  const champData = STATE.scores.tickers.find(t => t.ticker === champion);
+  const s = champData?.scores || {};
+
+  $('#chName').textContent = champion;
+  $('#chTagline').textContent = champData?.name || '';
+
+  // Scorecard
+  let scHtml = '';
+  ['R1_quality','R2_growth','R3_durability','R4_10yr_potential','R5_combo'].forEach((k,i) => {
+    const score = s[k]?.score?.toFixed(1) || '—';
+    scHtml += `<div class="champ-score-item"><div class="champ-score-label">R${i+1} ${ROUND_DEFS[i].name}</div><div class="champ-score-val">${score}</div></div>`;
+  });
+  $('#chScorecard').innerHTML = scHtml;
+
+  // Wealth projection
+  renderWealthTable(champion, s);
+  renderUserScorecard();
+
+  showScreen('champion');
+  $('#scoreboard').style.display = 'none';
+  updateScoreboard();
+
+  // Celebration
+  setTimeout(() => { playGoalHorn(); fireConfetti(); }, 500);
+
+  // End-game educational messages
+  const endGame = STATE.narrative?.end_game;
+  if (endGame) {
+    const egDiv = document.createElement('div');
+    egDiv.style.cssText = 'background:linear-gradient(135deg,var(--navy),var(--navy-lt));color:white;padding:24px;border-radius:12px;margin-top:24px;text-align:left;line-height:1.7;font-size:13px';
+    egDiv.innerHTML = `
+      <h3 style="color:var(--gold);margin-bottom:12px">📖 Key Takeaways</h3>
+      <p style="margin-bottom:12px">${endGame.basket_message}</p>
+      <p style="margin-bottom:12px">${endGame.index_beat_message}</p>
+      <p style="font-style:italic;color:var(--gold);margin-top:16px">${endGame.final_quote}</p>
+    `;
+    $('#chScorecard').after(egDiv);
+  }
+}
+
+function renderWealthTable(champion, scores) {
+  // Get champion's PE-Adjusted CAGR from R4
+  const r4 = scores['R4_10yr_potential'];
+  const peDetail = r4?.breakdown?.pe_adjusted_cagr?.value || 12; // fallback 12%
+  const champCAGR = peDetail / 100;
+
+  const indices = [
+    {name:'🏆 '+champion, cagr:champCAGR, cls:'champ-row'},
+    {name:'📈 S&P 500', cagr:0.105, cls:''},
+    {name:'📈 Nasdaq 100', cagr:0.132, cls:''},
+    {name:'📈 SMH (Semis)', cagr:0.148, cls:''}
+  ];
+
+  let html = `<tr><th>Investment</th><th class="focus">🔑 Year 10</th><th>Year 20</th><th>Year 30</th><th>Year 40</th></tr>`;
+  indices.forEach(idx => {
+    const y10 = (10000 * Math.pow(1+idx.cagr, 10)).toLocaleString('en-US', {maximumFractionDigits:0});
+    const y20 = (10000 * Math.pow(1+idx.cagr, 20)).toLocaleString('en-US', {maximumFractionDigits:0});
+    const y30 = (10000 * Math.pow(1+idx.cagr, 30)).toLocaleString('en-US', {maximumFractionDigits:0});
+    const y40 = (10000 * Math.pow(1+idx.cagr, 40)).toLocaleString('en-US', {maximumFractionDigits:0});
+    html += `<tr class="${idx.cls}">
+      <td>${idx.name} <span style="font-size:10px;color:var(--text3)">(${(idx.cagr*100).toFixed(1)}% CAGR)</span></td>
+      <td class="focus">$${y10}</td><td>$${y20}</td><td>$${y30}</td><td>$${y40}</td>
+    </tr>`;
+  });
+  $('#wealthTable').innerHTML = html;
+}
+
+function renderUserScorecard() {
+  const sc = STATE.userScore;
+  sc.total = sc.matches + sc.semiFinals + sc.champion + sc.reading;
+  let rank;
+  if (sc.total >= 191) rank = '⭐⭐⭐⭐⭐ Oracle of Omaha';
+  else if (sc.total >= 151) rank = '⭐⭐⭐⭐ Buffett Apprentice';
+  else if (sc.total >= 101) rank = '⭐⭐⭐ Fund Manager';
+  else if (sc.total >= 51) rank = '⭐⭐ Junior Investor';
+  else rank = '⭐ Rookie Analyst';
+
+  $('#userScorecard').innerHTML = `
+    <div><strong>Match Predictions:</strong></div><div>${sc.matches} pts</div>
+    <div><strong>Semi-finalist Picks:</strong></div><div>${sc.semiFinals} / 40 pts</div>
+    <div><strong>Champion Pick:</strong></div><div>${sc.champion} / 50 pts</div>
+    <div><strong>Reading Rewards:</strong></div><div>${sc.reading} / 21 pts</div>
+    <div style="grid-column:1/-1;border-top:1px solid var(--border);margin-top:4px;padding-top:4px"><strong>TOTAL:</strong></div>
+    <div style="font-weight:800;font-size:18px">${sc.total} / 204 pts</div>
+  `;
+  $('#userRank').textContent = rank;
+}
+
+// ── SCOREBOARD ──
+function updateScoreboard() {
+  const sc = STATE.userScore;
+  const matches = STATE.tournament?.rounds?.flatMap(r => r).filter(m => m.winner && !m.bye).length || 0;
+  const totalMatches = STATE.tournament?.rounds?.flatMap(r => r).filter(m => !m.bye).length || 0;
+  const correct = STATE.tournament?.rounds?.flatMap(r => r).filter(m => m.userCorrect).length || 0;
+
+  $('#sbContent').innerHTML = `
+    <div class="score-row"><span>Matches:</span><span>${correct}/${matches||0}</span></div>
+    <div class="score-row"><span>Semi Picks:</span><span>${sc.semiFinals/20}/2</span></div>
+    <div class="score-row"><span>Champ Pick:</span><span>${sc.champion?50:0}/50</span></div>
+    <div class="score-row"><span>Reading:</span><span>${sc.reading}</span></div>
+    <div class="score-total">${sc.matches+sc.semiFinals+sc.champion+sc.reading} pts</div>
+  `;
+}
+
+// ── SOUNDS ──
+let audioCtx = null;
+function getAudio() { if (!audioCtx) { try { audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } catch(e) {} } return audioCtx; }
+function playTone(freq, dur, type='sine', vol=0.1) {
+  const ctx = getAudio(); if (!ctx) return;
+  const o = ctx.createOscillator(); const g = ctx.createGain();
+  o.type=type; o.frequency.value=freq;
+  g.gain.setValueAtTime(vol, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+dur);
+  o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+dur);
+}
+function playWhistle() { playTone(880,0.15,'square',0.08); setTimeout(()=>playTone(1320,0.2,'square',0.08),150); }
+function playGoalHorn() {
+  [440,554,659].forEach((f,i)=>{setTimeout(()=>{const ctx=getAudio();if(!ctx)return;const o=ctx.createOscillator();const g=ctx.createGain();o.type='sawtooth';o.frequency.value=f;g.gain.setValueAtTime(0.15,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);o.connect(g).connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.4);},i*200);});
+}
+
+// ── CONFETTI ──
+function fireConfetti() {
+  const container = $('#confetti');
+  container.style.display = 'block'; container.innerHTML = '';
+  const colors = ['#C9A35A','#28a745','#1e7e34','#D4B978','#ffffff','#ffc107'];
+  for (let i=0;i<80;i++) {
+    const p = document.createElement('div'); p.className='confetti-piece';
+    p.style.left=(Math.random()*100)+'vw'; p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDelay=(Math.random()*0.3)+'s'; p.style.animationDuration=(2+Math.random()*2)+'s';
+    container.appendChild(p);
+  }
+  setTimeout(()=>{container.style.display='none';},4000);
+}
+
+// ── SAVE ──
+function saveGame() {
+  const json = JSON.stringify(STATE.tournament, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download = `garp_${Date.now()}.json`; a.click();
+}
+
+function exportPNG() {
+  alert('📥 Export: Save this page as PDF (Ctrl+P) or screenshot. Full PNG export available via: python garp_tournament_export.py');
+}
+
+// ── INIT ──
+async function init() {
+  await loadUniverse();
+  $('#btnStart').onclick = startTournament;
+  $('#btnExportPNG').onclick = exportPNG;
+}
+init();
+
+</script>
+
+</body>
+</html>

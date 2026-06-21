@@ -1,0 +1,68 @@
+name: Test GARP Tournament
+
+on:
+  push:
+    paths:
+      - 'garp_score_v4_1.py'
+      - 'data/universe_55_scores.json'
+      - 'data/narrative.json'
+      - 'garp_tournament_v4_1.html'
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install yfinance
+
+      - name: Test score engine (sample, not full 55)
+        run: |
+          python garp_score_v4_1.py --tickers "MSFT,AAPL,GOOGL" --output test_scores.json
+          python -c "
+          import json
+          d = json.load(open('test_scores.json'))
+          assert d['computed_count'] == 3, f'Expected 3, got {d[\"computed_count\"]}'
+          for t in d['tickers']:
+              for k in ['R1_quality','R2_growth','R3_durability','R4_10yr_potential','R5_combo']:
+                  assert k in t['scores'], f'Missing {k} for {t[\"ticker\"]}'
+                  assert 0 <= t['scores'][k]['score'] <= 100, f'Score out of range for {t[\"ticker\"]} {k}'
+          print('✅ All scores valid (0-100 range, 5 rounds present)')
+          "
+
+      - name: Validate JSON files
+        run: |
+          python -c "
+          import json
+          # universe scores
+          d = json.load(open('data/universe_55_scores.json'))
+          assert d['version'] == '4.1'
+          assert len(d['tickers']) >= 55
+          # narrative
+          n = json.load(open('data/narrative.json'))
+          assert len(n['pre_tournament']) == 7
+          assert len(n['round_stories']) == 5
+          assert 'end_game' in n
+          print('✅ All JSON files valid')
+          "
+
+      - name: Validate HTML structure
+        run: |
+          python -c "
+          html = open('garp_tournament_v4_1.html').read()
+          assert '<!DOCTYPE html>' in html
+          assert 'garp_tournament_v4_1' in html or 'GARP COMPOUNDER' in html
+          assert 'ROUND_DEFS' in html
+          assert 'predictWinner' in html
+          assert 'showChampion' in html
+          assert 'showLoadingScreen' in html
+          assert 'PE-Adjusted CAGR' in html
+          print('✅ HTML structure valid')
+          "

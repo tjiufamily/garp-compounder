@@ -1,0 +1,13 @@
+ticker,name,sector,note
+AAPL,Apple Inc.,Technology,Demo mega-cap
+MSFT,Microsoft Corporation,Technology,Demo mega-cap
+GOOGL,Alphabet Inc.,Communication Services,Demo mega-cap
+AMZN,Amazon.com Inc.,Consumer Cyclical,Demo mega-cap
+NVDA,NVIDIA Corporation,Technology,Demo semi
+META,Meta Platforms Inc.,Communication Services,Demo mega-cap
+V,Visa Inc.,Financial Services,Demo payments
+MA,Mastercard Incorporated,Financial Services,Demo payments
+JNJ,Johnson & Johnson,Healthcare,Demo healthcare
+KO,Coca-Cola Company,Consumer Defensive,Demo consumer staple
+PG,Procter & Gamble,Consumer Defensive,Demo consumer staple
+BRK.B,Berkshire Hathaway,Financial Services,Demo conglomerate
