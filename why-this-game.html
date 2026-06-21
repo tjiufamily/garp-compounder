@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why I Built This Game — A Father's Letter on Compounding | GARP Compounder Championship</title>
+<style>
+  :root{
+    --pitch:#0a3d2e; --pitch-light:#114b3a; --gold:#d4af37; --gold-soft:#f0d97a;
+    --ink:#f5f0e1; --ink-dim:#cfc7b3; --bg:#0b1612; --panel:#112621; --panel-2:#163530;
+    --green:#1dd17c; --red:#e26d6d; --blue:#7cc1ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Serif',Georgia,serif;line-height:1.7;font-size:17px}
+  .container{max-width:760px;margin:0 auto;padding:48px 28px 96px}
+  a{color:var(--gold-soft)}
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;padding-bottom:14px;border-bottom:1px solid rgba(212,175,55,.25);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .nav a{color:var(--gold);text-decoration:none}
+  .nav a:hover{color:var(--gold-soft)}
+
+  h1{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:42px;line-height:1.15;font-weight:700;color:var(--gold);margin:8px 0 18px;letter-spacing:-.01em}
+  .subtitle{font-style:italic;color:var(--ink-dim);font-size:19px;margin-bottom:36px}
+  .byline{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;color:var(--ink-dim);letter-spacing:.18em;text-transform:uppercase;margin-bottom:48px}
+
+  h2{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:26px;color:var(--gold);margin:54px 0 14px;padding-top:22px;border-top:1px solid rgba(212,175,55,.18)}
+  h3{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:19px;color:var(--gold-soft);margin:30px 0 8px}
+  p{margin:14px 0}
+  .lead{font-size:20px;color:var(--ink);line-height:1.7}
+
+  .pullquote{font-family:'IBM Plex Serif',Georgia,serif;font-size:24px;color:var(--gold-soft);border-left:3px solid var(--gold);padding:8px 0 8px 24px;margin:36px 0;font-style:italic;line-height:1.4}
+  .pullquote cite{display:block;margin-top:10px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+  .stat{background:var(--panel);border:1px solid rgba(212,175,55,.2);border-radius:8px;padding:18px 14px;text-align:center}
+  .stat .num{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1}
+  .stat .lbl{font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.12em;margin-top:8px}
+
+  .chart-wrap{background:var(--panel);border:1px solid rgba(212,175,55,.22);border-radius:12px;padding:24px 18px;margin:36px 0}
+  .chart-title{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+  .chart-sub{font-size:14px;color:var(--ink-dim);margin-bottom:16px}
+  .chart-legend{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 0;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px}
+  .chart-legend span{display:flex;align-items:center;gap:6px;color:var(--ink-dim)}
+  .chart-legend i{display:inline-block;width:14px;height:3px;border-radius:2px}
+
+  .round-card{background:var(--panel);border-left:3px solid var(--gold);border-radius:6px;padding:18px 22px;margin:18px 0}
+  .round-card .h{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:11px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
+  .round-card .t{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:18px;color:var(--gold-soft);margin-bottom:8px}
+  .round-card .d{font-size:15.5px;color:var(--ink-dim)}
+
+  .principle{background:linear-gradient(135deg,var(--panel) 0%,var(--panel-2) 100%);border:1px solid rgba(212,175,55,.18);border-radius:10px;padding:22px 24px;margin:20px 0}
+  .principle h4{margin:0 0 6px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;color:var(--gold)}
+  .principle p{margin:6px 0;font-size:15.5px;color:var(--ink)}
+
+  .trap{background:rgba(226,109,109,.06);border:1px solid rgba(226,109,109,.35);border-left:3px solid var(--red);border-radius:6px;padding:16px 20px;margin:18px 0;font-size:15.5px}
+
+  .cta{display:inline-block;margin-top:40px;padding:14px 28px;background:var(--gold);color:#0a3d2e;font-family:'IBM Plex Sans',system-ui,sans-serif;font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:6px;transition:transform .15s ease}
+  .cta:hover{transform:translateY(-2px);background:var(--gold-soft)}
+
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid rgba(212,175,55,.18);font-size:13px;color:var(--ink-dim);font-family:'IBM Plex Sans',system-ui,sans-serif;letter-spacing:.04em}
+
+  @media (max-width:600px){
+    body{font-size:16px}
+    h1{font-size:30px}
+    .container{padding:28px 18px 60px}
+    .stats{grid-template-columns:1fr 1fr}
+    .pullquote{font-size:19px}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <nav class="nav">
+    <a href="/">← Back to Championship</a>
+    <span>GARP Compounder</span>
+  </nav>
+
+  <h1>Why I Built This Game</h1>
+  <p class="subtitle">A father's letter on patience, reading, and the lonely art of compounding.</p>
+  <p class="byline">By James Tjiunardi  ·  June 2026</p>
+
+  <p class="lead">I have three children. I am not a teacher. I am not a fund manager. I am a father who has spent twenty years watching his own behaviour around money — the panic, the FOMO, the bad bets, the sleep lost to single quarters — and has come to believe that the most valuable financial skill I can hand them is the one most people never develop: <strong>the ability to wait.</strong></p>
+
+  <p>So I built a game. It looks like the FIFA World Cup. It is not. Underneath the green pitch and the bracket and the scoreboard, it is a five-round examination of the only question that has ever made anyone genuinely rich in the stock market:</p>
+
+  <div class="pullquote">
+    Can this single business compound my money for the next ten, twenty, thirty, forty years?
+    <cite>— the entire game, in one sentence</cite>
+  </div>
+
+  <h2>The setup: 55 companies, one trophy</h2>
+
+  <p>The Championship opens with <strong>55 publicly listed businesses</strong> — a mix of household names and quiet operators. Microsoft, Apple, Costco, Visa, Mastercard, Walmart, Home Depot, Procter & Gamble, Coca-Cola, Meta, Alphabet, Netflix, Adobe, Nvidia, Broadcom, ASML, ServiceNow, Intuitive Surgical, Booking, MercadoLibre, Intuitive, and others. Most are compounders. <strong>A few are decoys — the popular counters that everyone talks about, included on purpose to test whether you actually know what you're looking at, or whether you're buying the story on the magazine cover.</strong></p>
+
+  <p>You select <strong>32</strong>. They are seeded into a five-round single-elimination bracket. You face one matchup at a time. Each matchup asks: between these two, <em>which would you rather own for the next decade?</em></p>
+
+  <p>Before you click, you can read the metrics. You can take notes. You can take a break. You can come back tomorrow. <strong>There is no clock. There is no timer. There is no leaderboard except your own.</strong> If you find yourself rushing, you've already lost the lesson.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="num">55</div><div class="lbl">Companies studied</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">Rigorous rounds</div></div>
+    <div class="stat"><div class="num">~4%</div><div class="lbl">Players who finish</div></div>
+  </div>
+
+  <h2>The 5 rounds — what each one teaches</h2>
+
+  <p>The brackets are not arbitrary. Each round <strong>applies a different lens</strong>, because the kind of business that survives Round 1 is rarely the same kind that survives Round 5. Five rounds is what a serious long-term investor walks through — quietly, in a notebook — every time they consider adding a position. Most people skip the rounds. Most people lose money because of it.</p>
+
+  <div class="round-card">
+    <div class="h">Round 1 — Quality of the Business</div>
+    <div class="t">"Is this even a good company?"</div>
+    <div class="d">Returns on invested capital, gross margins, operating margins, free cash flow growth, balance sheet strength, management quality. The questions Charlie Munger would have answered in thirty seconds. If a business can't clear this bar, it doesn't matter how fast it's growing — you're building on sand.</div>
+  </div>
+
+  <div class="round-card">
+    <div class="h">Round 2 — Growth Trajectory</div>
+    <div class="t">"How fast, and how repeatable?"</div>
+    <div class="d">5-year EPS history, 5-year forward EPS estimates, revenue consistency, reinvestment rate. We separate companies that have already compounded from companies that merely talk about compounding. The story is cheap. The numbers aren't.</div>
+  </div>
+
+  <div class="round-card">
+    <div class="h">Round 3 — Durability of the Moat</div>
+    <div class="t">"Will this still exist in 2040?"</div>
+    <div class="d">Industry growth runway, competitive positioning, customer switching costs, brand strength. A 25% grower in a dying industry is a value trap. A 12% grower in a compounding industry is the buy of a lifetime. Round 3 teaches the difference.</div>
+  </div>
+
+  <div class="round-card">
+    <div class="h">Round 4 — The 10-Year Lens</div>
+    <div class="t">"What does this turn into if I wait?"</div>
+    <div class="d">This is where the game stops looking like a game. Round 4 takes the historical and forecast EPS growth, <em>then applies a P/E compression adjustment</em> — the math that says: if you pay 60x earnings today, some of that growth is already in the price. The "headline" growth rate is a lie if it isn't adjusted for what you paid. <strong>This single concept is the difference between the investors who get rich slowly and the ones who get poor quickly.</strong></div>
+  </div>
+
+  <div class="round-card">
+    <div class="h">Round 5 — The Champion's Test</div>
+    <div class="t">"Should I actually put money on this?"</div>
+    <div class="d">A composite of Quality, Growth, Valuation-Dislocation, Durability, and Moat — with the realistic CAGR (after P/E compression) as the anchor. The Round 5 winner is not the flashiest name. It is the one you'd happily hold through three bear markets and forget you own.</div>
+  </div>
+
+  <h2>The thing nobody wants to hear: the chart</h2>
+
+  <p>Most people who play this game — and who tell me about it afterwards — say the same thing in different ways. <em>"I picked the one I liked. I picked the one I'd heard of. I picked the one my friend told me about."</em></p>
+
+  <p>That's exactly how I used to pick stocks. That's exactly how I lost money. So I added the chart.</p>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Figure 1 — $10,000 invested, 40 years</div>
+    <div class="chart-sub">What 10/20/30/40 years of compounding actually looks like, starting from one $10,000 position.</div>
+
+    <svg id="wealthChart" viewBox="0 0 720 420" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Wealth chart comparing compounders to the S&P 500 over 10, 20, 30, and 40 years">
+      <!-- Background grid -->
+      <rect x="0" y="0" width="720" height="420" fill="#0b1612"/>
+
+      <!-- Y-axis label -->
+      <text x="14" y="22" fill="#cfc7b3" font-family="IBM Plex Sans, sans-serif" font-size="11" letter-spacing="1">USD (log scale)</text>
+
+      <!-- Plot area: 80,40 -> 690,360 -->
+      <!-- Grid lines: 1k, 10k, 100k, 1M, 10M, 100M -->
+      <!-- log10 positions: 3,4,5,6,7,8 -->
+      <!-- Map log10(v) = 3..8 to y = 360 - (log10(v)-3)*64 -->
+      <!-- y=360 (v=1k), y=296 (10k), y=232 (100k), y=168 (1M), y=104 (10M), y=40 (100M) -->
+
+      <g stroke="rgba(212,175,55,0.12)" stroke-width="1">
+        <line x1="80" y1="360" x2="690" y2="360"/>
+        <line x1="80" y1="296" x2="690" y2="296"/>
+        <line x1="80" y1="232" x2="690" y2="232"/>
+        <line x1="80" y1="168" x2="690" y2="168"/>
+        <line x1="80" y1="104" x2="690" y2="104"/>
+        <line x1="80" y1="40"  x2="690" y2="40"/>
+      </g>
+
+      <!-- Y-axis labels -->
+      <g font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#cfc7b3" text-anchor="end">
+        <text x="74" y="364">$1k</text>
+        <text x="74" y="300">$10k</text>
+        <text x="74" y="236">$100k</text>
+        <text x="74" y="172">$1M</text>
+        <text x="74" y="108">$10M</text>
+        <text x="74" y="44">$100M</text>
+      </g>
+
+      <!-- X-axis: 0,10,20,30,40 years -->
+      <!-- Map x = 80 + (year/40)*610 -->
+      <g stroke="rgba(212,175,55,0.18)" stroke-width="1">
+        <line x1="80"  y1="40" x2="80"  y2="360"/>
+        <line x1="232.5" y1="40" x2="232.5" y2="360" stroke-dasharray="3,4"/>
+        <line x1="385" y1="40" x2="385" y2="360" stroke-dasharray="3,4"/>
+        <line x1="537.5" y1="40" x2="537.5" y2="360" stroke-dasharray="3,4"/>
+        <line x1="690" y1="40" x2="690" y2="360" stroke-dasharray="3,4"/>
+      </g>
+      <g font-family="IBM Plex Sans, sans-serif" font-size="11" fill="#cfc7b3" text-anchor="middle">
+        <text x="80" y="380">Year 0</text>
+        <text x="232.5" y="380">Year 10</text>
+        <text x="385" y="380">Year 20</text>
+        <text x="537.5" y="380">Year 30</text>
+        <text x="690" y="380">Year 40</text>
+      </g>
+
+      <!-- Data series
+           start = 10000.  Helper: y(v) = 360 - (log10(v)-3)*64
+           x(y) = 80 + (year/40)*610
+      -->
+      <g fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+
+        <!-- S&P 500 (10%) -->
+        <!-- 0:10000  10:25937  20:67275  30:174494  40:452593 -->
+        <polyline stroke="#888"
+          points="80,296 232.5,275.7 385,250.4 537.5,219.4 690,190.4"/>
+
+        <!-- Berkshire-style compounder (15%) -->
+        <!-- 0:10000 10:40456 20:163665 30:662118 40:2678635 -->
+        <polyline stroke="#1dd17c"
+          points="80,296 232.5,257.6 385,213.4 537.5,167.3 690,124.4"/>
+
+        <!-- Crowd-favorite (NVDA 22.5% but PE-crushed) -->
+        <!-- 0:10000 10:76096 20:579058 30:4406387 40:33530772 -->
+        <polyline stroke="#e26d6d" stroke-dasharray="6,4"
+          points="80,296 232.5,240.2 385,182.6 537.5,128.0 690,80.4"/>
+
+        <!-- The Champion (META realistic 25.5% CAGR) -->
+        <!-- 0:10000 10:96925 20:939452 30:9105667 40:88256974 -->
+        <polyline stroke="#d4af37" stroke-width="3"
+          points="80,296 232.5,233.6 385,169.4 537.5,108.0 690,55.6"/>
+
+      </g>
+
+      <!-- Endpoint markers + values for Champion -->
+      <g font-family="IBM Plex Sans, sans-serif" font-size="11">
+        <circle cx="232.5" cy="233.6" r="4" fill="#d4af37"/>
+        <text x="232.5" y="222" fill="#d4af37" text-anchor="middle" font-weight="700">$96,925</text>
+
+        <circle cx="385" cy="169.4" r="4" fill="#d4af37"/>
+        <text x="385" y="158" fill="#d4af37" text-anchor="middle" font-weight="700">$939,452</text>
+
+        <circle cx="537.5" cy="108.0" r="4" fill="#d4af37"/>
+        <text x="537.5" y="96" fill="#d4af37" text-anchor="middle" font-weight="700">$9.1M</text>
+
+        <circle cx="690" cy="55.6" r="5" fill="#d4af37"/>
+        <text x="690" y="46" fill="#d4af37" text-anchor="middle" font-weight="700">$88.3M</text>
+      </g>
+
+      <!-- Endpoint markers for S&P 500 (small annotation) -->
+      <g font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#888">
+        <text x="690" y="200" text-anchor="end">S&amp;P 500 → $452k</text>
+      </g>
+      <!-- Berkshire -->
+      <g font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#1dd17c">
+        <text x="690" y="134" text-anchor="end">15% compounder → $2.7M</text>
+      </g>
+      <!-- PE-crushed (NVDA) -->
+      <g font-family="IBM Plex Sans, sans-serif" font-size="10" fill="#e26d6d">
+        <text x="690" y="90" text-anchor="end">PE-crushed (22.5%) → $33.5M</text>
+      </g>
+
+      <!-- Axis title -->
+      <text x="385" y="406" fill="#cfc7b3" font-family="IBM Plex Sans, sans-serif" font-size="11" text-anchor="middle" letter-spacing="1">YEARS HELD</text>
+    </svg>
+
+    <div class="chart-legend">
+      <span><i style="background:#d4af37"></i> Champion (25.5% realistic CAGR)</span>
+      <span><i style="background:#1dd17c"></i> 15% compounder (Berkshire-style)</span>
+      <span><i style="background:#e26d6d;border-top:2px dashed #e26d6d;height:0"></i> Crowd-favorite, PE-crushed</span>
+      <span><i style="background:#888"></i> S&amp;P 500 (10% historical)</span>
+    </div>
+  </div>
+
+  <p>The gold line is the champion of this game. $10,000 turned into <strong>$88,000,000</strong> over forty years. Not because the company is "hot right now." Not because of this quarter. Not because a newsletter told you so. Because a business that earns 25% on capital, year after year, eventually owns almost everything.</p>
+
+  <p>The red dashed line is the popular one. The one the magazines love. <strong>The PE compression adjustment crushes it</strong> — not because the underlying business is bad, but because the price you paid for it was already counting on perfection. By year forty, the "obvious winner" has been beaten 2.6 to 1 by a company you almost certainly never considered.</p>
+
+  <p>This is the lesson. <strong>Time rewards quality, not excitement.</strong></p>
+
+  <h2>The trap I built into the game on purpose</h2>
+
+  <p>The opening roster contains several "obvious" picks. Names that everyone is talking about. Names with 80% revenue growth. Names whose CEOs are on magazine covers. They are in the bracket on purpose.</p>
+
+  <div class="trap">
+    <strong>If you pick them only because they are popular, you will not win.</strong> The 5-round methodology — Quality, Growth, Durability, then 10-Year potential <em>after</em> P/E compression, then the Champion's composite — is engineered to expose the difference between a great business and a great <em>stock</em>. They are not the same thing. They have never been the same thing. The most expensive education in finance is the one that teaches you that they are not the same thing.
+  </div>
+
+  <p>A few of the seed companies are decoys. Strong growers in weak industries. Beloved brands with crumbling economics. Wonderful businesses trading at prices that bake in twenty years of perfection. You will not be told which are which. That is the point. The criteria tell you. The criteria always tell you, if you are willing to read.</p>
+
+  <h2>Reading and patience — the two skills nobody sells courses on</h2>
+
+  <p>If you walk away from this game with one thing, I hope it is this: <strong>the metrics are stronger than no methodology.</strong></p>
+
+  <p>Most people arrive at the market with no process. They hear a name, they buy a name. They read a tweet, they sell a name. They ask their brother-in-law, they ask their barber, they ask the guy on the bus. This is not investing. This is gambling wearing a tie.</p>
+
+  <p>A rigorous five-round process — applied honestly, applied repeatedly, applied even when you don't feel like it — will not make you perfect. It will make you <em>good</em>. And over a thirty-year career, "good" becomes "extraordinary."</p>
+
+  <p>The other skill is the one I really want my children to learn. <strong>Patience.</strong> The game does not have a clock. Read the metrics. Take a walk. Come back tomorrow. Re-read the metrics. Talk to a friend. Sleep on it. The decision you are making is whether you want to own a business for a decade — and the right answer to a decade-long question is rarely the answer you arrive at in five minutes.</p>
+
+  <h2>What you learn even if you finish last</h2>
+
+  <p>Even players who lose in Round 1 walk away with something: <strong>an education in 55 business models.</strong></p>
+
+  <p>You will read about Costco's membership model. You will see how Visa's network economics actually work. You will learn that Intuitive Surgical has a 25-year installed base of da Vinci robots and a recurring service revenue stream that prints money. You will discover that MercadoLibre is simultaneously the Amazon, the PayPal, and the Shopify of Latin America. You will find companies in this roster that you had never heard of, whose economics will stop you in your tracks.</p>
+
+  <p>That alone is worth playing. <strong>Most people never study a single business properly in their entire life.</strong> This game makes you study thirty-two.</p>
+
+  <h2>The three principles I would carve into stone</h2>
+
+  <div class="principle">
+    <h4>1. Quality compounds. Quality compounds forever.</h4>
+    <p>A business with high returns on capital, in a growing industry, with a durable moat, run by sane people, will outperform almost every clever trade you can make. This is not a theory. It is a 200-year-old observation.</p>
+  </div>
+
+  <div class="principle">
+    <h4>2. Price is part of the return.</h4>
+    <p>A 25% grower at 60x earnings is a 9% return. A 12% grower at 15x earnings is a 14% return. The P/E compression adjustment in Round 4 exists because this is the single most common way investors lose money. They buy the great business at the wrong price.</p>
+  </div>
+
+  <div class="principle">
+    <h4>3. Time is the only edge.</h4>
+    <p>You cannot predict the next quarter. You cannot predict the next rate cut. You cannot predict what the Fed will do, what Trump will tweet, what Nvidia will print. But you can predict — within a reasonable range — what a great business will be worth in ten years if it keeps doing what it has always done. That is the only prediction worth making.</p>
+  </div>
+
+  <h2>To my children, and to you</h2>
+
+  <p>I built this because I wanted to give my children a way to practice the only part of investing that matters: <strong>looking carefully at a business and asking whether it deserves their money for a decade.</strong></p>
+
+  <p>I am not asking you to agree with my criteria. You might weight moat differently. You might dismiss ROIC. You might love a metric I have never heard of. That is fine. <strong>The point is not that my methodology is correct. The point is that <em>any</em> rigorous methodology is more correct than no methodology at all.</strong></p>
+
+  <p>Most people have none. That is why most people underperform a low-cost index fund over their lifetime. The index fund is the laziest possible substitute for a process. This game is the opposite. This game is the process.</p>
+
+  <p>If you finish the championship, you will have done something that <strong>fewer than 4% of players complete</strong>. You will have studied 55 businesses. You will have walked five rounds with each one. You will have learned to read a balance sheet with patience. You will have learned to wait. And you will have learned — perhaps for the first time — what it actually feels like to choose a long-term compounder with intention rather than impulse.</p>
+
+  <p>That is the only lesson I have ever wanted to teach.</p>
+
+  <p style="margin-top:36px">— James Tjiunardi<br><span style="font-size:13px;color:var(--ink-dim);letter-spacing:.1em">Singapore, June 2026</span></p>
+
+  <a href="/" class="cta">⚽ Enter the Championship →</a>
+
+  <footer>
+    GARP Compounder Championship  ·  55 companies, 5 rounds, ~4% finish rate  ·  Built as a teaching tool, not investment advice.
+  </footer>
+
+</div>
+</body>
+</html>
