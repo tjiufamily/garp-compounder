@@ -1,0 +1,123 @@
+{
+  "pre_tournament": [
+    {
+      "id": 1,
+      "title": "What Makes a Wonderful Business?",
+      "body": "Buffett's first rule: 'A wonderful business at a fair price beats a fair business at a wonderful price.' But what makes a business <em>wonderful</em>?<br><br><strong>Three things:</strong><br>🔹 <strong>High returns on capital (ROIC)</strong> — For every $100 the company invests, how much profit comes back? Above 25% ROIC = exceptional compounder. Below 10% = barely above the cost of capital. Think Coca-Cola (40%+ ROIC from its brand) vs a generic cola maker (10% from price competition).<br>🔹 <strong>Pricing power (gross margins)</strong> — Can the company charge premium prices without losing customers? 70%+ gross margin = customers can't easily substitute. Apple's iPhone gross margin: ~45%. A commodity steel producer: ~10%.<br>🔹 <strong>Cash generation (FCF)</strong> — Earnings can be manipulated. Cash cannot. A wonderful business converts earnings into actual cash that funds buybacks, dividends, and reinvestment.<br><br>In Round 1, we test all three. Companies that fail any of these tests are eliminated. They may look cheap, but cheap for a reason.",
+      "points": 3
+    },
+    {
+      "id": 2,
+      "title": "The 5 Criteria That Matter Most",
+      "body": "Over the next 5 rounds, your 32 compounders will face elimination based on the criteria that professional investors use to find long-term winners:<br><br><strong>R1 QUALITY</strong> — ROIC, margins, cash generation, leverage. Filters out everything that can't compound.<br><strong>R2 GROWTH</strong> — Historical and forward earnings growth, cash growth, reinvestment rate. Tests whether the business is actually expanding.<br><strong>R3 DURABILITY</strong> — Terminal P/E, network effects, Act II potential, industry secularity. THE most important round. Can this business sustain its moat for 10+ years?<br><strong>R4 10-YEAR POTENTIAL</strong> — PE-adjusted CAGR (accounts for current valuation!), industry tailwinds, Act II fitness. What does this look like in 2036?<br><strong>R5 COMBO</strong> — Quality + Growth + Valuation + Durability + Moat. The holistic check. Valuation gets the highest weight (30%) because entry price is the #1 determinant of returns.<br><br>Each round uses a weighted composite score. No single metric decides a match — the business must perform across all dimensions.",
+      "points": 3
+    },
+    {
+      "id": 3,
+      "title": "How Weighted Scoring Works",
+      "body": "Every match is decided by a <strong>weighted composite score</strong> (0-100). Here's how it works:<br><br>Each of the 5 sub-metrics in a round gets a score (0-100) based on the company's actual financial data. Then each score is multiplied by its weight. The sum is the final composite.<br><br><strong>Example — R1 Quality:</strong><br>• ROIC: 35.2% → score 87.5 × weight 40% = 35.0<br>• Gross Margin: 56.8% → score 79.5 × weight 20% = 15.9<br>• Op Margin: 30.1% → score 66.3 × weight 15% = 9.9<br>• FCF Growth: 22.1% → score 65.3 × weight 15% = 9.8<br>• ROE: 28.5% → score 71.3 × weight 10% = 7.1<br><strong>COMPOSITE: 77.7</strong><br><br>A company doesn't need to win every metric — it just needs the highest composite. A dominant ROIC (40% weight) can compensate for a weaker gross margin (20% weight).<br><br>You'll see these scores on every match card. Study them before you predict!",
+      "points": 3
+    },
+    {
+      "id": 4,
+      "title": "The Law of Large Numbers — Why Big Companies Can't Grow Forever",
+      "body": "Here's a math problem: If a company grows earnings at 20% per year for 30 years, it becomes larger than the entire US economy. That's physically impossible.<br><br>This is the <strong>Law of Large Numbers</strong> — the single biggest challenge for long-term compounders.<br><br><strong>Example:</strong> Apple in 2010 had $65B in revenue. Growing at 15%, it would hit $1T by 2030. It actually DID hit ~$400B — by expanding into new markets (iPhone → Services → Wearables → possibly AI/auto).<br><br><strong>How great companies defeat this law:</strong><br>🔹 <strong>Act II:</strong> Extend into adjacent markets (Microsoft: Windows → Azure cloud)<br>🔹 <strong>Act III:</strong> Create entirely new categories (Amazon: Books → Everything → AWS → Ads)<br>🔹 <strong>Network effects:</strong> The business gets stronger as it gets bigger (Meta, Google)<br>🔹 <strong>Global expansion:</strong> The addressable market grows as more of the world develops<br><br>Round 3 (Durability) explicitly tests whether a company can defy this law. If it can't, the terminal P/E collapses — and so does your return.",
+      "points": 3
+    },
+    {
+      "id": 5,
+      "title": "Act II & Act III — How Great Companies Extend Their Runway",
+      "body": "The average company in the S&P 500 stays there for only 18 years. The ones that survive for 30+ years have one thing in common: <strong>they reinvented themselves.</strong><br><br><strong>Act II Champions:</strong><br>🔹 <strong>Microsoft</strong> — Act I: Windows/Office (1990s). Act II: Azure cloud (2010s). Act III: AI/Copilot (2020s). Each act leveraged the previous one's customer base and data.<br>🔹 <strong>Amazon</strong> — Act I: Online books (1995). Act II: Everything store (2000s). Act III: AWS cloud (2010s). Act IV: Advertising (2020s). Each act funded the next.<br>🔹 <strong>Apple</strong> — Act I: Mac (1980s). Act II: iPod/iTunes (2000s). Act III: iPhone/App Store (2010s). Act IV: Services/Wearables (2020s).<br><br><strong>Act II Failures:</strong><br>❌ <strong>BlackBerry</strong> — Dominant in smartphones (2008), but its Act II (BlackBerry 10) was too late. Irrelevant by 2013.<br>❌ <strong>GoPro</strong> — One product (action cameras), no Act II. Stock down 95% from peak.<br>❌ <strong>Nokia</strong> — Dominant in mobile phones, missed the smartphone transition entirely.<br><br>The lesson: <strong>Fitness matters.</strong> A great Act II leverages the company's existing strengths. Microsoft's cloud leveraged its enterprise relationships. Amazon's AWS leveraged its infrastructure expertise. When the next act is a stretch, it usually fails.",
+      "points": 3
+    },
+    {
+      "id": 6,
+      "title": "Basket vs Single Stock — The Case for Diversification Within Quality",
+      "body": "Even the best analyst cannot predict with certainty which compounder will win 10 years from now. The future is probabilistic.<br><br><strong>Why a basket?</strong><br>🔹 If you pick ONE compounder and it fails, you lose 100% of your return.<br>🔹 If you pick 8-12 quality compounders and 2 fail, the other 6-10 compound at 15%+ and more than compensate.<br>🔹 The market rewards the <em>average</em> outcome of quality, not the single best pick.<br><br><strong>Real example from James's GARP portfolio:</strong><br>The GARP Forever Holder strategy holds ~25 positions. Not all will be champions. But the basket is designed so that:<br>• The top 5 compound at 15-20%+<br>• The middle 15 compound at 10-15%<br>• The bottom 5 might stall — but are small positions<br>• The weighted average beats the S&P 500 over 10+ years<br><br><strong>This tournament is a game.</strong> In real investing, you don't need to pick the ONE champion. You need a basket of strong candidates. The tournament helps you identify WHICH companies belong in that basket.",
+      "points": 3
+    },
+    {
+      "id": 7,
+      "title": "Beating the Index — How Hard Is It Really?",
+      "body": "Over the last 20 years:<br>• <strong>S&P 500:</strong> ~10.5% annualized (includes dividends)<br>• <strong>Nasdaq 100:</strong> ~13.2% annualized<br>• <strong>SMH (Semiconductors):</strong> ~14.8% annualized<br><br>To beat the S&P 500 by even 2% per year over a decade, you need to compound at 12.5%. That means your $10,000 becomes $32,500 vs $27,100 for the index. A $5,400 difference — meaningful, but not life-changing at small sums.<br><br><strong>The real power of compounding shows at 20+ years:</strong><br>At 15% for 30 years: $10,000 → $662,000<br>At 10.5% for 30 years: $10,000 → $199,000<br>Difference: $463,000 — that's where quality compounders earn their keep.<br><br><strong>But here's the hard truth:</strong> Only ~4% of all stocks have beaten the S&P 500 over 20-year periods. The vast majority underperform. Your tournament champion must be one of the elite 4%.<br><br>That's why we test with 5 rigorous rounds, not just one metric. The champion has survived the most demanding gauntlet we could design.",
+      "points": 3
+    }
+  ],
+  "round_stories": [
+    {
+      "round": 1,
+      "name": "Quality",
+      "winner": {
+        "company": "Microsoft (MSFT)",
+        "story": "Microsoft earns a 35%+ ROIC, 69% gross margin, and 40%+ operating margin. Its quality is driven by two structural advantages: (1) enterprise switching costs — once a company builds on Azure/Office 365, migration is painful and expensive; (2) network effects in its ecosystem — developers, IT admins, and users all reinforce each other. This 'toll bridge' business model means Microsoft can raise prices 5-10% annually without losing customers. That's the hallmark of a wonderful business.",
+        "metrics": "ROIC: 35%+ | Gross Margin: 69% | Op Margin: 42%"
+      },
+      "failure": {
+        "company": "General Electric (GE)",
+        "story": "GE appeared high-quality for decades — consistent earnings growth, strong brand, diversified industrial portfolio. But the quality was an illusion. GE Capital (its finance arm) used leverage to manufacture earnings. When the 2008 financial crisis exposed the underlying weakness, GE's true ROIC was revealed to be below its cost of capital. The stock fell 80% from its peak and never recovered. Lesson: <strong>ROIC must be genuine, not financially engineered.</strong> Look at cash flow, not just reported earnings.",
+        "metrics": "Reported ROE: 15-20% | True ROIC (post-crisis): <8% | Stock: -80% from peak"
+      }
+    },
+    {
+      "round": 2,
+      "name": "Growth",
+      "winner": {
+        "company": "NVIDIA (NVDA)",
+        "story": "NVIDIA's EPS grew at 50%+ annually from 2019-2024, driven by the AI computing revolution. But what makes this growth <em>sustainable</em> is that it's backed by real cash flow — NVIDIA's FCF grew even faster than earnings because its business model (chip design, asset-light manufacturing via TSMC) generates enormous cash. The company reinvests ~30% of earnings into R&D, creating a widening moat. Growth without cash is vanity; NVIDIA has both.",
+        "metrics": "5yr EPS CAGR: 50%+ | FCF Growth: 60%+ | Reinvestment Rate: ~30%"
+      },
+      "failure": {
+        "company": "IBM",
+        "story": "IBM grew earnings per share consistently from 2010-2018 — but this growth was an illusion. IBM was buying back shares aggressively (reducing the share count, which mechanically increases EPS) while <em>revenue was actually declining</em> for 22 consecutive quarters. Organic growth was negative. When the buyback-fueled EPS growth finally stalled, the stock collapsed. Lesson: <strong>EPS growth must be driven by revenue and cash flow growth, not financial engineering.</strong> Always check revenue growth alongside EPS growth.",
+        "metrics": "Revenue Growth: -2% to -5% annually | EPS Growth: +5-10% (buyback-driven) | Stock: -40% from 2013 peak"
+      }
+    },
+    {
+      "round": 3,
+      "name": "Durability",
+      "winner": {
+        "company": "Amazon (AMZN)",
+        "story": "Amazon has executed three distinct Acts, each larger than the last: Act I (1995-2005): Online books → everything store. Act II (2006-2015): AWS cloud computing — now a $100B+ revenue business with 30%+ margins. Act III (2016-present): Advertising — now the 3rd largest ad platform globally. Each Act leveraged infrastructure and data from the previous. AWS was built from Amazon's own internal infrastructure needs. Advertising uses purchase data from the retail business. The acts fit together seamlessly — that's the definition of Act II Fitness.",
+        "metrics": "Terminal P/E (est.): 28-32x | Network Effect: 4/5 | Act II Potential: 5/5"
+      },
+      "failure": {
+        "company": "BlackBerry (BB)",
+        "story": "In 2008, BlackBerry controlled 50% of the US smartphone market and 20% globally. Its competitive advantage — secure email via BBM, physical keyboard, enterprise server infrastructure — seemed unassailable. But when Apple launched the iPhone in 2007 and Android followed, BlackBerry's management dismissed touchscreens as a fad. By the time they launched BlackBerry 10 in 2013, it was too late — the ecosystem had shifted. BlackBerry's market share fell to <1%. Lesson: <strong>Durability requires constant reinvention.</strong> Moats can erode faster than you think when technology paradigms shift.",
+        "metrics": "Market Share 2008: 50% | Market Share 2013: <1% | Stock: -95% from peak"
+      }
+    },
+    {
+      "round": 4,
+      "name": "10-Year Potential",
+      "winner": {
+        "company": "ASML (ASML)",
+        "story": "ASML has perhaps the strongest 10-year visibility of any company on Earth. It's the ONLY manufacturer of extreme ultraviolet (EUV) lithography machines — the $200M+ tools that TSMC, Samsung, and Intel use to make advanced chips. No competitor can replicate this technology; it took ASML 20 years and $10B+ in R&D. Every AI chip, every smartphone processor, every advanced semiconductor for the next decade+ will be made on ASML machines. The industry growth tailwind (semiconductors growing at 8-10% annually, AI chips at 25%+) provides structural demand. ASML's Act II — High-NA EUV — is already in development and extends the roadmap to 2035+.",
+        "metrics": "10yr Visibility: Exceptional | Industry Tailwind: 10-15% | PE-Adj CAGR: 12-15%"
+      },
+      "failure": {
+        "company": "GoPro (GPRO)",
+        "story": "GoPro's 10-year potential looked promising in 2014 — dominant in action cameras, strong brand, growing user base. But the fatal flaw was: <strong>no Act II.</strong> Action cameras are a niche product with limited TAM. GoPro tried drones (Karma — recalled after 2 months), media/content (never gained traction), and 360 cameras (commoditized). None leveraged GoPro's strengths. Meanwhile, smartphone cameras improved so much that casual users no longer needed a dedicated action camera. The industry itself commoditized. Lesson: <strong>A company with one product and no clear adjacent market is a 10-year risk, no matter how dominant it looks today.</strong>",
+        "metrics": "Stock 2014: $87 | Stock 2024: ~$2 | Decline: -97%"
+      }
+    },
+    {
+      "round": 5,
+      "name": "Combo",
+      "winner": {
+        "company": "Apple in 2016 (AAPL)",
+        "story": "In early 2016, Apple traded at ~10x P/E (ex-cash). The market was pricing in iPhone decline, no new products, and stagnation. But Apple had: (1) exceptional quality (ROIC 30%+, 38% gross margin), (2) a massive installed base of 1B+ devices providing a services moat, (3) durability (the iOS ecosystem locks in users), and (4) a valuation that was pricing in failure. Over the next 5 years, Apple's Services revenue grew from $24B to $78B, wearables became a $40B business, and the stock returned 500%+. The combo of wonderful business + cheap price = extraordinary returns.",
+        "metrics": "P/E (2016): ~10x ex-cash | 5yr Return: 500%+ | Services CAGR: 25%+"
+      },
+      "failure": {
+        "company": "Cisco in 2000 (CSCO)",
+        "story": "Cisco in 2000 was a wonderful business — dominant in networking equipment, 60%+ gross margins, 20%+ revenue growth. But the stock traded at 100x+ earnings, pricing in <em>perpetual</em> 30% growth. When the dot-com bubble burst and growth normalized to 5-10%, the P/E compressed from 100x to 15x. Even though Cisco's BUSINESS continued to perform well, the STOCK never recovered to its 2000 peak — 24 years later, it's still below its all-time high. Lesson: <strong>A wonderful business at a terrible price is a terrible investment.</strong> Valuation matters. The Combo round exists precisely to catch this.",
+        "metrics": "P/E (2000): 100x+ | P/E (2002): 15x | Stock from peak: -85% | Still below 2000 high in 2024"
+      }
+    }
+  ],
+  "end_game": {
+    "basket_message": "Congratulations on completing the tournament! But remember: <strong>this is a game, not investment advice.</strong> In real life, you don't need to pick ONE champion. You need a basket of 8-12 strong compounders. The champion here won based on a specific set of criteria at a specific point in time. Market conditions change. Moats erode. New competitors emerge. The wise investor owns a diversified portfolio of quality — not a single bet.",
+    "index_beat_message": "Beating the S&P 500 over 10 years puts you in the top ~10% of professional fund managers. Beating it over 20 years puts you in the top ~4%. The champion you just crowned has passed 5 rigorous tests — but the real test is time. Check back in 10 years.",
+    "final_quote": "\"The stock market is a device for transferring money from the impatient to the patient.\" — Warren Buffett"
+  }
+}

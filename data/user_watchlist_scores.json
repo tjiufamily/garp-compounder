@@ -1,0 +1,2983 @@
+{
+  "version": "1.0",
+  "computed_at": "2026-06-20T23:51:13.004694",
+  "universe_size": 24,
+  "tickers": [
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "current_price": 368.03,
+      "market_cap": 4490912595968,
+      "target_price": 432.83453,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 94.5,
+          "breakdown": {
+            "roic": {
+              "value": 35,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 60.4,
+              "score": 89.5,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 36.1,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 21.8,
+              "score": 77.2,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 20.0,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 92.5,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 18.3,
+              "score": 91.3,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 17.3,
+              "score": 86.3,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 60.2,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 18.0,
+              "score": 41.6,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 25.4,
+              "score": 65.3,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "4/5",
+              "score": 80,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 79.7,
+          "breakdown": {
+            "quality": {
+              "value": 94.5,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 92.5,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+17.6%",
+              "score": 67.6,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 60.2,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:50:59.446810"
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "current_price": 379.4,
+      "market_cap": 2818348154880,
+      "target_price": 561.38763,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 94.4,
+          "breakdown": {
+            "roic": {
+              "value": 34.0,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 68.3,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 46.3,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 18.3,
+              "score": 72.9,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 30.3,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 77.7,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 16.0,
+              "score": 80.2,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 15.8,
+              "score": 79.0,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 14.8,
+              "score": 74.0,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 51.2,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 20,
+              "score": 48.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 19.6,
+              "score": 46.8,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 89.2,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 17.9,
+              "score": 89.2,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 82.2,
+          "breakdown": {
+            "quality": {
+              "value": 94.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 77.7,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+48.0%",
+              "score": 98.0,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 51.2,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:50:59.918448"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "current_price": 244.39,
+      "market_cap": 2628929978368,
+      "target_price": 312.98715,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 72.4,
+          "breakdown": {
+            "roic": {
+              "value": 24.3,
+              "score": 79.0,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 50.6,
+              "score": 75.8,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 13.1,
+              "score": 43.4,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 16.6,
+              "score": 70.8,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 53.3,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 80.3,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 14.6,
+              "score": 73.1,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 13.6,
+              "score": 68.1,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 55.3,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 24,
+              "score": 60.8,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 24.8,
+              "score": 63.3,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 73.0,
+          "breakdown": {
+            "quality": {
+              "value": 72.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 80.3,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+28.1%",
+              "score": 78.1,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 55.3,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:00.528511"
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "current_price": 577.22,
+      "market_cap": 1465228591104,
+      "target_price": 827.3183,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 97.2,
+          "breakdown": {
+            "roic": {
+              "value": 32.9,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 81.9,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 40.6,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 33.1,
+              "score": 91.4,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 35.6,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 100.0,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 56.3,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 22,
+              "score": 54.4,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 15.9,
+              "score": 35.0,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "4/5",
+              "score": 80,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 88.1,
+          "breakdown": {
+            "quality": {
+              "value": 97.2,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 100.0,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+43.3%",
+              "score": 93.3,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 56.3,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:01.121516"
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "current_price": 210.69,
+      "market_cap": 5103122644992,
+      "target_price": 298.9322,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 100.0,
+          "breakdown": {
+            "roic": {
+              "value": 35,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 74.1,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 65.6,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 85.2,
+              "score": 100,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 6.6,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 100.0,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 54.7,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 25,
+              "score": 64.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 16.6,
+              "score": 37.0,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 88.2,
+          "breakdown": {
+            "quality": {
+              "value": 100.0,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 100.0,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+41.9%",
+              "score": 91.9,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 54.7,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:01.698329"
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "current_price": 95.04,
+      "market_cap": 98015518720,
+      "target_price": 141.9766,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 70.6,
+          "breakdown": {
+            "roic": {
+              "value": 16.1,
+              "score": 56.0,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 76.6,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 13.3,
+              "score": 44.0,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 22.1,
+              "score": 77.6,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 20.7,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 65.7,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 3.4,
+              "score": 16.9,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 18.5,
+              "score": 92.3,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 17.5,
+              "score": 87.3,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 71.3,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 45.0,
+              "score": 100,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 18.9,
+              "score": 44.5,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 52.8,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 10.6,
+              "score": 52.8,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 76.6,
+          "breakdown": {
+            "quality": {
+              "value": 70.6,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 65.7,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+49.4%",
+              "score": 99.4,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 71.3,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:02.238802"
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "current_price": 462.12,
+      "market_cap": 2396773416960,
+      "target_price": 473.39584,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 97.4,
+          "breakdown": {
+            "roic": {
+              "value": 35,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 61.9,
+              "score": 91.6,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 58.1,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 35.1,
+              "score": 93.9,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 18.4,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 100.0,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 61.4,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 25.0,
+              "score": 64.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 23.5,
+              "score": 59.2,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 78.7,
+          "breakdown": {
+            "quality": {
+              "value": 97.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 100.0,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+2.4%",
+              "score": 52.4,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 61.4,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:02.862459"
+    },
+    {
+      "ticker": "SNPS",
+      "name": "Synopsys, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "current_price": 455.51,
+      "market_cap": 87220748288,
+      "target_price": 559.5771,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 57.3,
+          "breakdown": {
+            "roic": {
+              "value": 3.8,
+              "score": 21.7,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 82.6,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 10.4,
+              "score": 34.3,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 41.9,
+              "score": 100,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 35.6,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 67.0,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 0,
+              "score": 0,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 60.3,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 22.0,
+              "score": 54.4,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 26.4,
+              "score": 68.5,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 10.0,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 2,
+              "score": 10.0,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 65.3,
+          "breakdown": {
+            "quality": {
+              "value": 57.3,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 67.0,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+22.8%",
+              "score": 72.8,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 60.3,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:03.467356"
+    },
+    {
+      "ticker": "VEEV",
+      "name": "Veeva Systems Inc.",
+      "sector": "Healthcare",
+      "industry": "Health Information Services",
+      "current_price": 153.3,
+      "market_cap": 24902557696,
+      "target_price": 245.48148,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 75.6,
+          "breakdown": {
+            "roic": {
+              "value": 13.9,
+              "score": 50.0,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 75.0,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 30.9,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 16.3,
+              "score": 70.4,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 1.4,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 64.3,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 10.8,
+              "score": 53.8,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 14.4,
+              "score": 72.0,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 13.4,
+              "score": 67.0,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 47.5,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 25.0,
+              "score": 64.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 15.3,
+              "score": 32.9,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 68.7,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 13.7,
+              "score": 68.7,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 74.1,
+          "breakdown": {
+            "quality": {
+              "value": 75.6,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 64.3,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 47.5,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:03.993025"
+    },
+    {
+      "ticker": "0700.HK",
+      "name": "Tencent Holdings Limited",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "current_price": 440.2,
+      "market_cap": 3967627034624,
+      "target_price": 707.6228,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": false,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 76.9,
+          "breakdown": {
+            "roic": {
+              "value": 20.5,
+              "score": 68.4,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 56.4,
+              "score": 84.0,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 34.3,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 9.1,
+              "score": 61.4,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 33.5,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 55.6,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 15.7,
+              "score": 78.7,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 9.4,
+              "score": 46.8,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 8.4,
+              "score": 41.8,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 42.9,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 14.9,
+              "score": 31.7,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 11.5,
+              "score": 20.7,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "4/5",
+              "score": 80,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 74.5,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 14.9,
+              "score": 74.5,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 71.6,
+          "breakdown": {
+            "quality": {
+              "value": 76.9,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 55.6,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 42.9,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:04.609172"
+    },
+    {
+      "ticker": "3690.HK",
+      "name": "Meituan",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "current_price": 71.8,
+      "market_cap": 443320729600,
+      "target_price": 108.82586,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": false,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 30.4,
+          "breakdown": {
+            "roic": {
+              "value": 0,
+              "score": 11.0,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 28.4,
+              "score": 44.7,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": -7.5,
+              "score": 0,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 5.6,
+              "score": 57.0,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 75.3,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 24.8,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 2.0,
+              "score": 10.0,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 6.9,
+              "score": 34.6,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 5.9,
+              "score": 29.6,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 40.3,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 19.6,
+              "score": 46.7,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 15.1,
+              "score": 32.2,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 23.4,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 4.7,
+              "score": 23.4,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 51.8,
+          "breakdown": {
+            "quality": {
+              "value": 30.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 24.8,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 40.3,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:05.100732"
+    },
+    {
+      "ticker": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "current_price": 107.1,
+      "market_cap": 256947240960,
+      "target_price": 191.50964,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 45.4,
+          "breakdown": {
+            "roic": {
+              "value": 9.2,
+              "score": 36.8,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 39.8,
+              "score": 60.7,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 1.0,
+              "score": 3.3,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 2.9,
+              "score": 53.6,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 25.0,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 48.2,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 5.0,
+              "score": 25.2,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 4.0,
+              "score": 20.2,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 24.8,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 10.0,
+              "score": 16.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 11.6,
+              "score": 21.2,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 59.1,
+          "breakdown": {
+            "quality": {
+              "value": 45.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 48.2,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 24.8,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:05.700712"
+    },
+    {
+      "ticker": "BIDU",
+      "name": "Baidu, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "current_price": 111.76,
+      "market_cap": 38026637312,
+      "target_price": 180.49872,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 38.2,
+          "breakdown": {
+            "roic": {
+              "value": 0.3,
+              "score": 11.9,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 42.1,
+              "score": 63.9,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 10.0,
+              "score": 32.9,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": -1.2,
+              "score": 48.5,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 32.2,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 5.5,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 0,
+              "score": 0,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 2.2,
+              "score": 10.8,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 1.2,
+              "score": 5.8,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 48.2,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 18.5,
+              "score": 43.2,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 12.2,
+              "score": 23.1,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "4/5",
+              "score": 80,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 10.0,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 2,
+              "score": 10.0,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 50.2,
+          "breakdown": {
+            "quality": {
+              "value": 38.2,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 5.5,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 48.2,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:06.230752"
+    },
+    {
+      "ticker": "9961.HK",
+      "name": "Trip.com Group Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "current_price": 359.0,
+      "market_cap": 226064171008,
+      "target_price": 607.8701,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": false,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 77.6,
+          "breakdown": {
+            "roic": {
+              "value": 21.1,
+              "score": 70.2,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 80.6,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 16.5,
+              "score": 54.3,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 20.8,
+              "score": 76.0,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 18.3,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 90.1,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 17.6,
+              "score": 87.8,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 16.6,
+              "score": 82.8,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 25.9,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 12.4,
+              "score": 23.8,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 9.6,
+              "score": 14.6,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 77.8,
+          "breakdown": {
+            "quality": {
+              "value": 77.6,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 90.1,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 25.9,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:06.813978"
+    },
+    {
+      "ticker": "BKNG",
+      "name": "Booking Holdings Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "current_price": 171.78,
+      "market_cap": 133108621312,
+      "target_price": 224.40572,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 57.3,
+          "breakdown": {
+            "roic": {
+              "value": 0,
+              "score": 11.0,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 87.0,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 25.0,
+              "score": 82.6,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 16.2,
+              "score": 70.2,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": "N/A",
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 79.3,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 14.3,
+              "score": 71.7,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 13.3,
+              "score": 66.7,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 42.4,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 22,
+              "score": 54.4,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 14.0,
+              "score": 28.7,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 25,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 67.7,
+          "breakdown": {
+            "quality": {
+              "value": 57.3,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 79.3,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+30.6%",
+              "score": 80.6,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 42.4,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:07.767593"
+    },
+    {
+      "ticker": "V",
+      "name": "Visa Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "current_price": 327.24,
+      "market_cap": 622326579200,
+      "target_price": 398.83362,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 94.2,
+          "breakdown": {
+            "roic": {
+              "value": 35,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 97.8,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 67.3,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 17.1,
+              "score": 71.4,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 67.2,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 81.5,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 20,
+              "score": 100,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 15.0,
+              "score": 74.9,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 14.0,
+              "score": 69.9,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 60.0,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 25,
+              "score": 64.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 22.0,
+              "score": 54.5,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 100,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 22.3,
+              "score": 100,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 77.9,
+          "breakdown": {
+            "quality": {
+              "value": 94.2,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 81.5,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+21.9%",
+              "score": 71.9,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 60.0,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:08.355107"
+    },
+    {
+      "ticker": "MA",
+      "name": "Mastercard Incorporated",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "current_price": 489.79,
+      "market_cap": 432770547712,
+      "target_price": 644.8889,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 68.8,
+          "breakdown": {
+            "roic": {
+              "value": 35,
+              "score": 100,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 1.0,
+              "score": 6.4,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 60.8,
+              "score": 100,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 15.8,
+              "score": 69.8,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 282.1,
+              "score": 20,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 69.7,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 14.7,
+              "score": 73.6,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 14.1,
+              "score": 70.3,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 13.1,
+              "score": 65.3,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 63.3,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 28,
+              "score": 73.6,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 21.5,
+              "score": 52.8,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "3/5",
+              "score": 60,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 81.1,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 16.2,
+              "score": 81.1,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 71.5,
+          "breakdown": {
+            "quality": {
+              "value": 68.8,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 69.7,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+31.7%",
+              "score": 81.7,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 63.3,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:09.062546"
+    },
+    {
+      "ticker": "J36.SG",
+      "name": "J36.SG",
+      "sector": "Unknown",
+      "industry": null,
+      "current_price": null,
+      "market_cap": null,
+      "target_price": null,
+      "data_sources": {
+        "yfinance": false,
+        "cached_gem": false,
+        "proxy": true
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 83.4,
+          "breakdown": {
+            "roic": {
+              "value": 27.5,
+              "score": 87.9,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 64.9,
+              "score": 95.9,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 27.5,
+              "score": 90.6,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 10.7,
+              "score": 63.4,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 107.3,
+              "score": 60,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 47.5,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 8.4,
+              "score": 42.2,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 10.5,
+              "score": 52.6,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 9.5,
+              "score": 47.6,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 82.0,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 47.9,
+              "score": 100,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 36.8,
+              "score": 100,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 52.6,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 10.5,
+              "score": 52.6,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 64.5,
+          "breakdown": {
+            "quality": {
+              "value": 83.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 47.5,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+0.0%",
+              "score": 50,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 82.0,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:09.591150"
+    },
+    {
+      "ticker": "H78.SG",
+      "name": "H78.SG",
+      "sector": "Unknown",
+      "industry": null,
+      "current_price": null,
+      "market_cap": null,
+      "target_price": null,
+      "data_sources": {
+        "yfinance": false,
+        "cached_gem": false,
+        "proxy": true
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 57.4,
+          "breakdown": {
+            "roic": {
+              "value": 14.9,
+              "score": 52.6,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 39.7,
+              "score": 60.6,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 14.9,
+              "score": 49.1,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 4.4,
+              "score": 55.5,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 44.4,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 26.4,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 4.7,
+              "score": 23.3,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 6.1,
+              "score": 30.5,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 5.1,
+              "score": 25.5,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 56.1,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 27.4,
+              "score": 71.7,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 21.1,
+              "score": 51.5,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 30.5,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 6.1,
+              "score": 30.5,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 48.9,
+          "breakdown": {
+            "quality": {
+              "value": 57.4,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 26.4,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+0.0%",
+              "score": 50,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 56.1,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:10.079147"
+    },
+    {
+      "ticker": "87.HK",
+      "name": "87.HK",
+      "sector": "Unknown",
+      "industry": null,
+      "current_price": null,
+      "market_cap": null,
+      "target_price": null,
+      "data_sources": {
+        "yfinance": false,
+        "cached_gem": false,
+        "proxy": true
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 87.3,
+          "breakdown": {
+            "roic": {
+              "value": 29.2,
+              "score": 92.9,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 68.5,
+              "score": 100,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 29.2,
+              "score": 96.5,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 11.6,
+              "score": 64.5,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 116.2,
+              "score": 60,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 50.4,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 9.0,
+              "score": 44.9,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 11.1,
+              "score": 55.7,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 10.1,
+              "score": 50.7,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 82.0,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 50.8,
+              "score": 100,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 39.1,
+              "score": 100,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 55.7,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 11.1,
+              "score": 55.7,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 66.2,
+          "breakdown": {
+            "quality": {
+              "value": 87.3,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 50.4,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+0.0%",
+              "score": 50,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 82.0,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:10.622932"
+    },
+    {
+      "ticker": "EVO",
+      "name": "Evotec SE",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "current_price": 2.56,
+      "market_cap": 909281408,
+      "target_price": 5.125301,
+      "data_sources": {
+        "yfinance": true,
+        "cached_gem": true,
+        "proxy": false
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 20.3,
+          "breakdown": {
+            "roic": {
+              "value": 0,
+              "score": 11.0,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 10.7,
+              "score": 19.9,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": -29.6,
+              "score": 0,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": -21.7,
+              "score": 22.9,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 55.4,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 3.3,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 2.0,
+              "score": 10.0,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 0,
+              "score": 0,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 0,
+              "score": 0,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 31.2,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 20.0,
+              "score": 48.0,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": -13.5,
+              "score": 0,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 10.0,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 2,
+              "score": 10.0,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 42.6,
+          "breakdown": {
+            "quality": {
+              "value": 20.3,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 3.3,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+50.0%",
+              "score": 100,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 31.2,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:11.268671"
+    },
+    {
+      "ticker": "D05.SG",
+      "name": "D05.SG",
+      "sector": "Unknown",
+      "industry": null,
+      "current_price": null,
+      "market_cap": null,
+      "target_price": null,
+      "data_sources": {
+        "yfinance": false,
+        "cached_gem": false,
+        "proxy": true
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 59.1,
+          "breakdown": {
+            "roic": {
+              "value": 15.6,
+              "score": 54.8,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 41.3,
+              "score": 62.8,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 15.6,
+              "score": 51.6,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 4.8,
+              "score": 56.0,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 48.2,
+              "score": 85,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 27.7,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 4.9,
+              "score": 24.4,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 6.4,
+              "score": 31.9,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 5.4,
+              "score": 26.9,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 58.6,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 28.7,
+              "score": 75.7,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 22.0,
+              "score": 54.5,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 31.9,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 6.4,
+              "score": 31.9,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 50.0,
+          "breakdown": {
+            "quality": {
+              "value": 59.1,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 27.7,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+0.0%",
+              "score": 50,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 58.6,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:11.651031"
+    },
+    {
+      "ticker": "O39.SG",
+      "name": "O39.SG",
+      "sector": "Unknown",
+      "industry": null,
+      "current_price": null,
+      "market_cap": null,
+      "target_price": null,
+      "data_sources": {
+        "yfinance": false,
+        "cached_gem": false,
+        "proxy": true
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 48.8,
+          "breakdown": {
+            "roic": {
+              "value": 10.4,
+              "score": 40.2,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 30.9,
+              "score": 48.2,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 10.4,
+              "score": 34.4,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 2.2,
+              "score": 52.8,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 22.1,
+              "score": 100,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 19.0,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 3.3,
+              "score": 16.6,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 4.5,
+              "score": 22.7,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 3.5,
+              "score": 17.7,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 41.6,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 20.2,
+              "score": 48.6,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 15.5,
+              "score": 33.7,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 22.7,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 4.5,
+              "score": 22.7,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 42.7,
+          "breakdown": {
+            "quality": {
+              "value": 48.8,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 19.0,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+0.0%",
+              "score": 50,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 41.6,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:12.133966"
+    },
+    {
+      "ticker": "U11.SG",
+      "name": "U11.SG",
+      "sector": "Unknown",
+      "industry": null,
+      "current_price": null,
+      "market_cap": null,
+      "target_price": null,
+      "data_sources": {
+        "yfinance": false,
+        "cached_gem": false,
+        "proxy": true
+      },
+      "scores": {
+        "R1_quality": {
+          "score": 79.6,
+          "breakdown": {
+            "roic": {
+              "value": 25.8,
+              "score": 83.1,
+              "weight": 0.4
+            },
+            "gross_margin": {
+              "value": 61.5,
+              "score": 91.1,
+              "weight": 0.2
+            },
+            "operating_margin": {
+              "value": 25.8,
+              "score": 85.0,
+              "weight": 0.15
+            },
+            "fcf_proxy": {
+              "value": 9.9,
+              "score": 62.3,
+              "weight": 0.15
+            },
+            "leverage": {
+              "value": 98.8,
+              "score": 60,
+              "weight": 0.1
+            }
+          }
+        },
+        "R2_growth": {
+          "score": 44.6,
+          "breakdown": {
+            "hist_eps_cagr_5y": {
+              "value": 7.9,
+              "score": 39.6,
+              "weight": 0.33
+            },
+            "fwd_eps_cagr_5y": {
+              "value": 9.9,
+              "score": 49.6,
+              "weight": 0.33
+            },
+            "fcf_growth": {
+              "value": 8.9,
+              "score": 44.6,
+              "weight": 0.34
+            }
+          }
+        },
+        "R3_durability": {
+          "score": 80.5,
+          "breakdown": {
+            "terminal_pe": {
+              "value": 45.1,
+              "score": 100,
+              "weight": 0.4
+            },
+            "peer_median_pe": {
+              "value": 34.7,
+              "score": 95.0,
+              "weight": 0.3
+            },
+            "network_effect": {
+              "value": "2/5",
+              "score": 40,
+              "weight": 0.3
+            }
+          }
+        },
+        "R4_10yr_cagr": {
+          "score": 49.6,
+          "breakdown": {
+            "eps_cagr_10y": {
+              "value": 9.9,
+              "score": 49.6,
+              "weight": 1.0,
+              "source": "proxy"
+            }
+          }
+        },
+        "R5_combo": {
+          "score": 62.6,
+          "breakdown": {
+            "quality": {
+              "value": 79.6,
+              "weight": 0.25
+            },
+            "growth": {
+              "value": 44.6,
+              "weight": 0.25
+            },
+            "valuation_dislocation": {
+              "value": "+0.0%",
+              "score": 50,
+              "weight": 0.25
+            },
+            "terminal": {
+              "value": 80.5,
+              "weight": 0.15
+            },
+            "moat": {
+              "value": 70,
+              "weight": 0.1
+            }
+          }
+        }
+      },
+      "computed_at": "2026-06-20T23:51:13.004524"
+    }
+  ]
+}
