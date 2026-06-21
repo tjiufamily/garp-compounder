@@ -716,28 +716,18 @@ function showLoadingScreen() {
   eduIndex = 0;
   showEduLesson(lessons, 0);
   
-  // Auto-advance through lessons
-  const totalTime = Math.min(lessons.length * 25, 150); // ~25 sec per lesson, max 2.5 min
-  const interval = Math.floor((totalTime * 1000) / lessons.length);
-  
+  // Manual click-through — no auto-advance
   $('#loadBar').style.width = '0%';
   
-  eduInterval = setInterval(() => {
-    eduIndex++;
-    const progress = Math.min(100, (eduIndex / lessons.length) * 100);
-    $('#loadBar').style.width = progress + '%';
-    
-    if (eduIndex >= lessons.length) {
-      clearInterval(eduInterval);
-      $('#loadStatus').innerHTML = '✅ All scores ready! Starting Round 1...';
-      setTimeout(() => showRoundHeader(0), 800);
-      return;
-    }
-    showEduLesson(lessons, eduIndex);
-  }, interval);
-  
-  // Allow skipping
-  $('#loadStatus').innerHTML = 'Computing scores for your 32 selected companies... <button class="btn btn-secondary" style="font-size:10px;padding:4px 10px;margin-left:8px" onclick="skipEducation()">Skip ▸</button>';
+  // Next / Previous buttons for manual navigation
+  $('#loadStatus').innerHTML = `
+    <span id="eduNavStatus">📖 ${lessons.length} lessons. Read each one, then click Next to continue.</span>
+    <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-secondary" id="btnPrevLesson" onclick="prevLesson()" disabled>◀ Previous</button>
+      <button class="btn btn-gold" id="btnNextLesson" onclick="nextLesson()">Next Lesson ▶</button>
+      <button class="btn btn-secondary" style="font-size:10px;padding:4px 10px" onclick="skipEducation()">Skip All ▸</button>
+    </div>
+  `;
 }
 
 function showEduLesson(lessons, idx) {
@@ -746,13 +736,37 @@ function showEduLesson(lessons, idx) {
   $('#eduTitle').textContent = `📖 Lesson ${idx+1} of ${lessons.length}: ${l.title}`;
   $('#eduBody').innerHTML = l.body;
   $('#eduProgress').innerHTML = `<strong>Reading rewards:</strong> ${STATE.lessonsRead.size}/${lessons.length} lessons completed · Each lesson = +3 pts · <button class="btn btn-secondary" style="font-size:9px;padding:2px 6px" onclick="markLessonRead(${l.id})">Mark as Read ✓</button>`;
-  
+
+  // Update nav buttons
+  if ($('#btnPrevLesson')) $('#btnPrevLesson').disabled = idx === 0;
+  if ($('#btnNextLesson')) $('#btnNextLesson').textContent = idx === lessons.length - 1 ? 'Start R1 ▶' : 'Next Lesson ▶';
+  if ($('#eduNavStatus')) $('#eduNavStatus').textContent = `📖 Lesson ${idx+1} of ${lessons.length} — read below, then click Next`;
+
   // Mark as read after 5 seconds if user doesn't click
   setTimeout(() => {
     if (!STATE.lessonsRead.has(l.id)) {
       markLessonRead(l.id);
     }
   }, 5000);
+}
+
+function nextLesson() {
+  const lessons = STATE.narrative?.pre_tournament || [];
+  if (eduIndex < lessons.length - 1) {
+    eduIndex++;
+    showEduLesson(lessons, eduIndex);
+  } else {
+    // Last lesson — advance to tournament
+    skipEducation();
+  }
+}
+
+function prevLesson() {
+  const lessons = STATE.narrative?.pre_tournament || [];
+  if (eduIndex > 0) {
+    eduIndex--;
+    showEduLesson(lessons, eduIndex);
+  }
 }
 
 function markLessonRead(lessonId) {
@@ -764,10 +778,12 @@ function markLessonRead(lessonId) {
 
 function skipEducation() {
   if (eduInterval) clearInterval(eduInterval);
+  // Mark all lessons as read when skipped
+  const lessons = STATE.narrative?.pre_tournament || [];
+  lessons.forEach(l => STATE.lessonsRead.add(l.id));
+  STATE.userScore.reading = STATE.lessonsRead.size * 3;
   $('#loadBar').style.width = '100%';
   $('#loadStatus').textContent = '✅ Starting Round 1...';
-  // Mark any unread lessons for the impatient
-  const lessons = STATE.narrative?.pre_tournament || [];
   setTimeout(() => showRoundHeader(0), 500);
 }
 
@@ -1157,6 +1173,52 @@ function renderWealthTable(champion, scores) {
     </tr>`;
   });
   $('#wealthTable').innerHTML = html;
+
+  // Also render the chart
+  renderWealthChart(indices);
+}
+
+function renderWealthChart(indices) {
+  const canvas = document.getElementById('wealthChart');
+  if (!canvas) return;
+
+  const years = [0, 10, 20, 30, 40];
+  const maxVal = indices[0].cagr; // champion CAGR
+
+  // Compute values
+  const data = indices.map(idx => years.map(y => 10000 * Math.pow(1 + idx.cagr, y)));
+
+  const colors = ['#c9a84c', '#4a90d9', '#e67e22', '#27ae60'];
+  const labels = indices.map(idx => idx.name);
+
+  // Simple CSS bar chart instead of canvas (avoids dependency)
+  let html = `<div style="display:flex;align-items:flex-end;gap:16px;height:240px;padding:16px 0">`;
+  years.slice(1).forEach((year, yi) => {
+    html += `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px">`;
+    html += `<div style="font-size:11px;color:var(--text3);font-weight:700">Y${year}</div>`;
+    indices.forEach((idx, ii) => {
+      const val = data[ii][yi + 1];
+      const max = Math.max(...data.map(d => d[yi + 1]));
+      const h = Math.max(4, (val / max) * 180);
+      const color = colors[ii];
+      const label = yi === 0 ? labels[ii].split(' ')[0] : '';
+      html += `<div style="width:100%;position:relative">
+        <div style="height:${h}px;background:${color};border-radius:4px 4px 0 0;opacity:0.9" title="${labels[ii]}: $${val.toLocaleString('en-US', {maximumFractionDigits:0})}"></div>
+        ${label ? `<div style="font-size:9px;color:${color};font-weight:700;position:absolute;top:-14px;left:0;right:0;text-align:center">${label}</div>` : ''}
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div>`;
+
+  // Legend
+  html += `<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:12px">`;
+  indices.forEach((idx, i) => {
+    html += `<span style="font-size:11px;color:var(--text2)"><span style="display:inline-block;width:12px;height:12px;background:${colors[i]};border-radius:2px;margin-right:4px;vertical-align:middle"></span>${idx.name.split(' ')[0]} ${(idx.cagr*100).toFixed(1)}%</span>`;
+  });
+  html += `</div>`;
+
+  $('#wealthChart').innerHTML = html;
 }
 
 function renderUserScorecard() {
