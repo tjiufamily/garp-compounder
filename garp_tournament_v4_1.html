@@ -62,6 +62,23 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .intro-pts { font-size: 14px; font-weight: 800; color: white; }
 .intro-score-grid small { font-size: 10px; color: rgba(255,255,255,0.65); }
 
+/* ── 5 ROUNDS DETAILS ── */
+.rounds-details { font-size: 12px; }
+.rounds-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 12px; }
+.round-card { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 10px; border-top: 4px solid var(--gold); }
+.round-card.r1 { border-top-color: #1e7e34; }
+.round-card.r2 { border-top-color: #0a1628; }
+.round-card.r3 { border-top-color: #C9A35A; }
+.round-card.r4 { border-top-color: #2a9d4a; }
+.round-card.r5 { border-top-color: #c9302c; }
+.round-num { font-size: 10px; color: var(--text3); font-weight: 800; letter-spacing: 1px; }
+.round-name { font-size: 12px; color: var(--navy); font-weight: 800; margin-bottom: 6px; letter-spacing: 0.5px; }
+.round-card ul { list-style: none; padding: 0; margin: 0; }
+.round-card li { font-size: 10px; color: var(--text2); line-height: 1.5; padding: 2px 0; border-bottom: 1px dashed #f0f0f0; }
+.round-card li:last-child { border-bottom: none; }
+@media (max-width: 900px) { .rounds-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .rounds-grid { grid-template-columns: 1fr; } }
+
 /* ── SETUP SCREEN ── */
 .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
 .company-chip { display: none; }  /* replaced by .company-tile */
@@ -287,28 +304,28 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
           <div class="intro-step-num">1</div>
           <div class="intro-step-content">
             <strong>Pick 32 compounders</strong>
-            <p>Select exactly 32 companies from the grid. Click to toggle selection. All 55 companies are pre-scored on quality, growth, durability, 10-year potential, and valuation.</p>
+            <p>Select exactly 32 companies from the grid below. All 55 are pre-scored on the 5 criteria shown to the right. Click any tile to add or remove from your bracket.</p>
           </div>
         </div>
         <div class="intro-step">
           <div class="intro-step-num">2</div>
           <div class="intro-step-content">
-            <strong>Name your finalists before R1</strong>
-            <p>Before the tournament begins, lock in 2 predicted semi-finalists + 1 champion. Correct picks earn bonus points even if your team loses the round.</p>
+            <strong>Lock in your finalists</strong>
+            <p>Before R1, pick 2 predicted semi-finalists + 1 champion. Correct picks earn bonus points even if your team loses the round.</p>
           </div>
         </div>
         <div class="intro-step">
           <div class="intro-step-num">3</div>
           <div class="intro-step-content">
-            <strong>Predict each match before seeing scores</strong>
-            <p>Before every head-to-head match, click your predicted winner. Ties are broken by coin-flip. You must predict to score — scores stay hidden until you commit.</p>
+            <strong>Predict each match (blind)</strong>
+            <p>Click your predicted winner BEFORE seeing scores. Ties are decided by a 50/50 coin flip. Scores stay hidden until you commit to a pick.</p>
           </div>
         </div>
         <div class="intro-step">
           <div class="intro-step-num">4</div>
           <div class="intro-step-content">
-            <strong>Watch the AI crown a champion</strong>
-            <p>After each round, full scoring is revealed. The AI advances the higher-scoring company. Winners accumulate through 5 rounds: Quality → Growth → Durability → 10yr Potential → Combo.</p>
+            <strong>AI crowns the champion</strong>
+            <p>The AI compares the two companies on that round's 5 metrics, sums the weighted scores, and advances the higher scorer. Survivors move to the next round.</p>
           </div>
         </div>
         <div class="intro-score">
@@ -322,6 +339,72 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- 5 ROUNDS EXPLAINED -->
+  <div class="container" style="margin-top:12px">
+    <details class="rounds-details">
+      <summary style="cursor:pointer;font-weight:800;color:var(--navy);font-size:13px;padding:8px 0;letter-spacing:0.5px">📋 THE 5 ROUNDS — what each measures (click to expand)</summary>
+      <div class="rounds-grid">
+        <div class="round-card r1">
+          <div class="round-num">R1</div>
+          <div class="round-name">QUALITY</div>
+          <ul>
+            <li><b>ROIC</b> (25%) — return on invested capital</li>
+            <li><b>FCF Margin</b> (20%) — cash conversion</li>
+            <li><b>Margin Stability</b> (20%) — 5yr variance</li>
+            <li><b>Balance Sheet</b> (20%) — debt/equity</li>
+            <li><b>Capital Efficiency</b> (15%) — asset turnover</li>
+          </ul>
+        </div>
+        <div class="round-card r2">
+          <div class="round-num">R2</div>
+          <div class="round-name">GROWTH</div>
+          <ul>
+            <li><b>Hist EPS CAGR</b> (25%) — past 5yr actual</li>
+            <li><b>Fwd EPS CAGR</b> (25%) — analyst consensus</li>
+            <li><b>FCF Growth</b> (25%) — cash compounding</li>
+            <li><b>Rev Consistency</b> (15%) — growth stability</li>
+            <li><b>Reinvestment</b> (10%) — Buffett g = ROE × reinvest</li>
+          </ul>
+        </div>
+        <div class="round-card r3">
+          <div class="round-num">R3</div>
+          <div class="round-name">DURABILITY</div>
+          <ul>
+            <li><b>Terminal P/E</b> (30%) — fair value multiple</li>
+            <li><b>Peer P/E</b> (20%) — vs sector</li>
+            <li><b>Network Effect</b> (20%) — moat strength</li>
+            <li><b>Act II</b> (20%) — next growth chapter</li>
+            <li><b>Secularity</b> (10%) — tailwind industry</li>
+          </ul>
+        </div>
+        <div class="round-card r4">
+          <div class="round-num">R4</div>
+          <div class="round-name">10-YEAR POTENTIAL</div>
+          <ul>
+            <li><b>3-Engine Growth Blend</b> (40%) — consensus + trailing + ROE</li>
+            <li><b>Hist Growth Durability</b> (20%)</li>
+            <li><b>PE-Adjusted CAGR</b> (30%) — real return after PE compression</li>
+            <li><b>Industry Growth</b> (20%)</li>
+            <li><b>Industry Secularity</b> (15%)</li>
+          </ul>
+        </div>
+        <div class="round-card r5">
+          <div class="round-num">R5</div>
+          <div class="round-name">COMBO (FINAL)</div>
+          <ul>
+            <li>Best combined R1-R4 score</li>
+            <li>PE-Adjusted 10yr CAGR carries 50% weight</li>
+            <li>Valuation dislocation (analyst target vs PE math)</li>
+            <li>Determines the Champion of Champions</li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:rgba(201,163,90,0.15);border:1px solid var(--gold-dk);border-radius:6px;padding:12px;margin-top:12px;font-size:11px;color:var(--text)">
+        <strong>⚠️ Data freshness:</strong> Prices and fundamentals are fetched at build time. The current snapshot was taken on <span id="dataDate">2026-06-21</span>. Scores are recalculated weekly — check the date above before making real investment decisions.
+      </div>
+    </details>
   </div>
 
   <div class="container">
@@ -592,6 +675,15 @@ async function loadUniverse() {
     if (r.ok) { STATE.allScores = await r.json(); }
     if (nr.ok) { STATE.narrative = await nr.json(); }
     if (pr.ok) { STATE.profiles = await pr.json(); }
+
+    // Display the actual computation date from the data
+    if (STATE.allScores?.computed_at) {
+      const dateEl = document.getElementById('dataDate');
+      if (dateEl) {
+        const d = new Date(STATE.allScores.computed_at);
+        dateEl.textContent = d.toISOString().slice(0, 10);
+      }
+    }
     renderCompanyGrid();
   } catch(e) { alert('Could not load data files. Run: python garp_score_v4_1.py'); }
 }
