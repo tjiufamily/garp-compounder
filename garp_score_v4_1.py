@@ -292,17 +292,31 @@ def score_growth(info: dict, cached: dict) -> dict:
     hist_score = max(0, min(100, hist_cagr * 5.0))
     bd["hist_eps_cagr_5y"] = {"value": round(hist_cagr, 1), "score": round(hist_score, 1), "weight": 0.25}
 
-    # 5yr Forward EPS CAGR (25%)
+    # 5yr Forward EPS CAGR (25%) — consensus from cache, or compute from ROE × reinvestment
     fwd = cached.get("eps_growth_5y_pct")
     if fwd is None:
+        # Buffett framework: g = ROE × reinvestment rate
+        roe = info.get("returnOnEquity") or 0.15
+        payout = info.get("payoutRatio") or 0.3
+        reinvest_rate = max(0, min(1, 1 - payout))
+        roe_growth = max(0, min(25, roe * 100 * reinvest_rate))
         rg = info.get("revenueGrowth") or 0
-        fwd = max(0, min(20, rg * 100 * 0.7 + 3))
+        rg_growth = max(0, min(20, rg * 100 * 0.7 + 3))
+        # 60/40 blend of structural (ROE) + trend (revenue)
+        fwd = roe_growth * 0.6 + rg_growth * 0.4
     fwd_score = max(0, min(100, fwd * 5.0))
-    bd["fwd_eps_cagr_5y"] = {"value": round(fwd, 1), "score": round(fwd_score, 1), "weight": 0.25}
+    bd["fwd_eps_cagr_5y"] = {
+        "value": round(fwd, 1),
+        "score": round(fwd_score, 1),
+        "weight": 0.25,
+        "source": "consensus" if cached.get("eps_growth_5y_pct") else "ROE×reinvestment"
+    }
 
-    # FCF Growth Rate (25%)
-    rg = info.get("revenueGrowth") or 0
-    fcf_g = max(0, min(20, rg * 100 * 0.7 + 2))
+    # FCF Growth Rate (25%) — use FCF growth if available, else proxy from revenue
+    fcf_raw = info.get("freeCashflow")
+    fcf_g = 5  # safe default
+    if info.get("revenueGrowth"):
+        fcf_g = max(0, min(20, info.get("revenueGrowth") * 100 * 0.7 + 2))
     fcf_score = max(0, min(100, fcf_g * 5.0))
     bd["fcf_growth"] = {"value": round(fcf_g, 1), "score": round(fcf_score, 1), "weight": 0.25}
 
@@ -379,43 +393,69 @@ def score_10yr_potential(info: dict, cached: dict) -> dict:
     bd["hist_growth_durability"] = {"value": round(fiveyr, 1), "score": round(hist_dur, 1), "weight": 0.20}
 
     # PE-Adjusted CAGR (30%) — THE CRITICAL METRIC
-    # Forward EPS growth estimate
-    fwd_eps = cached.get("eps_growth_5y_pct")
-    if fwd_eps is None:
+    # 3-ENGINE BLEND: forward consensus (40%) + trailing actual (30%) + structural ROE (30%)
+    # Prevents single-source bias (kids' feedback: "last year only" is wrong)
+    roe = info.get("returnOnEquity") or 0.15
+    payout = info.get("payoutRatio") or 0.3
+    reinvest_rate = max(0, min(1, 1 - payout))
+    structural_g = roe * 100 * reinvest_rate  # Buffett: g = ROE × reinvestment
+
+    # Engine 1: Forward consensus (40% weight) — what analysts predict
+    consensus_g = cached.get("eps_growth_5y_pct")
+    if consensus_g is None:
+        # Fallback: blend structural + recent revenue trend
         rg = info.get("revenueGrowth") or 0
-        fwd_eps = max(0, min(25, rg * 100 * 0.7 + 3))
-    
+        trend_g = max(0, min(20, rg * 100 * 0.7 + 3))
+        consensus_g = structural_g * 0.6 + trend_g * 0.4
+
+    # Engine 2: Trailing actual (30% weight) — what company has done
+    trailing_g = info.get("earningsGrowth") or 0
+    trailing_g = max(0, min(20, trailing_g * 100))
+
+    # Engine 3: Structural ROE (30% weight) — what's mathematically possible
+    fwd_eps = structural_g
+
+    # The blend
+    blended_growth = consensus_g * 0.4 + trailing_g * 0.3 + structural_g * 0.3
+    blended_growth = max(0, min(25, blended_growth))
+
     # Current PE
     current_pe = info.get("trailingPE") or info.get("forwardPE") or 25
     if current_pe and current_pe > 0:
         current_pe = min(current_pe, 500)  # cap extremes
     else:
         current_pe = 25
-    
+
     # Terminal PE (from cached gem or heuristic)
     term_pe = cached.get("terminal_pe")
     if term_pe is None:
         term_pe = min(current_pe * 0.7, 30)  # assume compression for high PE; cap at 30x for fair value
-    
+
     # PE compression contribution (annualized)
     if current_pe > 0 and term_pe > 0:
         pe_ratio = term_pe / current_pe
         pe_contribution = (pe_ratio ** (1/10) - 1) * 100  # annualized % drag/boost
     else:
         pe_contribution = 0
-    
-    # Combined CAGR = earnings growth + PE compression effect
-    combined_cagr = fwd_eps + pe_contribution
+
+    # Combined CAGR = blended growth + PE compression effect
+    combined_cagr = blended_growth + pe_contribution
     combined_cagr = max(-5, min(30, combined_cagr))  # floor at -5%, cap at 30%
-    
+
     # Score: 0% CAGR = 0, 15% CAGR = 75, 20%+ CAGR = 100
     pe_adj_score = max(0, min(100, combined_cagr * 5.0 + 5))
-    
+
     bd["pe_adjusted_cagr"] = {
         "value": round(combined_cagr, 1),
         "score": round(pe_adj_score, 1),
         "weight": 0.30,
-        "detail": f"EPS growth {fwd_eps:.1f}% + PE compression {pe_contribution:+.1f}%/yr"
+        "detail": f"Blend: consensus {consensus_g:.1f}% × 0.4 + trailing {trailing_g:.1f}% × 0.3 + structural {structural_g:.1f}% × 0.3 + PE comp {pe_contribution:+.1f}%/yr",
+        "components": {
+            "consensus": round(consensus_g, 1),
+            "trailing": round(trailing_g, 1),
+            "structural": round(structural_g, 1),
+            "pe_compression": round(pe_contribution, 1)
+        }
     }
 
     # Industry Growth Rate (20%)

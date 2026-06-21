@@ -3,6 +3,11 @@
   "buildCommand": "echo 'Static site — no build required'",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/garp_tournament_v4_1.html" }
-  ]
+    {
+      "source": "/((?!data/|.*\\.(json|css|js|png|jpg|svg|ico|woff2?)).*)",
+      "destination": "/garp_tournament_v4_1.html"
+    }
+  ],
+  "cleanUrls": false,
+  "trailingSlash": false
 }
