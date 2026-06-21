@@ -1,7 +1,8 @@
 {
+  "framework": null,
+  "buildCommand": "echo 'Static site — no build required'",
+  "outputDirectory": ".",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "buildCommand": "echo 'Single-page app — no build needed'",
-  "outputDirectory": "."
+    { "source": "/(.*)", "destination": "/garp_tournament_v4_1.html" }
+  ]
 }
