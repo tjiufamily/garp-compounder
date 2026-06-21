@@ -885,7 +885,7 @@ function buildRound(roundIdx) {
 
   let competitors;
   if (roundIdx === 0) {
-    // R1: all 32, seed by R1 score
+    // R1: all 32, seed by R1 score, then fully shuffle
     competitors = STATE.selectedTickers
       .map(t => scoreMap.get(t)).filter(Boolean)
       .sort((a,b) => (b.scores[rd.scoreKey]?.score||0) - (a.scores[rd.scoreKey]?.score||0));
@@ -896,25 +896,40 @@ function buildRound(roundIdx) {
     competitors = survivors
       .map(t => scoreMap.get(t)).filter(Boolean)
       .sort((a,b) => (b.scores[rd.scoreKey]?.score||0) - (a.scores[rd.scoreKey]?.score||0));
-    // Shuffle so bracket position is random (prevents systematic left-side bias)
-    for (let i = competitors.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [competitors[i], competitors[j]] = [competitors[j], competitors[i]];
-    }
   }
 
-  // Pair #1 vs #N, #2 vs #N-1, etc.
-  const matches = [];
-  const n = competitors.length;
-  for (let i = 0; i < n / 2; i++) {
-    const a = competitors[i];
-    const b = competitors[n - 1 - i];
-    if (!a || !b) {
-      if (a) matches.push({pair:[a.ticker,null], winner:a.ticker, bye:true});
-      continue;
-    }
-    matches.push({pair:[a.ticker, b.ticker], winner:null, bye:false, aScore:a.scores[rd.scoreKey]?.score||0, bScore:b.scores[rd.scoreKey]?.score||0});
+  // ALWAYS shuffle so position is random (prevents left-side bias in every round)
+  for (let i = competitors.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [competitors[i], competitors[j]] = [competitors[j], competitors[i]];
   }
+
+  // Pair in a RANDOM way: pick 2 random competitors for each match (not #1 vs #N)
+  const matches = [];
+  const pool = [...competitors]; // mutable copy
+  while (pool.length >= 2) {
+    const ai = Math.floor(Math.random() * pool.length);
+    const a = pool.splice(ai, 1)[0];
+    const bi = Math.floor(Math.random() * pool.length);
+    const b = pool.splice(bi, 1)[0];
+
+    // For each match, randomly swap left/right (so "stronger" isn't always on left)
+    const leftFirst = Math.random() < 0.5;
+    const pair = leftFirst ? [a.ticker, b.ticker] : [b.ticker, a.ticker];
+
+    matches.push({
+      pair: pair,
+      winner: null,
+      bye: false,
+      aScore: a.scores[rd.scoreKey]?.score || 0,
+      bScore: b.scores[rd.scoreKey]?.score || 0
+    });
+  }
+  // Handle odd survivor (bye)
+  if (pool.length === 1) {
+    matches.push({pair: [pool[0].ticker, null], winner: pool[0].ticker, bye: true});
+  }
+
   STATE.tournament.rounds[roundIdx] = matches;
   return matches;
 }
