@@ -788,6 +788,11 @@ function buildRound(roundIdx) {
     competitors = survivors
       .map(t => scoreMap.get(t)).filter(Boolean)
       .sort((a,b) => (b.scores[rd.scoreKey]?.score||0) - (a.scores[rd.scoreKey]?.score||0));
+    // Shuffle so bracket position is random (prevents systematic left-side bias)
+    for (let i = competitors.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [competitors[i], competitors[j]] = [competitors[j], competitors[i]];
+    }
   }
 
   // Pair #1 vs #N, #2 vs #N-1, etc.
