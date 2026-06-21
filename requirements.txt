@@ -1,3 +1,0 @@
-yfinance>=0.2.30
-playwright>=1.40.0
-markdown>=3.5
