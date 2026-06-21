@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "buildCommand": "echo 'Single-page app — no build needed'",
+  "outputDirectory": "."
+}
