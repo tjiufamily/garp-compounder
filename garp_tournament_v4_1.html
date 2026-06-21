@@ -16,6 +16,7 @@
   --win: #28a745; --lose: #c9302c; --star: #ffc107;
   --text: #161616; --text2: #424b5a; --text3: #647080;
   --white: #fdfdff; --border: #dde1e7; --bg: #f4f5f7;
+  --panel: #ffffff; --panel-dk: #f0f4f8;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -80,78 +81,112 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 @media (max-width: 500px) { .rounds-grid { grid-template-columns: 1fr; } }
 
 /* ── SETUP SCREEN ── */
-.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 .company-chip { display: none; }  /* replaced by .company-tile */
 .company-chip.checked { display: none; }
 .company-chip input { display: none; }
 
-/* ── COMPANY TILES (bigger, richer) ── */
+/* ── COMPANY TILES (pitch-themed, BIG, high-contrast) ── */
 .company-tile {
-  display: flex; flex-direction: column; padding: 18px 20px; min-height: 100px;
-  background: white; border: 2px solid var(--border); border-radius: 10px;
-  cursor: pointer; transition: all 0.2s; gap: 6px; min-width: 220px;
-  position: relative;
+  display: flex; flex-direction: column; padding: 24px 22px; min-height: 170px;
+  background: linear-gradient(180deg, #1e7e34 0%, #145a26 100%);
+  border: 3px solid var(--gold); border-radius: 12px;
+  cursor: pointer; transition: all 0.2s; gap: 6px; min-width: 0;
+  position: relative; color: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.35);
 }
-.company-tile:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
-.company-tile.checked { background: linear-gradient(135deg, var(--gold-lt), white); border-color: var(--gold); border-width: 3px; }
-.company-tile.checked::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: var(--gold-dk); font-weight: 900; font-size: 18px; }
-.tile-ticker { font-family: 'Courier New', monospace; font-weight: 800; font-size: 18px; color: var(--navy); letter-spacing: 0.5px; }
-.tile-name { font-size: 14px; color: var(--navy); font-weight: 700; line-height: 1.3; }
-.tile-sector { font-size: 11px; color: var(--gold-dk); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-@media (max-width: 600px) { .company-grid { grid-template-columns: 1fr 1fr; } .company-tile { min-width: 0; padding: 14px 12px; } }
+.company-tile:hover { border-color: var(--white); transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.45), 0 0 0 2px var(--gold); }
+.company-tile.checked {
+  background: linear-gradient(180deg, var(--gold) 0%, #b8860b 100%);
+  border-color: var(--white); border-width: 3px;
+  color: var(--navy);
+  box-shadow: 0 4px 14px rgba(212,175,55,0.5);
+}
+.company-tile.checked::after {
+  content: '⚽';
+  position: absolute; top: 8px; right: 10px;
+  font-size: 22px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+.tile-ticker { font-family: 'Courier New', monospace; font-weight: 900; font-size: 30px; color: var(--gold); letter-spacing: 1.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.company-tile.checked .tile-ticker { color: var(--navy); text-shadow: none; }
+.tile-name { font-size: 16px; color: white; font-weight: 700; line-height: 1.3; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.company-tile.checked .tile-name { color: var(--navy); text-shadow: none; }
+.tile-sector { font-size: 11px; color: rgba(255,255,255,0.95); text-transform: uppercase; letter-spacing: 1.2px; margin-top: auto; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.company-tile.checked .tile-sector { color: var(--navy); opacity: 0.75; text-shadow: none; }
+.tile-form {
+  position: absolute; bottom: 6px; right: 8px;
+  font-size: 18px; opacity: 0.35; pointer-events: none;
+}
+@media (max-width: 600px) { .company-grid { grid-template-columns: 1fr 1fr; } .company-tile { min-width: 0; padding: 18px 14px; min-height: 130px; } .tile-ticker { font-size: 24px; } .tile-name { font-size: 14px; } }
 
 /* ── FOOTBALL MATCH CARD ── */
 .football-card {
-  background: linear-gradient(180deg, #0d4f1f 0%, #1e7e34 40%, #2a9d4a 100%);
-  border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; overflow: hidden;
-  color: white; min-width: 340px;
+  background: linear-gradient(180deg, #0f1e36 0%, #1a3358 100%);
+  border: 3px solid var(--gold); border-radius: 12px; overflow: hidden;
+  color: white; min-width: 360px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
+.football-card.decided { border-color: var(--win); }
 .match-header-football {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 8px 14px; background: rgba(0,0,0,0.3); font-size: 10px;
+  padding: 10px 16px; background: rgba(0,0,0,0.4); font-size: 12px;
+  border-bottom: 1px solid rgba(212,175,55,0.3);
 }
-.match-header-football .match-num { color: var(--gold); font-weight: 700; letter-spacing: 1px; }
-.match-header-football .criterion-badge { background: var(--gold); color: var(--navy); padding: 2px 8px; border-radius: 3px; font-weight: 800; font-size: 9px; }
+.match-header-football .match-num { color: var(--gold); font-weight: 800; letter-spacing: 1.5px; font-size: 12px; }
+.match-header-football .criterion-badge { background: var(--gold); color: var(--navy); padding: 3px 10px; border-radius: 4px; font-weight: 800; font-size: 11px; letter-spacing: 1px; }
 
 .football-pitch-card {
   display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;
-  padding: 12px 6px; position: relative;
-  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 20px, transparent 20px, transparent 40px);
+  padding: 18px 8px; position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 100%);
 }
-.team-side { padding: 12px 8px; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; }
-.team-side:hover { background: rgba(255,255,255,0.1); transform: scale(1.03); }
-.team-side.home { border-right: 1px dashed rgba(255,255,255,0.15); }
-.team-side.away { border-left: 1px dashed rgba(255,255,255,0.15); }
-.team-name-big { font-size: 14px; font-weight: 800; margin-bottom: 4px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-.team-sector { font-size: 9px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-.team-desc-small { font-size: 9px; color: rgba(255,255,255,0.7); line-height: 1.4; margin-bottom: 8px; font-style: italic; }
-.team-score-hidden { font-size: 24px; font-weight: 900; color: rgba(255,255,255,0.2); letter-spacing: 4px; }
+.team-side { padding: 16px 10px; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; min-height: 90px; display: flex; flex-direction: column; justify-content: center; }
+.team-side:hover { background: rgba(212,175,55,0.15); transform: scale(1.04); box-shadow: 0 0 0 2px var(--gold) inset; }
+.team-side.home { border-right: 1px dashed rgba(255,255,255,0.2); }
+.team-side.away { border-left: 1px dashed rgba(255,255,255,0.2); }
+.team-name-big { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.6); line-height: 1.25; }
+.team-sector { font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; font-weight: 700; }
+.team-desc-small { font-size: 11px; color: rgba(255,255,255,0.85); line-height: 1.45; margin-bottom: 10px; font-style: italic; }
+.team-score-hidden { font-size: 22px; font-weight: 900; color: rgba(212,175,55,0.25); letter-spacing: 4px; margin-top: auto; }
 
 .vs-circle {
-  width: 36px; height: 36px; border-radius: 50%; background: var(--gold);
-  color: var(--navy); font-weight: 900; font-size: 11px;
+  width: 44px; height: 44px; border-radius: 50%; background: var(--gold);
+  color: var(--navy); font-weight: 900; font-size: 13px;
   display: flex; align-items: center; justify-content: center;
-  z-index: 2; box-shadow: 0 0 12px rgba(201,163,90,0.5); flex-shrink: 0;
+  z-index: 2; box-shadow: 0 0 16px rgba(201,163,90,0.6); flex-shrink: 0;
+  border: 3px solid var(--navy);
 }
-.pick-prompt { text-align: center; padding: 8px; font-size: 10px; color: rgba(255,255,255,0.6); background: rgba(0,0,0,0.2); }
+.pick-prompt { text-align: center; padding: 10px; font-size: 12px; color: var(--gold); background: rgba(0,0,0,0.35); font-weight: 700; letter-spacing: 0.5px; border-top: 1px solid rgba(212,175,55,0.3); }
+
+.peek-btn {
+  display: block; width: calc(100% - 16px); margin: 8px 8px 0;
+  background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+  color: var(--navy); border: none; border-radius: 6px;
+  padding: 12px 14px; font-size: 13px; font-weight: 800;
+  letter-spacing: 0.5px; cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.peek-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+.peek-btn.active { background: linear-gradient(135deg, var(--win) 0%, #1e7e34 100%); color: white; }
 
 /* ── POST-PREDICTION RESULT ── */
 .football-result {
-  display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center;
-  padding: 16px 10px; background: rgba(0,0,0,0.2);
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center;
+  padding: 22px 14px; background: rgba(0,0,0,0.25);
 }
 .result-team { text-align: center; }
-.result-team.loser-side { opacity: 0.6; }
-.result-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-.result-score-big { font-size: 32px; font-weight: 900; color: var(--win); text-shadow: 0 2px 8px rgba(40,167,69,0.5); }
-.result-score-big.loser { color: var(--lose); text-shadow: 0 2px 8px rgba(201,48,44,0.3); font-size: 24px; }
-.result-vs { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 2px; }
+.result-team.loser-side { opacity: 0.55; }
+.result-name { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: white; line-height: 1.3; }
+.result-score-big { font-size: 36px; font-weight: 900; color: var(--win); text-shadow: 0 2px 8px rgba(40,167,69,0.6); }
+.result-score-big.loser { color: var(--lose); text-shadow: 0 2px 8px rgba(201,48,44,0.4); font-size: 28px; }
+.result-vs { font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 
 /* ── METRICS REVEAL TABLE ── */
-.metrics-reveal { padding: 8px 10px; background: rgba(255,255,255,0.95); color: var(--text); font-size: 10px; }
+.metrics-reveal { padding: 12px 14px; background: white; color: var(--text); font-size: 12px; border-top: 1px solid rgba(212,175,55,0.4); }
 .metric-table-full { width: 100%; border-collapse: collapse; }
-.metric-table-full th { text-align: left; padding: 4px 6px; background: var(--navy); color: var(--gold); font-size: 9px; text-transform: uppercase; }
-.metric-table-full td { padding: 4px 6px; border-bottom: 1px solid var(--border); font-family: 'Courier New', monospace; font-size: 10px; }
+.metric-table-full th { text-align: left; padding: 6px 8px; background: var(--navy); color: var(--gold); font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.metric-table-full td { padding: 6px 8px; border-bottom: 1px solid #e0e0e0; font-family: 'Courier New', monospace; font-size: 12px; }
 .metric-table-full .metric-name { font-weight: 600; color: var(--navy); text-transform: capitalize; font-family: inherit; }
 .metric-table-full .winner-col { color: var(--win); font-weight: 700; }
 .val-high { color: var(--win); font-weight: 700; }
@@ -162,10 +197,34 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .counter { font-size: 36px; font-weight: 800; color: var(--navy); text-align: center; padding: 8px; }
 .counter.ready { color: var(--win); }
 .counter.over { color: var(--lose); }
-.pick-section { margin-top: 16px; }
-.pick-section h3 { font-size: 12px; color: var(--text3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-.pick-team { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px dashed var(--border); border-radius: 4px; cursor: pointer; margin-bottom: 4px; font-size: 12px; }
-.pick-team.chosen { border-color: var(--gold); background: var(--gold-lt); font-weight: 700; }
+.pick-section { margin-top: 20px; }
+.pick-section h3 { font-size: 12px; color: var(--text3); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; margin-bottom: 8px; }
+.pick-team { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border: 2px solid var(--border); border-radius: 6px; cursor: pointer; font-size: 11px; background: white; transition: all 0.15s; text-align: center; min-height: 50px; justify-content: center; }
+.pick-team .pick-ticker { font-weight: 800; color: var(--navy); font-family: 'Courier New', monospace; font-size: 13px; letter-spacing: 0.5px; }
+.pick-team .pick-name { font-size: 9px; color: var(--text3); line-height: 1.15; }
+.pick-team:hover { border-color: var(--gold); background: #fdfaef; transform: translateY(-1px); }
+.pick-team.chosen { border-color: var(--gold); background: linear-gradient(180deg, var(--gold) 0%, #b8860b 100%); }
+.pick-team.chosen .pick-ticker { color: var(--navy); }
+.pick-team.chosen .pick-name { color: var(--navy); opacity: 0.75; }
+.pick-team.chosen::before { content: '⚽'; position: absolute; top: 2px; right: 4px; font-size: 11px; }
+.pick-team { position: relative; }
+.pick-team.disabled { opacity: 0.35; cursor: not-allowed; }
+
+.picks-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.pick-card { background: linear-gradient(180deg, #fafbfc 0%, #f0f4f8 100%); border: 2px solid var(--border); border-radius: 10px; padding: 14px; }
+.pick-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.pick-card-icon { font-size: 22px; }
+.pick-card-title { font-size: 13px; font-weight: 800; color: var(--navy); letter-spacing: 0.5px; }
+.pick-card-sub { font-size: 10px; color: var(--text3); margin-left: auto; }
+.pick-card-prize { display: inline-block; background: var(--gold); color: var(--navy); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: auto; }
+.pick-card-slots { display: flex; gap: 6px; margin-bottom: 8px; min-height: 36px; }
+.pick-slot { flex: 1; border: 2px dashed var(--border); border-radius: 6px; padding: 6px; text-align: center; font-size: 11px; color: var(--text3); background: white; display: flex; align-items: center; justify-content: center; min-height: 36px; font-style: italic; }
+.pick-slot.filled { border-style: solid; border-color: var(--gold); background: linear-gradient(180deg, var(--gold-lt) 0%, #fff8e1 100%); color: var(--navy); font-weight: 800; font-style: normal; }
+.pick-slot.filled .slot-ticker { font-family: 'Courier New', monospace; font-size: 14px; letter-spacing: 0.5px; }
+.pick-slot.filled .slot-name { font-size: 9px; font-weight: 600; opacity: 0.8; }
+
+@media (max-width: 700px) { .picks-layout { grid-template-columns: 1fr; } }
 
 /* ── BRACKET ── */
 .bracket-wrapper { overflow-x: auto; padding: 20px 0; }
@@ -184,6 +243,9 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .match-card { background: white; border: 2px solid var(--border); border-radius: 6px; overflow: hidden; cursor: pointer; transition: all 0.3s; }
 .match-card:hover { border-color: var(--gold); box-shadow: 0 2px 8px rgba(201,163,90,0.3); }
 .match-card.decided { border-color: var(--win); }
+/* Football-card overrides match-card defaults */
+.match-card.football-card { background: linear-gradient(180deg, #0f1e36 0%, #1a3358 100%); border: 3px solid var(--gold); border-radius: 12px; color: white; min-width: 360px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); }
+.match-card.football-card.decided { border-color: var(--win); }
 .match-card.bye { background: #f0f4f8; border-style: dashed; text-align: center; padding: 12px; font-style: italic; color: var(--text3); font-size: 11px; }
 
 .match-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: var(--bg); font-size: 10px; }
@@ -214,6 +276,51 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .metric-table .val-high { color: var(--win); font-weight: 700; }
 .metric-table .val-low { color: var(--lose); }
 
+/* ── METRIC CHIPS (clickable tooltips, Bookworm achievement) ── */
+.metric-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg, #f8f4e3 0%, #ece4c4 100%);
+  border: 1px solid var(--gold);
+  color: var(--navy);
+  padding: 1px 7px 1px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.metric-chip:hover { background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%); color: var(--navy); transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+.metric-chip:active { transform: translateY(0); }
+.metric-chip.chip-read { background: linear-gradient(135deg, #1dd17c 0%, #1a8b3c 100%); color: white; border-color: #0d4f1f; }
+.metric-chip.chip-read .chip-info { background: rgba(255,255,255,0.4); color: var(--navy); }
+.metric-chip .chip-info {
+  display: inline-block; width: 12px; height: 12px; line-height: 12px;
+  text-align: center; border-radius: 50%;
+  background: var(--navy); color: var(--gold);
+  font-size: 8px; font-weight: 800; font-style: italic;
+  font-family: 'Times New Roman', serif;
+}
+
+.chip-tip-floater {
+  position: absolute; z-index: 9999;
+  max-width: 320px; min-width: 200px;
+  background: var(--navy);
+  color: #f4e9c8;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  transition: opacity 0.25s;
+  pointer-events: none;
+  text-transform: none;
+  font-family: inherit;
+}
+
 /* ── VERDICT BAR ── */
 .verdict { display: none; padding: 6px 8px; font-size: 10px; font-weight: 600; text-align: center; border-top: 1px solid var(--border); }
 .match-card.decided .verdict { display: block; }
@@ -221,17 +328,73 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .verdict.wrong { background: #fef0f0; color: var(--lose); }
 .verdict.override { background: #fff8e1; color: var(--star); }
 
-/* ── ROUND HEADER ── */
-.round-header { background: linear-gradient(135deg, var(--navy), var(--navy-lt)); color: white; padding: 32px 24px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
-.round-header .round-num { font-size: 13px; letter-spacing: 4px; color: var(--gold); font-weight: 600; }
-.round-header h2 { font-size: 42px; font-weight: 800; margin: 8px 0 16px; letter-spacing: 2px; }
-.round-header .round-quote { font-style: italic; font-size: 15px; color: var(--gold); margin-bottom: 12px; }
-.round-header .round-lesson { font-size: 13px; color: rgba(255,255,255,0.8); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+/* ── ROUND HEADER (FIFA broadcast style) ── */
+.round-header {
+  position: relative;
+  background:
+    radial-gradient(ellipse at center, #1a8b3c 0%, #0d4f1f 70%, #062a10 100%);
+  color: white; padding: 36px 24px 32px; border-radius: 12px;
+  text-align: center; margin-bottom: 20px;
+  border: 3px solid var(--gold);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+.round-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 80px, transparent 80px, transparent 160px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 60px, transparent 60px, transparent 120px);
+  pointer-events: none;
+}
+.round-header::after {
+  content: '';
+  position: absolute; left: 50%; top: 50%; width: 110px; height: 110px;
+  border-radius: 50%; border: 3px solid rgba(255,255,255,0.18);
+  transform: translate(-50%, -50%); pointer-events: none;
+}
+.round-header > * { position: relative; z-index: 1; }
+.round-header .round-num { font-size: 13px; letter-spacing: 4px; color: var(--gold); font-weight: 700; text-transform: uppercase; }
+.round-header h2 { font-size: 44px; font-weight: 900; margin: 8px 0 14px; letter-spacing: 3px; color: white; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+.round-header .round-quote { font-style: italic; font-size: 15px; color: var(--gold); margin-bottom: 14px; font-weight: 600; }
+.round-header .round-lesson { font-size: 14px; color: white; max-width: 720px; margin: 0 auto 18px; line-height: 1.6; opacity: 0.95; }
+
+/* Football corner flags */
+.round-flag {
+  position: absolute; width: 28px; height: 28px;
+  background: linear-gradient(45deg, var(--gold) 0%, #b8860b 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
+  z-index: 2;
+}
+.round-flag.tl { top: 6px; left: 6px; }
+.round-flag.tr { top: 6px; right: 6px; transform: scaleX(-1); }
+.round-flag.bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+.round-flag.br { bottom: 6px; right: 6px; transform: scale(-1, -1); }
+
+/* Coaching Tip card */
+.tip-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,235,180,0.95) 100%);
+  color: var(--navy);
+  border-left: 6px solid var(--gold);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 14px auto 0;
+  max-width: 720px;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+}
+.tip-card .tip-icon { font-size: 22px; margin-right: 6px; vertical-align: middle; }
+.tip-card strong { color: var(--navy); font-weight: 800; }
+.tip-card .tip-cta { color: #b8860b; font-weight: 700; font-size: 12px; margin-top: 6px; display: block; }
 .criteria-strip { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
-.criteria-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 4px; font-size: 10px; cursor: help; transition: all 0.2s; }
+.criteria-chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 14px; border-radius: 6px; font-size: 11px; cursor: help; transition: all 0.2s; max-width: 260px; line-height: 1.4; }
 .criteria-chip:hover { background: rgba(201,163,90,0.25); border-color: var(--gold); transform: translateY(-2px); }
-.criteria-chip strong { color: var(--gold); }
-.chip-example { font-size: 9px; color: rgba(255,255,255,0.6); margin-top: 2px; font-style: italic; }
+.criteria-chip strong { color: var(--gold); font-size: 12px; display: block; margin-bottom: 3px; }
+.chip-desc { font-size: 11px; color: white; line-height: 1.4; margin-bottom: 3px; opacity: 0.95; }
+.chip-example { font-size: 10px; color: rgba(255,255,255,0.65); font-style: italic; }
 
 /* Round encouragement banner */
 .round-encouragement {
@@ -288,7 +451,15 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
 .wealth-table td.focus { background: #fff8e1; font-weight: 800; font-size: 15px; }
 .wealth-table .champ-row { background: #e8f5ec; }
 
-.wealth-chart { margin-top: 20px; height: 300px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); position: relative; overflow: hidden; }
+.wealth-chart { margin-top: 20px; height: 520px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); position: relative; overflow: hidden; padding: 0; }
+
+/* ── LEADERBOARD / PERSONAL BEST TILE ── */
+.leaderboard-tile { background: #ffffff !important; color: var(--text); }
+.leaderboard-tile h3 { color: var(--navy) !important; font-weight: 800; }
+.leaderboard-tile #personalBest, .leaderboard-tile #dailyChallenge { color: var(--text) !important; }
+.leaderboard-tile #personalBest strong, .leaderboard-tile #dailyChallenge strong { color: var(--navy); }
+.leaderboard-tile #personalBest .pb-stat { color: var(--text2); }
+.leaderboard-tile #personalBest .pb-val { color: var(--gold); font-weight: 800; }
 
 /* ── PLAYBACK ── */
 .playback-bar { display: flex; gap: 8px; align-items: center; justify-content: center; padding: 12px; background: var(--bg); border-radius: 6px; margin-top: 16px; }
@@ -447,12 +618,39 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
         <h3>🎯 Selection</h3>
         <div id="counter" class="counter">0 / 32</div>
         <div id="pickSection" class="pick-section" style="display:none">
-          <h3>🏆 Pre-Tournament Picks (before R1)</h3>
-          <p style="font-size:10px;color:var(--text3);margin-bottom:8px">Pick 2 predicted semi-finalists + 1 champion. Correct = 20 pts each (semi) / 50 pts (champion).</p>
-          <div id="semiPicks"></div>
-          <h3 style="margin-top:12px">👑 Champion Pick</h3>
-          <div id="champPick"></div>
-          <div style="margin-top:16px;text-align:center">
+          <h3 style="font-size:13px">🏆 Pre-Tournament Picks — Lock in before R1</h3>
+          <p style="font-size:11px;color:var(--text3);margin-bottom:10px">Pick 2 semi-finalists (20 pts each) and 1 champion (50 pts). You can change picks until you start.</p>
+
+          <div class="picks-layout">
+            <!-- SEMI-FINALIST PICKS -->
+            <div class="pick-card">
+              <div class="pick-card-header">
+                <span class="pick-card-icon">🥈</span>
+                <span class="pick-card-title">SEMI-FINALISTS</span>
+                <span class="pick-card-prize">20 pts each</span>
+              </div>
+              <div class="pick-card-slots">
+                <div class="pick-slot" id="semiSlot0">Tap 2 below — slot 1</div>
+                <div class="pick-slot" id="semiSlot1">Tap 2 below — slot 2</div>
+              </div>
+              <div id="semiPicks" class="pick-grid"></div>
+            </div>
+
+            <!-- CHAMPION PICK -->
+            <div class="pick-card">
+              <div class="pick-card-header">
+                <span class="pick-card-icon">👑</span>
+                <span class="pick-card-title">CHAMPION</span>
+                <span class="pick-card-prize">50 pts</span>
+              </div>
+              <div class="pick-card-slots">
+                <div class="pick-slot" id="champSlot" style="flex:1">Tap 1 below — your champion</div>
+              </div>
+              <div id="champPick" class="pick-grid"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px;text-align:center">
             <button id="btnStart" class="btn btn-gold" disabled>▶ START TOURNAMENT</button>
           </div>
         </div>
@@ -487,6 +685,8 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
   <header><h1>⚽ GARP COMPOUNDER CHAMPIONSHIP</h1></header>
   <div class="container">
     <div class="round-header">
+      <span class="round-flag tl"></span><span class="round-flag tr"></span>
+      <span class="round-flag bl"></span><span class="round-flag br"></span>
       <div class="round-num" id="rhRoundNum">ROUND 1 OF 5</div>
       <h2 id="rhTitle">QUALITY</h2>
       <div class="round-quote" id="rhQuote">"A wonderful business at a fair price..."</div>
@@ -515,6 +715,7 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
   </header>
   <div class="container wide">
     <div class="criteria-strip" id="brCriteria" style="justify-content:center;margin-bottom:16px;flex-wrap:wrap"></div>
+    <div id="brTipStrip" class="tip-card" style="margin-bottom:14px;text-align:center;font-size:13px"></div>
     <div class="bracket-wrapper">
       <div class="bracket" id="bracketTree"></div>
     </div>
@@ -568,6 +769,27 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
       <div class="wealth-chart" id="wealthChart"></div>
     </div>
 
+    <!-- ACHIEVEMENTS & GAMIFICATION -->
+    <div style="background:linear-gradient(135deg,#1a8b3c 0%,#0d4f1f 100%);color:white;padding:24px;border-radius:12px;margin:20px 0;border:3px solid var(--gold);position:relative;overflow:hidden">
+      <span style="position:absolute;top:8px;right:12px;font-size:32px;opacity:0.3">⚽</span>
+      <h2 style="color:var(--gold);margin-bottom:8px;font-size:22px;letter-spacing:2px">🏅 ACHIEVEMENTS UNLOCKED</h2>
+      <p style="font-size:13px;opacity:0.85;margin-bottom:16px">Balls of steel, kids. Keep playing to collect them all.</p>
+      <div id="achievementBadges" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px"></div>
+    </div>
+
+    <!-- LEADERBOARD & PERSONAL BEST -->
+    <div class="leaderboard-tile" style="padding:20px;border-radius:12px;margin:20px 0;border:1px solid rgba(212,175,55,.3);display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <h3 style="color:var(--navy);font-size:14px;letter-spacing:2px;margin-bottom:10px">🏆 PERSONAL BEST</h3>
+        <div id="personalBest" style="font-size:13px;color:var(--text)">—</div>
+      </div>
+      <div>
+        <h3 style="color:var(--navy);font-size:14px;letter-spacing:2px;margin-bottom:10px">📅 DAILY CHALLENGE</h3>
+        <div id="dailyChallenge" style="font-size:13px;color:var(--text)">—</div>
+        <button id="btnShare" style="margin-top:10px;background:var(--gold);color:var(--navy);border:none;padding:8px 14px;border-radius:6px;font-weight:800;font-size:12px;cursor:pointer">📤 SHARE YOUR CHAMPION</button>
+      </div>
+    </div>
+
     <div style="background:var(--bg);padding:20px;border-radius:8px;margin:20px 0">
       <h2>🎮 Your Performance</h2>
       <div id="userScorecard" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"></div>
@@ -577,7 +799,8 @@ header .tagline { font-size: 13px; color: var(--gold); font-style: italic; font-
     <div style="text-align:center;margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <button class="btn btn-primary" onclick="saveGame()">💾 Save Game</button>
       <button class="btn btn-primary" id="btnExportPNG">📥 Export Winner Card</button>
-      <button class="btn btn-secondary" onclick="location.reload()">🔄 New Tournament</button>
+      <button class="btn btn-primary" onclick="tryAnother32()">🎲 NEW 32 — NEW CHAMPION</button>
+      <button class="btn btn-secondary" onclick="location.reload()">🔄 Reset</button>
     </div>
   </div>
 </section>
@@ -606,6 +829,7 @@ const ROUND_DEFS = [
     lesson:'Quality filters out everything that cannot compound long-term. Winners here earn above their cost of capital, command pricing power, and generate real cash. Past winners on this criterion: MSFT (ROIC 35%+, Gross Margin 69%). Past failures: GE (financial engineering masked poor underlying ROIC — collapsed when exposed).',
     postLesson:'A wonderful business earns above its cost of capital. Anything else is speculation disguised as investing.',
     encouragement:'🔍 Round 1 is about FOCUS — not every great business is a great stock. Trust the data, trust the moat. The companies with 25%+ ROIC and 60%+ gross margins are the ones that print money while they sleep.',
+    tip:'🎯 Look for the company that returns $30+ for every $100 reinvested. ROIC > 25% is your shortcut — if a business earns that on capital, time is its best friend.',
     criteria:[
       {name:'ROIC', weight:'40%', desc:'Return on Invested Capital — for every $100 invested, how much profit comes back?', example:'MSFT: 35%+, AAPL: 50%+, COST: 30%+', tip:'25%+ = excellent. Below 10% = destroying shareholder value.'},
       {name:'Gross Margin', weight:'20%', desc:'After making the product, how much is left? 70%+ = pricing power.', example:'MSFT: 69%, AAPL: 46%, CRM: 75%', tip:'Software > 70%. Banks < 50%. Retail < 30%.'},
@@ -619,6 +843,7 @@ const ROUND_DEFS = [
     lesson:'Growth without quality is a lottery ticket. This round tests whether survivors can grow earnings at rates that beat the market. Past winners: NVDA (EPS CAGR 50%+ during AI boom). Past failures: IBM (buybacks inflated EPS, no organic revenue growth — stalled for a decade).',
     postLesson:'Real growth = earnings + cash, not revenue. Growth without cash is vanity; cash without growth is stagnation.',
     encouragement:'📈 Round 2 = GROWTH. We blend 3 engines: forward consensus (what analysts say), trailing actual (what they did), and structural ROE×reinvestment (Buffett\'s g = ROE × retention). No single source can fool us.',
+    tip:'📈 A growing business is great. A growing business that reinvests at 25%+ ROIC is a money machine. Look for the company with both.',
     criteria:[
       {name:'5yr Hist EPS CAGR', weight:'25%', desc:'How fast have earnings actually grown over 5 years? Real numbers, not promises.', example:'NVDA: 50%+, MSFT: 18%, AVGO: 25%', tip:'Look for 15%+. Below 5% = slow grower.'},
       {name:'5yr Fwd EPS CAGR', weight:'25%', desc:'What do analysts forecast? Forward-looking consensus estimate.', example:'PLTR: 25%+, NVDA: 35%+', tip:'Forward > trailing = momentum. Forward < trailing = deceleration.'},
@@ -632,6 +857,7 @@ const ROUND_DEFS = [
     lesson:'THE most important round. Many companies grow fast for 5 years, then stall. Durability tests whether the business can sustain its moat for 10+ years. The Law of Large Numbers: a company growing at 20% for 30 years becomes larger than the US economy. Only businesses with network effects, Act II/III potential, and structural tailwinds can defy this gravity. Past winners: AMZN (Books→Everything→AWS→Ads — three Acts). Past failures: BlackBerry (dominant in 2008, irrelevant by 2013 — one product, no Act II).',
     postLesson:'If competitors can catch up, the terminal multiple collapses — and so does your return.',
     encouragement:'🛡️ Round 3 = DURABILITY. The moat test. Network effects, switching costs, brand, scale. Look for Act II potential — every great business reinvents itself. If it can\'t, the moat will eventually leak.',
+    tip:'🛡️ A moat that doesn\'t widen becomes a moat that shrinks. Ask: does this business get stronger with scale, or weaker?',
     criteria:[
       {name:'Terminal P/E', weight:'30%', desc:'What multiple can this company command in 10 years? 30x+ = exceptional moat.', example:'MSFT: 28x, AAPL: 22x, META: 18x', tip:'Higher terminal P/E = market expects continued dominance.'},
       {name:'Peer-Adj P/E', weight:'20%', desc:'Compared to rivals, is the premium justified by superior quality?', example:'META trades at premium to SNAP', tip:'Premium = quality, or premium = bubble? Check the moat.'},
@@ -645,6 +871,7 @@ const ROUND_DEFS = [
     lesson:'What does this business look like in 2036? This round captures the REAL forward return, not just earnings growth. The PE-Adjusted CAGR factors in CURRENT valuation — a company trading at 80x P/E that compresses to 25x delivers much lower returns than a steady grower at 20x P/E. Past winners: ASML (structural monopoly in EUV lithography, 10+ year visibility). Past failures: GoPro (one product, no Act II, industry commoditized).',
     postLesson:'This round separates the temporarily lucky from the structurally inevitable.',
     encouragement:'🏆 Round 4 = 10-YEAR POTENTIAL. The CRITICAL round. EPS growth alone is a trap — we add (Terminal PE / Current PE)^(1/10) − 1 to capture valuation reality. A 30% grower at 80x P/E delivers less than a 15% grower at 20x.',
+    tip:'🏆 The price you pay IS part of your return. A 30% grower at 60x is a worse deal than a 12% grower at 15x. PE-Adj CAGR is the only number that captures both.',
     criteria:[
       {name:'PE-Adj CAGR', weight:'30%', desc:'REAL forward return: EPS growth + (Terminal PE / Current PE)^(1/10) − 1. P/E compression is accounted for.', example:'A 15% grower at 20x P/E = 15% real. A 30% grower at 80x P/E = 11% real after compression.', tip:'This is the only number that matters for actual returns.'},
       {name:'Hist Durability', weight:'20%', desc:'How long has this company sustained >10% EPS growth? Longevity = reliability.', example:'MSFT: 15+ years. AVGO: 10+ years.', tip:'A decade of 10%+ growth is rare. Most "growth stocks" don\'t survive 5 years.'},
@@ -658,11 +885,11 @@ const ROUND_DEFS = [
     lesson:'The final test. A wonderful business at a terrible price is still a bad investment. This round blends quality, growth, durability, and current valuation — with valuation weighted heaviest (30%) because entry price is the #1 determinant of long-term returns. Past winners: AAPL in 2016 (quality + growth + durability at a reasonable valuation). Past failures: CSCO in 2000 (great business, priced for perfection — never recovered to its peak).',
     postLesson:'Cheap wonderful businesses beat expensive ones. This round decides who to hold for the long term.',
     criteria:[
-      {name:'Quality', weight:'20%', desc:'Carry-over from Round 1 — the fundamental business quality.'},
-      {name:'Growth', weight:'15%', desc:'Carry-over from Round 2 — the growth trajectory.'},
-      {name:'Valuation', weight:'30%', desc:'Most important: is it cheap or expensive right now? Dual check: analyst target vs PE-math fair value.'},
-      {name:'Durability', weight:'20%', desc:'Carry-over from Round 3 — terminal staying power.'},
-      {name:'Moat', weight:'15%', desc:'Overall competitive advantage — the wider the moat, the longer the compounding.'}
+      {name:'Quality', weight:'20%', desc:'Carry-over from Round 1 — the fundamental business quality.', example:'MSFT: 35% ROIC, 69% gross margin. NVDA: 50%+ ROIC.', tip:'Quality is non-negotiable. Cut anything below 15% ROIC.'},
+      {name:'Growth', weight:'15%', desc:'Carry-over from Round 2 — the historical + forward growth trajectory.', example:'NVDA: 50%+ EPS CAGR. MSFT: 18% steady.', tip:'Forward > trailing = momentum. Forward < trailing = deceleration.'},
+      {name:'Valuation', weight:'30%', desc:'Most important: is it cheap or expensive right now? Dual check: analyst target vs PE-math fair value.', example:'PLTR at 80x P/E vs NVDA at 35x P/E.', tip:'Cheap at 25x with 15% growth beats expensive at 60x with 30% growth.'},
+      {name:'Durability', weight:'20%', desc:'Carry-over from Round 3 — terminal staying power + moat width.', example:'MSFT: 28x terminal P/E (widening moat). KO: 22x (durable brand).', tip:'Network effects > brand > scale. Wider moat = longer compounding.'},
+      {name:'Moat', weight:'15%', desc:'Overall competitive advantage — the wider the moat, the longer the compounding.', example:'META 5/5 (network effects), MSFT 5/5 (Act II track record).', tip:'A moat that doesn\'t widen becomes a moat that shrinks. Always ask: does this get stronger with scale?'}
     ]
   }
 ];
@@ -681,6 +908,8 @@ let STATE = {
   userScore: {matches:0, semiFinals:0, champion:0, reading:0, total:0},
   lessonsRead: new Set(), // which lesson IDs user has read (for points)
   footballMode: true,    // football broadcast aesthetic
+  peekCount: 0,          // Scholar achievement: "Peek at scores" on 5+ matches
+  chipsRead: 0,          // Bookworm achievement: read every criterion chip tooltip (5 metrics x 5 rounds = 25)
 };
 
 function getProfile(ticker) {
@@ -773,21 +1002,54 @@ function updateCounter() {
 }
 
 function renderPicks() {
-  // Semi-finalist picks
-  let html = '';
+  // Helper: short company name (e.g. "S&P Global Inc." -> "S&P Global")
+  const shortName = (t) => {
+    const p = STATE.profiles?.[t] || {};
+    const n = p.name || t;
+    return n.replace(/ Inc\.?| Corporation| Company| Holdings$/g, '').substring(0, 22);
+  };
+
+  // SEMI-FINALIST PICKS — 32-chip grid + slot display
+  let semiHtml = '';
   STATE.selectedTickers.forEach(tkr => {
     const chosen = STATE.semiPicks.includes(tkr);
-    html += `<div class="pick-team${chosen?' chosen':''}" onclick="pickSemi('${tkr}')">${tkr}</div>`;
+    semiHtml += `<div class="pick-team${chosen ? ' chosen' : ''}" onclick="pickSemi('${tkr}')">
+      <div class="pick-ticker">${tkr}</div>
+      <div class="pick-name">${shortName(tkr)}</div>
+    </div>`;
   });
-  $('#semiPicks').innerHTML = html + `<p style="font-size:10px;color:var(--text3)">Selected: ${STATE.semiPicks.length}/2</p>`;
+  $('#semiPicks').innerHTML = semiHtml;
 
-  // Champion pick
-  html = '';
+  // Update semi slot displays
+  const slot0 = $('#semiSlot0');
+  const slot1 = $('#semiSlot1');
+  if (slot0) {
+    const s0 = STATE.semiPicks[0];
+    if (s0) { slot0.className = 'pick-slot filled'; slot0.innerHTML = `<div><div class="slot-ticker">${s0}</div><div class="slot-name">${shortName(s0)}</div></div>`; }
+    else { slot0.className = 'pick-slot'; slot0.textContent = 'Tap 2 below — slot 1'; }
+  }
+  if (slot1) {
+    const s1 = STATE.semiPicks[1];
+    if (s1) { slot1.className = 'pick-slot filled'; slot1.innerHTML = `<div><div class="slot-ticker">${s1}</div><div class="slot-name">${shortName(s1)}</div></div>`; }
+    else { slot1.className = 'pick-slot'; slot1.textContent = 'Tap 2 below — slot 2'; }
+  }
+
+  // CHAMPION PICK — 32-chip grid + slot display
+  let champHtml = '';
   STATE.selectedTickers.forEach(tkr => {
     const chosen = STATE.champPick === tkr;
-    html += `<div class="pick-team${chosen?' chosen':''}" onclick="pickChamp('${tkr}')">${tkr}</div>`;
+    champHtml += `<div class="pick-team${chosen ? ' chosen' : ''}" onclick="pickChamp('${tkr}')">
+      <div class="pick-ticker">${tkr}</div>
+      <div class="pick-name">${shortName(tkr)}</div>
+    </div>`;
   });
-  $('#champPick').innerHTML = html;
+  $('#champPick').innerHTML = champHtml;
+
+  const champSlot = $('#champSlot');
+  if (champSlot) {
+    if (STATE.champPick) { champSlot.className = 'pick-slot filled'; champSlot.innerHTML = `<div><div class="slot-ticker">👑 ${STATE.champPick}</div><div class="slot-name">${shortName(STATE.champPick)}</div></div>`; }
+    else { champSlot.className = 'pick-slot'; champSlot.textContent = 'Tap 1 below — your champion'; }
+  }
 
   $('#btnStart').disabled = !(STATE.semiPicks.length === 2 && STATE.champPick);
 }
@@ -976,11 +1238,23 @@ function showRoundHeader(roundIdx) {
   $('#rhQuote').textContent = rd.quote;
   $('#rhLesson').textContent = rd.lesson;
   $('#rhCriteria').innerHTML = rd.criteria.map(c =>
-    `<div class="criteria-chip" title="${(c.tip || c.desc).replace(/"/g, '&quot;')}">
-      <strong>${c.name}</strong> ${c.weight}
+    `<div class="criteria-chip" title="${(c.desc || '').replace(/"/g, '&quot;')}${c.tip ? ' · '+c.tip : ''}">
+      <strong>${c.name}</strong>
+      <div class="chip-desc">${c.desc ? c.desc.split('.')[0] + '.' : ''}</div>
       <div class="chip-example">${c.example || ''}</div>
     </div>`
   ).join('');
+
+  // Tip card (coaching nudge for this round)
+  const oldTip = document.getElementById('rhTipCard');
+  if (oldTip) oldTip.remove();
+  if (rd.tip) {
+    const tipDiv = document.createElement('div');
+    tipDiv.id = 'rhTipCard';
+    tipDiv.className = 'tip-card';
+    tipDiv.innerHTML = `<span class="tip-icon">💡</span><strong>Coach's Tip for Round ${roundIdx+1}:</strong> ${rd.tip}<span class="tip-cta">🖱️ Hover each metric chip above for real-world examples · Click any team in the bracket to read their scores before picking</span>`;
+    $('#rhCriteria').after(tipDiv);
+  }
 
   // Add encouragement banner below criteria
   if (rd.encouragement) {
@@ -1022,8 +1296,17 @@ function kickOff() {
   $('#brRound').textContent = STATE.currentRound + 1;
   $('#brName').textContent = rd.name;
   $('#brCriteria').innerHTML = rd.criteria.map(c =>
-    `<div class="criteria-chip" style="background:var(--navy);color:white"><strong>${c.name}</strong> ${c.weight}</div>`
+    `<div class="criteria-chip" style="background:var(--navy);color:white" title="${(c.desc||'').replace(/"/g,'&quot;')}${c.tip ? ' · '+c.tip : ''}">
+      <strong>${c.name}</strong>
+      <div class="chip-desc">${c.desc ? c.desc.split('.')[0] + '.' : ''}</div>
+      <div class="chip-example">${c.example || ''}</div>
+    </div>`
   ).join('');
+  // Bracket tip strip
+  const tipEl = $('#brTipStrip');
+  if (tipEl) {
+    tipEl.innerHTML = `<span class="tip-icon">⚽</span><strong>How to play:</strong> Click a team to lock your prediction. ${rd.tip ? '💡 Round focus: ' + rd.tip.split('.')[0] + '.' : ''}<span class="tip-cta">👀 Scores stay hidden until you commit — you can do research before picking (no time limit!)</span>`;
+  }
   updateBracketProgress();
   showScreen('bracketScreen');
   playWhistle();
@@ -1055,6 +1338,44 @@ function renderBracket(roundIdx, matches) {
 
     if (!decided) {
       // ── PRE-PREDICTION: show names + descriptions, HIDE scores ──
+      const aBreakdown = a?.scores[rd.scoreKey]?.breakdown || {};
+      const bBreakdown = b?.scores[rd.scoreKey]?.breakdown || {};
+      const buildRows = () => {
+        const keys = Object.keys(aBreakdown);
+        if (keys.length === 0) return '';
+        // Map metric keys → tooltip content from ROUND_DEFS criteria (by name match)
+        const criteriaByName = {};
+        // Aliases: breakdown keys use full names ("operating_margin") but criteria use abbrevs ("Op Margin")
+        const ALIASES = { 'operatingmargin': 'opmargin', 'opmargin': 'operatingmargin' };
+        for (const c of (rd.criteria || [])) {
+          if (c && c.name) {
+            const k = c.name.toLowerCase().replace(/[^a-z0-9]/g,'');
+            criteriaByName[k] = c;
+            // Also index the un-abbreviated form so breakdown keys map to it
+            for (const [short, long] of Object.entries(ALIASES)) {
+              if (k === short) criteriaByName[long] = c;
+            }
+          }
+        }
+        let rows = '';
+        for (const key of keys) {
+          const abd = aBreakdown[key] || {};
+          const bbd = bBreakdown[key] || {};
+          const av = abd.value !== undefined ? abd.value : '—';
+          const bv = bbd.value !== undefined ? bbd.value : '—';
+          const aw = abd.weight ? (abd.weight*100).toFixed(0)+'%' : '';
+          const label = key.replace(/_/g,' ');
+          const norm = label.toLowerCase().replace(/[^a-z0-9]/g,'');
+          const c = criteriaByName[norm] || criteriaByName[norm.replace(/\s/g,'')] || null;
+          const tip = c ? `${c.desc}${c.example ? ' · e.g. '+c.example : ''}${c.tip ? ' · '+c.tip : ''}` : `Weight ${aw || '—'} of this round's score.`;
+          rows += `<tr>
+            <td class="metric-name"><span class="metric-chip" data-tip="${tip.replace(/"/g,'&quot;')}" onclick="event.stopPropagation();showChipTip(this)">${label} <span class="chip-info">i</span></span></td>
+            <td class="metric-weight">${aw}</td>
+            <td>${av}</td><td>${bv}</td>
+          </tr>`;
+        }
+        return rows;
+      };
       html += `<div class="match-slot"><div class="match-card football-card" data-match="${i}" data-round="${roundIdx}">
         <div class="match-header-football">
           <span class="match-num">MATCH ${i+1}</span>
@@ -1075,6 +1396,14 @@ function renderBracket(roundIdx, matches) {
             <div class="team-score-hidden">???</div>
           </div>
         </div>
+        <button class="peek-btn" onclick="event.stopPropagation();togglePeek(this, ${roundIdx}, ${i})">🔍 Peek at scores before picking</button>
+        <div class="metric-table" id="peek-${roundIdx}-${i}">
+          <table class="metric-table-full">
+            <tr><th>Metric</th><th>Weight</th><th>${pa.name.split(' ')[0]}</th><th>${pb.name.split(' ')[0]}</th></tr>
+            ${buildRows()}
+          </table>
+          <p style="margin:6px 0 0;font-size:11px;color:var(--navy);font-weight:700;text-align:center">👆 Click any team above to lock your pick</p>
+        </div>
         <div class="pick-prompt">👆 Click a team to make your prediction</div>
       </div></div>`;
     } else {
@@ -1089,6 +1418,18 @@ function renderBracket(roundIdx, matches) {
       const lData = scoreMap.get(lTkr);
       const wBreakdown = wData?.scores[rd.scoreKey]?.breakdown || {};
       const lBreakdown = lData?.scores[rd.scoreKey]?.breakdown || {};
+      // Build criteria lookup for chip tooltips
+      const criteriaByName2 = {};
+      const ALIASES2 = { 'operatingmargin': 'opmargin', 'opmargin': 'operatingmargin' };
+      for (const c of (rd.criteria || [])) {
+        if (c && c.name) {
+          const k = c.name.toLowerCase().replace(/[^a-z0-9]/g,'');
+          criteriaByName2[k] = c;
+          for (const [short, long] of Object.entries(ALIASES2)) {
+            if (k === short) criteriaByName2[long] = c;
+          }
+        }
+      }
       
       html += `<div class="match-slot"><div class="match-card football-card decided" data-match="${i}" data-round="${roundIdx}">
         <div class="match-header-football">
@@ -1117,8 +1458,12 @@ function renderBracket(roundIdx, matches) {
         const ws = bd.score || 0;
         const ls = lbd.score || 0;
         const wt = bd.weight ? (bd.weight*100).toFixed(0)+'%' : '';
+        const label2 = key.replace(/_/g,' ');
+        const norm2 = label2.toLowerCase().replace(/[^a-z0-9]/g,'');
+        const cc = criteriaByName2[norm2] || null;
+        const tip2 = cc ? `${cc.desc}${cc.example ? ' · e.g. '+cc.example : ''}${cc.tip ? ' · '+cc.tip : ''}` : `Weight ${wt || '—'} of this round's score.`;
         html += `<tr>
-          <td class="metric-name">${key.replace(/_/g,' ')}</td>
+          <td class="metric-name"><span class="metric-chip" data-tip="${tip2.replace(/"/g,'&quot;')}" onclick="event.stopPropagation();showChipTip(this)">${label2} <span class="chip-info">i</span></span></td>
           <td class="metric-weight">${wt}</td>
           <td class="val-high">${wv} <span style="font-size:9px;color:var(--win)">→ ${ws.toFixed(0)}</span></td>
           <td class="val-low">${lv} <span style="font-size:9px;color:var(--lose)">→ ${ls.toFixed(0)}</span></td>
@@ -1132,6 +1477,77 @@ function renderBracket(roundIdx, matches) {
 
   html += '</div>';
   container.innerHTML = html;
+}
+
+function togglePeek(btn, roundIdx, matchIdx) {
+  const panel = document.getElementById(`peek-${roundIdx}-${matchIdx}`);
+  if (!panel) return;
+  const isOpen = panel.style.display === 'block';
+  panel.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('active', !isOpen);
+  btn.textContent = isOpen ? '🔍 Peek at scores before picking' : '🙈 Hide scores';
+  // Count each reveal (not each close) toward the Scholar achievement
+  if (!isOpen) {
+    STATE.peekCount = (STATE.peekCount || 0) + 1;
+    btn.dataset.peeked = '1';
+  } else {
+    btn.dataset.peeked = '';
+  }
+}
+
+function showChipTip(chip) {
+  const tip = chip.dataset.tip || '';
+  if (!tip) return;
+
+  // Increment the Bookworm counter — count each unique (chip element) reveal once
+  if (!chip.dataset.read) {
+    chip.dataset.read = '1';
+    STATE.chipsRead = (STATE.chipsRead || 0) + 1;
+    chip.classList.add('chip-read');
+  }
+
+  // Position a single floating tooltip next to the chip
+  let tipEl = document.getElementById('chipTipFloater');
+  if (!tipEl) {
+    tipEl = document.createElement('div');
+    tipEl.id = 'chipTipFloater';
+    tipEl.className = 'chip-tip-floater';
+    document.body.appendChild(tipEl);
+  }
+  tipEl.textContent = tip;
+  // Show first (so we can measure), then position
+  tipEl.style.display = 'block';
+  tipEl.style.opacity = '1';
+  const rect = chip.getBoundingClientRect();
+  const tipRect = tipEl.getBoundingClientRect();
+  const margin = 8;
+  let top = window.scrollY + rect.bottom + margin;
+  let left = window.scrollX + rect.left + (rect.width / 2) - (tipRect.width / 2);
+  // Keep on-screen
+  if (left < 8) left = 8;
+  if (left + tipRect.width > window.innerWidth - 8) left = window.innerWidth - tipRect.width - 8;
+  if (rect.bottom + tipRect.height + margin > window.innerHeight) {
+    // Flip above the chip
+    top = window.scrollY + rect.top - tipRect.height - margin;
+  }
+  tipEl.style.top = top + 'px';
+  tipEl.style.left = left + 'px';
+
+  // Auto-dismiss after a beat
+  clearTimeout(showChipTip._t);
+  showChipTip._t = setTimeout(() => {
+    tipEl.style.opacity = '0';
+    setTimeout(() => { tipEl.style.display = 'none'; }, 250);
+  }, 4500);
+
+  // Tap-elsewhere-to-dismiss
+  const dismiss = (e) => {
+    if (e && e.target && (e.target.closest && e.target.closest('.metric-chip'))) return;
+    tipEl.style.opacity = '0';
+    setTimeout(() => { tipEl.style.display = 'none'; }, 250);
+    document.removeEventListener('click', dismiss, true);
+  };
+  setTimeout(() => document.addEventListener('click', dismiss, true), 0);
 }
 
 function predictWinner(roundIdx, matchIdx, predicted) {
@@ -1288,6 +1704,191 @@ function goBack() {
 }
 
 // ── CHAMPION ──
+// ── GAMIFICATION ENGINE ──
+const ACHIEVEMENTS = [
+  {id:'first_blood',  icon:'🥇', name:'First Blood',        desc:'Win your first match',                   test:s=>s.correctPicks>=1},
+  {id:'hat_trick',    icon:'🎩', name:'Hat Trick',          desc:'Win 3 matches in a row',                 test:s=>s.maxStreak>=3},
+  {id:'oracle',       icon:'🔮', name:'Oracle of Omaha',    desc:'Predict the champion correctly',          test:s=>s.championCorrect},
+  {id:'semi_prophet', icon:'🎯', name:'Semi Prophet',       desc:'Predict 2+ semi-finalists correctly',    test:s=>s.semiPicks>=2},
+  {id:'perfectionist',icon:'💯', name:'Perfectionist',      desc:'Score 90%+ of your matches correctly',   test:s=>s.correctPicks>=Math.ceil(s.totalMatches*0.9)},
+  {id:'contrarian',   icon:'⚡', name:'Contrarian',         desc:'Beat the AI on 3 matches it strongly favoured', test:s=>(s.upsets>=3)},
+  {id:'underdog',     icon:'🐺', name:'Underdog Backer',    desc:'Pick the lower-scored company and win',  test:s=>s.underdogWins>=2},
+  {id:'scholar',      icon:'📚', name:'Scholar',            desc:'Use "Peek at scores" on 5+ matches',    test:s=>s.peeks>=5},
+  {id:'bookworm',     icon:'🐛', name:'Bookworm',           desc:'Read every criterion chip tooltip',      test:s=>s.chipsRead>=5*5},
+  {id:'five_streak',  icon:'⚡', name:'Unstoppable',        desc:'Win 5 matches in a row',                 test:s=>s.maxStreak>=5},
+  {id:'comeback_kid', icon:'🦁', name:'Comeback Kid',       desc:'Score 60%+ on R5 after 0% on R1',        test:s=>s.comeback},
+  {id:'clean_sweep',  icon:'🧹', name:'Clean Sweep',        desc:'Win every match in a single round',      test:s=>s.cleanSweep},
+];
+
+function computeStats() {
+  const correctPicks = STATE.userScore.predictions || 0;
+  const totalMatches = STATE.tournament.rounds.reduce((sum, r) => sum + r.length, 0);
+  // Walk through rounds, track streaks
+  let streak = 0, maxStreak = 0, upsets = 0, underdogWins = 0;
+  STATE.tournament.rounds.forEach((matches, ri) => {
+    matches.forEach(m => {
+      if (!m.winner) return;
+      if (m.userCorrect) {
+        streak++;
+        maxStreak = Math.max(maxStreak, streak);
+        // upset = user picked the lower-scored company and AI still picked the higher one
+        if (m.userPick !== m.winner) upsets++;
+      } else {
+        streak = 0;
+      }
+    });
+  });
+  const semiPicks = (STATE.semiPicks || []).filter(p => p.correct).length;
+  const championCorrect = STATE.champPick === STATE.tournament.rounds[4][0]?.winner;
+  const r1Pct = computeRoundPct(0);
+  const r5Pct = computeRoundPct(4);
+  const comeback = r1Pct === 0 && r5Pct >= 0.6;
+  let cleanSweep = false;
+  STATE.tournament.rounds.forEach(matches => {
+    const dec = matches.filter(m => m.winner);
+    if (dec.length >= 4 && dec.every(m => m.userCorrect)) cleanSweep = true;
+  });
+  return {
+    correctPicks, totalMatches,
+    maxStreak, semiPicks, championCorrect,
+    upsets, underdogWins,
+    peeks: STATE.peekCount || 0,
+    chipsRead: STATE.chipsRead || 0,
+    comeback, cleanSweep
+  };
+}
+function computeRoundPct(ri) {
+  const matches = STATE.tournament.rounds[ri] || [];
+  const dec = matches.filter(m => m.winner);
+  if (dec.length === 0) return 0;
+  return dec.filter(m => m.userCorrect).length / dec.length;
+}
+
+function renderAchievements(champion) {
+  const stats = computeStats();
+  const el = document.getElementById('achievementBadges');
+  if (!el) return;
+  let html = '';
+  ACHIEVEMENTS.forEach(a => {
+    const unlocked = a.test(stats);
+    html += `<div style="background:${unlocked?'linear-gradient(135deg,var(--gold) 0%,#b8860b 100%)':'rgba(0,0,0,0.3)'};
+                          color:${unlocked?'var(--navy)':'rgba(255,255,255,0.4)'};
+                          padding:12px;border-radius:8px;text-align:center;
+                          border:2px solid ${unlocked?'white':'rgba(255,255,255,0.15)'};
+                          opacity:${unlocked?1:0.55};
+                          position:relative">
+      <div style="font-size:32px;line-height:1">${unlocked ? a.icon : '🔒'}</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.5px;margin-top:6px">${a.name}</div>
+      <div style="font-size:9px;margin-top:2px;opacity:0.85">${a.desc}</div>
+      ${unlocked ? '<div style="position:absolute;top:4px;right:6px;font-size:14px;color:white">✓</div>' : ''}
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderPersonalBest(champion) {
+  const el = document.getElementById('personalBest');
+  if (!el) return;
+  const stats = computeStats();
+  const totalScore = (STATE.userScore.predictions||0)*10 + (STATE.userScore.semi||0)*20 + (STATE.userScore.champion||0)*50;
+  const totalMax = stats.totalMatches*10 + 2*20 + 50;
+  const pct = Math.round(totalScore / totalMax * 100);
+  const key = 'garp_personal_best';
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem(key) || 'null'); } catch(e){}
+  const prev = stored || {pct:0, champion:null, score:0, plays:0};
+  const isNewBest = pct > prev.pct;
+  const newRec = {pct, champion, score: totalScore, plays: prev.plays+1, date: new Date().toISOString().slice(0,10)};
+  if (isNewBest) {
+    try { localStorage.setItem(key, JSON.stringify(newRec)); } catch(e){}
+  }
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;margin:4px 0"><span style="opacity:0.7">This run:</span><strong>${totalScore}/${totalMax} (${pct}%)</strong></div>
+    <div style="display:flex;justify-content:space-between;margin:4px 0"><span style="opacity:0.7">Personal best:</span><strong style="color:var(--gold)">${prev.pct}%${isNewBest?' 🆕 NEW BEST!':''}</strong></div>
+    <div style="display:flex;justify-content:space-between;margin:4px 0"><span style="opacity:0.7">Previous champ:</span><strong>${prev.champion || '—'}</strong></div>
+    <div style="display:flex;justify-content:space-between;margin:4px 0"><span style="opacity:0.7">Total plays:</span><strong>${newRec.plays}</strong></div>
+    ${pct < 50 ? '<div style="margin-top:8px;padding:6px;background:rgba(255,193,7,0.15);border-radius:4px;font-size:11px;color:#ffc107">💡 Tip: try different 32 picks — every game you learn new companies</div>' : ''}
+  `;
+}
+
+function renderDailyChallenge(champion) {
+  const el = document.getElementById('dailyChallenge');
+  if (!el) return;
+  // Daily challenge: today's seed = day of year. Beat yesterday's record or try a themed challenge
+  const today = new Date();
+  const dayOfYear = Math.floor((today - new Date(today.getFullYear(),0,0)) / 86400000);
+  const themes = [
+    '🛡️ "Moat Day" — pick the 32 companies with the highest Durability scores',
+    '⚡ "Growth Day" — pick the 32 fastest-growing companies',
+    '💎 "Value Day" — pick the 32 with the lowest PE-Adjusted compression',
+    '🏆 "Quality Day" — pick the 32 with the highest Quality ROIC',
+    '⚖️ "Balanced Day" — pick 8 each from Quality, Growth, Durability, Value'
+  ];
+  const theme = themes[dayOfYear % themes.length];
+  const yesterdayKey = 'garp_yesterday_champ';
+  const yesterdayChamp = localStorage.getItem(yesterdayKey);
+  el.innerHTML = `
+    <div style="font-size:11px;background:rgba(212,175,55,0.1);padding:6px 8px;border-radius:4px;margin-bottom:6px">📌 Today's Theme</div>
+    <div style="font-size:12px;line-height:1.4">${theme}</div>
+    <div style="margin-top:8px;font-size:11px;opacity:0.7">Yesterday's winner: ${yesterdayChamp || '— (first play!)'}</div>
+    <div style="margin-top:8px;font-size:11px;background:rgba(29,209,124,0.15);padding:6px;border-radius:4px;color:#1dd17c">🎯 Beat yesterday's champion for a bonus! Try a different 32 next time.</div>
+  `;
+  try { localStorage.setItem(yesterdayKey, champion); } catch(e){}
+}
+
+function tryAnother32() {
+  // Wipe selections + predictions, keep universe, generate new 32
+  STATE.selectedTickers = [];
+  STATE.userScore = {predictions:0, semi:0, champion:0};
+  STATE.champPick = null;
+  STATE.semiPicks = [];
+  STATE.peekCount = 0;
+  STATE.chipsRead = 0;
+  STATE.tournament = buildTournament(); // re-seed
+  // Pick 32 at random (or use last selection if user wants — for simplicity, random 32)
+  const all = STATE.scores.tickers.map(t => t.ticker);
+  // shuffle
+  for (let i = all.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [all[i], all[j]] = [all[j], all[i]];
+  }
+  STATE.selectedTickers = all.slice(0, 32);
+  showScreen('setup');
+  // jump directly to semi-finalist picks
+  setTimeout(() => startTournament(), 100);
+  setTimeout(() => { fireConfetti(); playWhistle(); }, 600);
+}
+
+function shareChampion() {
+  const champion = STATE.tournament?.rounds?.[4]?.[0]?.winner;
+  if (!champion) {
+    // No tournament yet — show a helpful toast instead of crashing
+    encToast('🏆 Play a tournament first, then share your champion!', 'encourage');
+    return;
+  }
+  const stats = computeStats();
+  const totalScore = (STATE.userScore.predictions||0)*10 + (STATE.userScore.semi||0)*20 + (STATE.userScore.champion||0)*50;
+  const champData = STATE.scores?.tickers?.find(t => t.ticker === champion);
+  const champName = champData?.ticker || champion;
+  const text = `🏆 I just played the GARP Compounder Championship!\n\n` +
+               `My Champion: ${champName}\n` +
+               `Score: ${totalScore} pts (${stats.correctPicks}/${stats.totalMatches} matches)\n` +
+               `Longest streak: ${stats.maxStreak}\n` +
+               `Achievements: ${ACHIEVEMENTS.filter(a => a.test(stats)).length}/${ACHIEVEMENTS.length}\n` +
+               `Peeked at scores: ${stats.peeks}x · Read ${stats.chipsRead} criterion tooltips\n\n` +
+               `Beat me: https://garp-tournament.vercel.app`;
+  if (navigator.share) {
+    navigator.share({title:'GARP Compounder Championship', text}).catch(()=>{});
+  } else if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text).then(
+      () => encToast('📋 Copied to clipboard!', 'celebrate'),
+      () => alert(text)
+    );
+  } else {
+    alert(text);
+  }
+}
+
 function showChampion() {
   const allMatches = STATE.tournament.rounds[4];
   const champion = allMatches[0]?.winner;
@@ -1315,6 +1916,11 @@ function showChampion() {
   // Wealth projection
   renderWealthTable(champion, s);
   renderUserScorecard();
+
+  // Achievements + personal best + daily challenge
+  renderAchievements(champion);
+  renderPersonalBest(champion);
+  renderDailyChallenge(champion);
 
   showScreen('champion');
   $('#scoreboard').style.display = 'none';
@@ -1375,12 +1981,11 @@ function renderWealthChart(indices) {
   const years = [0, 10, 20, 30, 40];
   const data = indices.map(idx => years.map(y => 10000 * Math.pow(1 + idx.cagr, y)));
 
-  // Linear scale plot area (SVG units)
-  // x: 90..690 (600 wide), y: 30..360 (330 tall)
-  // Y axis: 0 .. champion_40yr (rounded up)
-  const x0 = 90, x1 = 690, y0 = 30, y1 = 360;
+  // SVG viewBox: 760 wide × 460 tall — fits all elements with breathing room
+  // Plot area: x 110..720 (610 wide), y 30..390 (360 tall) — leaves room for Y-axis labels (left) and X-axis labels (bottom)
+  const W = 760, H = 460;
+  const x0 = 110, x1 = 720, y0 = 30, y1 = 390;
   const maxVal = Math.max(...data.map(series => series[series.length - 1]));
-  // round up to a nice number
   const niceMax = (() => {
     const exp = Math.pow(10, Math.floor(Math.log10(maxVal)));
     const m = maxVal / exp;
@@ -1397,7 +2002,7 @@ function renderWealthChart(indices) {
 
   const colors = ['#d4af37', '#4a90d9', '#e67e22', '#27ae60'];
 
-  // Y-axis grid + labels (5 ticks)
+  // Y-axis grid + labels (5 ticks) — clear gridlines, gold-tinted
   const yTicks = [];
   const tickCount = 5;
   for (let i = 0; i <= tickCount; i++) {
@@ -1405,20 +2010,23 @@ function renderWealthChart(indices) {
     const y = yFor(v);
     const label = v >= 1e6 ? `$${(v/1e6).toFixed(v >= 1e7 ? 0 : 1)}M` :
                   v >= 1e3 ? `$${Math.round(v/1e3)}k` : `$${Math.round(v)}`;
-    yTicks.push(`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="rgba(212,175,55,${i===0?0.35:0.12})" stroke-width="${i===0?1.2:1}"/>
-                 <text x="${x0-10}" y="${(y+4).toFixed(1)}" fill="#cfc7b3" font-family="IBM Plex Sans, sans-serif" font-size="11" font-weight="600" text-anchor="end">${label}</text>`);
+    yTicks.push(`<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="rgba(212,175,55,${i===0?0.5:0.18})" stroke-width="${i===0?1.4:1}"/>
+                 <text x="${x0-12}" y="${(y+4).toFixed(1)}" fill="#e8d8a0" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="700" text-anchor="end">${label}</text>`);
   }
 
-  // X-axis labels
+  // X-axis labels + tick marks (drop below the plot area)
   const xTicks = years.map(yr => {
     const x = xFor(yr);
-    const isMajor = [10,20,30,40].includes(yr);
-    return `<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1+5}" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
-            <text x="${x.toFixed(1)}" y="${y1+22}" fill="#cfc7b3" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="700" text-anchor="middle">${yr === 0 ? 'NOW' : `+${yr}yr`}</text>`;
+    const isMajor = [0,10,20,30,40].includes(yr);
+    return `<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1+6}" stroke="rgba(212,175,55,0.6)" stroke-width="1.2"/>
+            <text x="${x.toFixed(1)}" y="${y1+24}" fill="#e8d8a0" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="700" text-anchor="middle">${yr === 0 ? 'NOW' : `+${yr} yr`}</text>`;
   }).join('');
 
-  // Y-axis title (rotated)
-  const yAxisTitle = `<text x="-${(y0+y1)/2}" y="22" fill="#d4af37" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="700" letter-spacing="2" text-anchor="middle" transform="rotate(-90)">VALUE OF $10,000 INVESTED</text>`;
+  // Y-axis title (rotated, positioned in the left margin)
+  const yAxisTitle = `<text x="22" y="${(y0+y1)/2}" fill="#d4af37" font-family="IBM Plex Sans, sans-serif" font-size="11" font-weight="800" letter-spacing="2" text-anchor="middle" transform="rotate(-90, 22, ${(y0+y1)/2})">VALUE OF $10,000 INVESTED</text>`;
+
+  // X-axis title (centered below the year labels)
+  const xAxisTitle = `<text x="${(x0+x1)/2}" y="${y1+44}" fill="#d4af37" font-family="IBM Plex Sans, sans-serif" font-size="11" font-weight="800" letter-spacing="3" text-anchor="middle">YEARS HELD</text>`;
 
   // Build polylines + endpoint markers + endpoint labels
   const seriesSvg = indices.map((idx, ii) => {
@@ -1437,14 +2045,14 @@ function renderWealthChart(indices) {
     // stagger label y positions to avoid overlap among low-value series
     const labelOffsets = [16, -8, 4, -8];
     const labelY = yEnd + labelOffsets[ii];
-    const labelAnchor = isChamp ? 'end' : 'end';
+    const labelAnchor = 'end';
     return `<polyline fill="none" stroke="${stroke}" stroke-width="${isChamp ? 3.5 : 2}" stroke-linejoin="round" stroke-linecap="round" points="${pts}" opacity="${isChamp ? 1 : 0.9}"/>
             <circle cx="${xEnd.toFixed(1)}" cy="${yEnd.toFixed(1)}" r="${isChamp ? 6 : 4}" fill="${stroke}" stroke="${isChamp ? '#fff' : 'none'}" stroke-width="${isChamp ? 2 : 0}"/>
             <text x="${(xEnd-10).toFixed(1)}" y="${labelY.toFixed(1)}" fill="${stroke}" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="${isChamp ? 13 : 11}" font-weight="${isChamp ? 800 : 700}" text-anchor="${labelAnchor}">${labelText}</text>`;
   }).join('');
 
   // Legend with CAGR + multiplier
-  const legend = `<div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:14px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px">
+  const legend = `<div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:8px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px">
     ${indices.map((idx, i) => {
       const v40 = data[i][data[i].length - 1];
       const mult = (v40 / 10000).toFixed(0);
@@ -1487,17 +2095,18 @@ function renderWealthChart(indices) {
     </div>`;
 
   el.innerHTML = `
-    <div style="background:var(--panel);border:1px solid rgba(212,175,55,.22);border-radius:10px;padding:18px 14px 16px;margin:14px 0">
+    <div style="background:var(--panel);border:1px solid rgba(212,175,55,.22);border-radius:10px;padding:18px 14px 16px;margin:0;height:100%;box-sizing:border-box;display:flex;flex-direction:column">
       <div style="font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-weight:800">💰 WEALTH PROJECTION — $10,000 INVESTED, 40 YEARS (LINEAR)</div>
       ${headline}
-      <svg viewBox="0 0 720 420" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Wealth projection chart, linear scale, showing champion vs S&P 500, Nasdaq 100, and SMH over 40 years">
-        <rect x="0" y="0" width="720" height="420" fill="transparent"/>
+      <svg viewBox="0 0 ${W} ${H}" width="100%" height="380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Wealth projection chart, linear scale, showing champion vs S&P 500, Nasdaq 100, and SMH over 40 years" style="display:block;flex:1;min-height:0">
+        <rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>
         ${yTicks.join('')}
         ${xTicks}
-        <line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" stroke="rgba(212,175,55,0.5)" stroke-width="1.2"/>
+        <line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" stroke="rgba(212,175,55,0.7)" stroke-width="1.4"/>
+        <line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" stroke="rgba(212,175,55,0.7)" stroke-width="1.4"/>
         ${yAxisTitle}
+        ${xAxisTitle}
         ${seriesSvg}
-        <text x="390" y="412" fill="#d4af37" font-family="IBM Plex Sans, sans-serif" font-size="10" font-weight="800" letter-spacing="3" text-anchor="middle">YEARS HELD</text>
       </svg>
       ${legend}
     </div>
@@ -1587,6 +2196,8 @@ async function init() {
   await loadUniverse();
   $('#btnStart').onclick = startTournament;
   $('#btnExportPNG').onclick = exportPNG;
+  const shareBtn = $('#btnShare');
+  if (shareBtn) shareBtn.onclick = shareChampion;
 }
 init();
 
