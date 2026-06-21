@@ -1,5 +1,11 @@
 {
   "framework": null,
   "buildCommand": "echo 'Static site — no build required'",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/:path((?!data/|favicon\\.ico).*)",
+      "destination": "/garp_tournament_v4_1.html"
+    }
+  ]
 }
